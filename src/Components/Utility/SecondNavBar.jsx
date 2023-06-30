@@ -20,6 +20,7 @@ import {
   Bars3Icon,
   XMarkIcon,
   Bars4Icon,
+  UserIcon
 } from "@heroicons/react/24/outline";
  
 // const colors = {
@@ -196,7 +197,8 @@ function renderItemsList(items){
       );
       return renderItems
 }
-function NavListMenu() {
+// eslint-disable-next-line react/prop-types
+function NavListMenu({title}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
  
@@ -210,13 +212,13 @@ function NavListMenu() {
         allowHover={true}
       >
         <MenuHandler>
-          <Typography as="div" variant="small" className="font-normal text-base">
+          <Typography as="div" variant="small" className="font-normal text-base text-start w-full lg:w-auto">
             <ListItem
               className="flex items-center gap-2 py-2 pr-4"
               selected={isMenuOpen || isMobileMenuOpen}
               onClick={() => setIsMobileMenuOpen((cur) => !cur)}
             >
-              Men Wear
+              {title}
               <ChevronDownIcon
                 strokeWidth={2.5}
                 className={`hidden h-3 w-3 transition-transform lg:block ${
@@ -232,7 +234,7 @@ function NavListMenu() {
             </ListItem>
           </Typography>
         </MenuHandler>
-        <MenuList className="hidden max-w-screen-xl rounded-xl lg:block">
+        <MenuList className="hidden max-w-screen-xl rounded-xl lg:block ">
             <ul className="grid grid-cols-5 gap-y-2">
 
                 <ul className="ms-4">
@@ -271,7 +273,7 @@ function NavListMenu() {
             </ul>
         </MenuList>
       </Menu>
-      <div className="block lg:hidden">
+      <div className="block lg:hidden w-full">
         <Collapse open={isMobileMenuOpen}>
 
 
@@ -294,13 +296,13 @@ function NavListMenu() {
             <li className="text-black font-semibold ms-3 mt-3">Sports & Active Wear</li>
             {renderItemsList(navListMenuFSport)}
         </ul>
-        <ul>
+        <ul className="ms-4">
             <li className="text-black font-semibold ms-3 mt-3">Lingerie & Sleepwear</li>
             {renderItemsList(navListMenuLingerie)}
             <li className="text-black font-semibold ms-3 mt-3">Belt ,Scarves & More</li>
             {renderItemsList(navListMenuScarves)}
         </ul>
-        <ul>
+        <ul className="ms-4">
             <li className="text-black font-semibold ms-3 mt-3">Gadgets</li>
             {renderItemsList(navListMenuGadgets)}
             <li className="text-black font-semibold ms-3 mt-3">Jewellers</li>
@@ -375,20 +377,19 @@ function NavListCategory() {
  
 function NavList() {
   return (
-    <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1">
+    <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1 items-center">
       
       <NavListCategory/>
-      <NavListMenu />
-      <NavListMenu />
-      <Typography
-        as="a"
-        href="#"
-        variant="small"
-        color="blue-gray"
-        className="font-normal"
-      >
-
-      </Typography>
+      <NavListMenu title="Men Wear"/>
+      <NavListMenu title="Women Wear"/>
+      <div className="w-full lg:w-auto ms-4">
+        <button className="block lg:inline-block me-4">
+          <Typography variant="div" className="font-light text-lg">Search</Typography>
+        </button>
+        <button className="block lg:inline-block">
+          <Typography variant="div" className="font-light text-lg">Shop</Typography>
+        </button>
+      </div>
     </List>
   );
 }
@@ -409,12 +410,13 @@ export default function SecondNavBar() {
         
         <div className="hidden lg:block">
           <NavList />
+
         </div>
         <div className="hidden gap-2 lg:flex">
-          <Button variant="text" size="sm" color="blue-gray">
-            Sign In
+          <Button variant="text" size="sm" color="blue-gray" className="flex items-center gap-3">
+            <UserIcon strokeWidth={2} className="h-5 w-5"/> Login
           </Button>
-          <Button variant="gradient" size="sm">
+          <Button variant="gradient" size="sm" >
             Sign Up
           </Button>
         </div>
@@ -433,10 +435,10 @@ export default function SecondNavBar() {
       </div>
       <Collapse open={openNav}>
         <NavList />
-        <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
-          <Button variant="outlined" size="sm" color="blue-gray" fullWidth>
-            Sign In
-          </Button>
+        <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden flex-col ">
+        <Button variant="text" size="sm" color="blue-gray" className="flex items-center gap-3">
+          <UserIcon strokeWidth={2} className="h-5 w-5"/> Login
+        </Button>
           <Button variant="gradient" size="sm" fullWidth>
             Sign Up
           </Button>
