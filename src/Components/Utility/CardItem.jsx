@@ -56,7 +56,7 @@ import {
         <div className="absolute bottom-60 right-6 ">
         <SpeedDial>
           <SpeedDialHandler>
-            <IconButton size="lg" className="rounded-full bg-gray-900 shadow-blue-gray-900">
+            <IconButton size="lg" className="rounded-full bg-gray-900 shadow-gray-900">
               <PlusIcon className="h-5 w-5 transition-transform group-hover:rotate-45" />
             </IconButton>
           </SpeedDialHandler>

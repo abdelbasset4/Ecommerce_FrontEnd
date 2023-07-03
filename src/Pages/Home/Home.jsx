@@ -4,6 +4,7 @@ import HomeSlider from "../../Components/Home/HomeSlider"
 import CategorySlider from "../../Components/Home/CategorySlider"
 import CollectionCard from "../../Components/Home/CollectionCard"
 import CardListHome from "../../Components/Home/CardListHome"
+import Brand from "../../Components/Home/Brand"
 export default function Home() {
   return (
     <>
@@ -13,6 +14,7 @@ export default function Home() {
       <CategorySlider/>
       <CollectionCard/>
       <CardListHome/>
+      <Brand/>
     </>
   )
 }

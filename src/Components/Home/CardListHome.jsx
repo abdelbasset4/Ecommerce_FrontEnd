@@ -45,6 +45,7 @@ export default function Example() {
       constantly trying to express ourselves and actualize our dreams.`,
     },
   ];
+
   return (
     <div  className="mt-16 px-4">
         <h2 className="mb-6 text-2xl font-extrabold text-gray-900">New Arrivals</h2>
@@ -59,7 +60,7 @@ export default function Example() {
           <Tab
             key={value}
             value={value}
-            onClick={() => setActiveTab(value)}
+            onClick={() =>{ setActiveTab(value);}}
             className={activeTab === value ? "text-gray-900 font-bold text-xl " : "font-semibold text-xl" }
           >
             {label}
@@ -69,6 +70,7 @@ export default function Example() {
       <TabsBody>
         {data.map(({ value, desc }) => (
           <TabPanel key={value} value={value} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            
             <CardItem desc = {desc}/>
             <CardItem desc = {desc}/>
             <CardItem desc = {desc}/>
