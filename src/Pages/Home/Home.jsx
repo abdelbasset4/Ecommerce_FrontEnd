@@ -5,6 +5,9 @@ import CategorySlider from "../../Components/Home/CategorySlider"
 import CollectionCard from "../../Components/Home/CollectionCard"
 import CardListHome from "../../Components/Home/CardListHome"
 import Brand from "../../Components/Home/Brand"
+import TrendingProduct from "../../Components/Home/TrendingProduct"
+import Banner from "../../Components/Home/Banner"
+import TrendingCollections from "../../Components/Home/TrendingCollections"
 export default function Home() {
   return (
     <>
@@ -15,6 +18,9 @@ export default function Home() {
       <CollectionCard/>
       <CardListHome/>
       <Brand/>
+      <TrendingProduct/>
+      <Banner/>
+      <TrendingCollections/>
     </>
   )
 }

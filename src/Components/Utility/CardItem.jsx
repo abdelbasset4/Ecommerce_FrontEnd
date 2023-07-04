@@ -10,6 +10,8 @@ import {
     SpeedDialContent,
     SpeedDialAction,
     IconButton,
+    Chip,
+    Rating 
   } from "@material-tailwind/react";
   import {
     HeartIcon,
@@ -17,12 +19,14 @@ import {
     ArrowsRightLeftIcon,
     PlusIcon
   } from "@heroicons/react/24/outline";
+
   // eslint-disable-next-line react/prop-types
-  export default function CardItem({desc}) {
+  export default function CardItem({desc,value}) {
     return (
 
 
-      <Card className="relative w-96 lg:w-80 bg-red">
+      <Card className="relative w-96 lg:w-80 bg-red cursor-pointer duration-300 hover:-translate-y-2">
+      <Chip value="25% OFF"  className="absolute top-7 left-6 z-50 text-white bg-[#212121]" variant="ghost"/>
         <CardHeader shadow={false} floated={false} className="h-96">
           <img 
             src="https://images.unsplash.com/photo-1629367494173-c78a56567877?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=927&q=80" 
@@ -30,9 +34,10 @@ import {
           />
         </CardHeader>
         <CardBody>
+          <Rating value={4}  />
           <div className="flex items-center justify-between mb-2">
             <Typography color="blue-gray" className="font-medium">
-              Apple AirPods
+              {value}
             </Typography>
             <Typography color="blue-gray" className="font-medium">
               $95.00
@@ -53,7 +58,7 @@ import {
         </CardFooter>
 
    
-        <div className="absolute bottom-60 right-6 ">
+        <div className="absolute bottom-[270px] right-6 ">
         <SpeedDial>
           <SpeedDialHandler>
             <IconButton size="lg" className="rounded-full bg-gray-900 shadow-gray-900">
