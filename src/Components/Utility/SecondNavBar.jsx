@@ -23,16 +23,7 @@ import {
   UserIcon
 } from "@heroicons/react/24/outline";
  
-// const colors = {
-//   blue: "bg-blue-50 text-blue-500",
-//   orange: "bg-orange-50 text-orange-500",
-//   green: "bg-green-50 text-green-500",
-//   "blue-gray": "bg-blue-gray-50 text-blue-gray-500",
-//   purple: "bg-purple-50 text-purple-500",
-//   teal: "bg-teal-50 text-teal-500",
-//   cyan: "bg-cyan-50 text-cyan-500",
-//   pink: "bg-pink-50 text-pink-500",
-// };
+
 // nav list menu
 const navListCategory = [
     {
@@ -416,7 +407,7 @@ export default function SecondNavBar() {
           <Button variant="text" size="sm" color="blue-gray" className="flex items-center gap-3">
             <UserIcon strokeWidth={2} className="h-5 w-5"/> Login
           </Button>
-          <Button variant="gradient" size="sm" >
+          <Button variant="" size="sm" className="bg-gray-900">
             Sign Up
           </Button>
         </div>

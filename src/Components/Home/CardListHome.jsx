@@ -71,7 +71,7 @@ export default function Example() {
         {data.map(({ value, desc }) => (
           <TabPanel key={value} value={value} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             
-            <CardItem desc = {desc}/>
+            <CardItem desc = {desc} value={value}/>
             <CardItem desc = {desc}/>
             <CardItem desc = {desc}/>
             <CardItem desc = {desc}/>
