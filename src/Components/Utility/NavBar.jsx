@@ -77,7 +77,7 @@ export default function NavBar() {
           <img src={logo} alt="" />
         </Typography>
         <div className="hidden lg:block">{navList}</div>
-        <div className="flex items-center gap-3">
+        <div className="hidden lg:flex items-center gap-3">
             <Badge content="0" color="red" className="min-w-[20px] min-h-[20px] bg-[#212121] ">
                 <IconButton color="white" >
                     <HiOutlineHeart size={"1rem"}/>
