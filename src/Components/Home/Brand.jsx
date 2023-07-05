@@ -76,7 +76,7 @@ const renderer = ({ days,hours, minutes, seconds, completed }) => {
                 <p className="text-xl mt-4">Up To <span className='font-bold'>60% off on brands</span> </p>
             </div>
             <div className="timer">
-            <Countdown date={'2023-07-05T01:02:03'} autoStart={true}  renderer={renderer} />
+            <Countdown date={'2023-09-05T01:02:03'} autoStart={true}  renderer={renderer} />
 
             </div>
         </div>

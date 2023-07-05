@@ -8,6 +8,8 @@ import Brand from "../../Components/Home/Brand"
 import TrendingProduct from "../../Components/Home/TrendingProduct"
 import Banner from "../../Components/Home/Banner"
 import TrendingCollections from "../../Components/Home/TrendingCollections"
+import DownLoadApp from "../../Components/Home/DownLoadApp"
+import Testimonial from "../../Components/Utility/Testimonial"
 export default function Home() {
   return (
     <>
@@ -21,6 +23,8 @@ export default function Home() {
       <TrendingProduct/>
       <Banner/>
       <TrendingCollections/>
+      <DownLoadApp/>
+      <Testimonial/>
     </>
   )
 }
