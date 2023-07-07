@@ -10,6 +10,7 @@ import Banner from "../../Components/Home/Banner"
 import TrendingCollections from "../../Components/Home/TrendingCollections"
 import DownLoadApp from "../../Components/Home/DownLoadApp"
 import Testimonial from "../../Components/Utility/Testimonial"
+import Footer from "../../Components/Utility/Footer"
 export default function Home() {
   return (
     <>
@@ -25,6 +26,7 @@ export default function Home() {
       <TrendingCollections/>
       <DownLoadApp/>
       <Testimonial/>
+      <Footer/>
     </>
   )
 }

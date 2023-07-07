@@ -333,7 +333,7 @@ function NavListCategory() {
             <Typography as="a" href="#" variant="small" className="font-normal">
               <MenuItem
                 {...triggers}
-                className="hidden items-center gap-2 text-blue-gray-900 lg:flex lg:rounded-full"
+                className="hidden items-center gap-2 text-white lg:flex bg-gray-900 hover:bg-gray-900"
               >
                 <Bars4Icon className="h-[18px] w-[18px]" /> All Categories{" "}
                 <ChevronDownIcon

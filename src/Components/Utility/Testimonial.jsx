@@ -1,5 +1,5 @@
 import { Splide, SplideSlide, SplideTrack } from '@splidejs/react-splide';
-import app from "../../assets/Download App/app.webp";
+// import app from "../../assets/Download App/app.webp";
 // Default theme
 // import '@splidejs/react-splide/css';
 
@@ -9,7 +9,30 @@ import '@splidejs/react-splide/css/sea-green';
 
 // or only core styles
 import '@splidejs/react-splide/css/core';
+import TestimonialCard from './TestimonialCard';
+let data=[
+  {
+    name:"Federer Rojer",
+    obj:"Tennis player",
+    text:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex."
+  },
+  {
+    name:"Nadal",
+    obj:"Tennis player",
+    text:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex."
+  },
+  {
+    name:"Djokovic",
+    obj:"Tennis player",
+    text:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex."
+  },
+  {
+    name:"Muray",
+    obj:"Tennis player",
+    text:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex."
+  },
 
+]
 export default function Testimonial() {
     const options = {
         type         : 'loop',
@@ -29,14 +52,17 @@ export default function Testimonial() {
             options={ options }
             aria-labelledby="autoplay-example-heading"
             hasTrack={ false }
-            
+            className='pt-0'
           >
-            <div  className='custom-wrapper'>
+            <div  className='custom-wrapper grid grid-cols-1'>
               <SplideTrack >
-                  <SplideSlide>
-                    <img src={app} alt="" />
-                    <p>start</p>
-                  </SplideSlide>
+              {data.map(({ name,obj,text }) => (
+                // eslint-disable-next-line react/jsx-key
+                <SplideSlide>
+                  <TestimonialCard name={name} obj={obj} text={text} />
+                </SplideSlide>
+
+              ))}  
               </SplideTrack>
 
             </div>
