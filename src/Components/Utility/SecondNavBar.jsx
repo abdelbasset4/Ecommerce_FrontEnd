@@ -22,7 +22,7 @@ import {
   Bars4Icon,
   UserIcon
 } from "@heroicons/react/24/outline";
- 
+import { Link } from "react-router-dom";
 
 // nav list menu
 const navListCategory = [
@@ -404,12 +404,16 @@ export default function SecondNavBar() {
 
         </div>
         <div className="hidden gap-2 lg:flex">
-          <Button variant="text" size="sm" color="blue-gray" className="flex items-center gap-3">
-            <UserIcon strokeWidth={2} className="h-5 w-5"/> Login
-          </Button>
-          <Button variant="" size="sm" className="bg-gray-900">
-            Sign Up
-          </Button>
+          <Link to="/login">
+            <Button variant="text" size="sm" color="blue-gray" className="flex items-center gap-3">
+              <UserIcon strokeWidth={2} className="h-5 w-5"/> Login
+            </Button>
+          </Link>
+          <Link to="/signup">
+            <Button variant="" size="sm" className="bg-gray-900">
+              Sign Up
+            </Button>
+          </Link>
         </div>
         <IconButton
           variant="text"

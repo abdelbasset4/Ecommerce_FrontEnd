@@ -55,7 +55,7 @@ export default function Testimonial() {
             className='pt-0'
           >
             <div  className='custom-wrapper grid grid-cols-1'>
-              <SplideTrack >
+              <SplideTrack className='grid lg:block' >
               {data.map(({ name,obj,text }) => (
                 // eslint-disable-next-line react/jsx-key
                 <SplideSlide>
