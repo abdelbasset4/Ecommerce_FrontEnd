@@ -374,9 +374,11 @@ function NavList() {
       <NavListMenu title="Men Wear"/>
       <NavListMenu title="Women Wear"/>
       <div className="w-full lg:w-auto ms-4">
+        <Link to='/search'>
         <button className="block lg:inline-block me-4">
           <Typography variant="div" className="font-light text-lg">Search</Typography>
         </button>
+        </Link>
         <button className="block lg:inline-block">
           <Typography variant="div" className="font-light text-lg">Shop</Typography>
         </button>
