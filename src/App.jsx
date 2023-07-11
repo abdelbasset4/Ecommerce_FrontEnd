@@ -6,6 +6,7 @@ import {createBrowserRouter,
   createRoutesFromElements,
   Route, 
   RouterProvider} from 'react-router-dom'
+import SearchPage from "./Pages/Search/SearchPage"
 
 
 const router = createBrowserRouter(
@@ -14,6 +15,7 @@ const router = createBrowserRouter(
       <Route index element={<Home />} />
       <Route path="login" element={<Login />} />
       <Route path="signup" element={<Register />} />
+      <Route path="search" element={<SearchPage/>} />
     </Route>
 
   )
@@ -28,3 +30,6 @@ function App() {
 }
 
 export default App
+
+
+
