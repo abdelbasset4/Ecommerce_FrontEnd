@@ -17,7 +17,7 @@ export default function CategoryCheckbox({title,searchList}) {
                 // eslint-disable-next-line react/prop-types
                 searchList.map((item)=>{
                     // eslint-disable-next-line react/jsx-key
-                    return <Checkbox label={item} className="checked:bg-gray-900 checked:text-white checked:border-gray-900" labelProps={{className: "text-sm text-gray-900"}} />
+                    return <Checkbox key={item} label={item} className="checked:bg-gray-900 checked:text-white checked:border-gray-900" labelProps={{className: "text-sm text-gray-900"}} />
               
                  })
               ):(<div>There are no data</div>)
