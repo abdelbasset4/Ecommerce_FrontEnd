@@ -1,5 +1,6 @@
+import { useState } from "react";
 import CardItem from "../Utility/CardItem";
-import React from "react";
+
 import {
   Tabs,
   TabsHeader,
@@ -8,8 +9,8 @@ import {
   TabPanel,
 } from "@material-tailwind/react";
  
-export default function Example() {
-  const [activeTab, setActiveTab] = React.useState("html");
+export default function CardListHome() {
+  const [activeTab, setActiveTab] = useState("html");
   const data = [
     {
       label: "All Collections",

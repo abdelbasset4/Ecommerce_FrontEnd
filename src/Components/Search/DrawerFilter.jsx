@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { Fragment, useState } from "react";
 import {
   Drawer,
   Button,
@@ -20,9 +20,10 @@ export default function DrawerFilter() {
   const closeDrawer = () => setOpen(false);
  
   return (
-    <React.Fragment>
+    
+    <Fragment>
     <Button onClick={openDrawer} className="flex items-center lg:hidden bg-white text-gray-900 border border-gray-300 px-3 py-2 text-xs hover:shadow-gray-500 capitalize"><CiSliderHorizontal size={"1rem"} className="me-2"/>  Filters</Button>
-    <Drawer open={open} onClose={closeDrawer} className="p-4 overflow-auto">
+    <Drawer open={open} onClose={closeDrawer} className="p-4 overflow-auto "  size={350}>
         <div className="mb-6 flex items-center justify-between">
           <Typography variant="h5" color="blue-gray">
             Filter
@@ -38,7 +39,7 @@ export default function DrawerFilter() {
                 <CheckboxListSearch title="Price" searchList={priceList}/>
                 <ColorsSearch/>
         </div>
-      </Drawer>
-    </React.Fragment>
+        </Drawer>
+    </Fragment>
   );
 }

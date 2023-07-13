@@ -12,7 +12,7 @@ export default function Filter() {
             </Typography>
 
             <Typography
-                variant="span"
+                variant="small"
                 color="blue-gray"
                 className=" hover:underline cursor-pointer text-xs"
             >

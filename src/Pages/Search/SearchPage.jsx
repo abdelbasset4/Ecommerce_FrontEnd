@@ -5,6 +5,7 @@ import CheckboxListSearch from "../../Components/Search/CheckboxListSearch";
 import ColorsSearch from "../../Components/Search/ColorsSearch";
 import SortingMenu from "../../Components/Search/SortingMenu";
 import DrawerFilter from "../../Components/Search/DrawerFilter";
+import ProductSearchList from "../../Components/Search/ProductSearchList";
 
 
 
@@ -46,6 +47,9 @@ export default function SearchPage() {
                 <DrawerFilter/> 
                 <SortingMenu/>
               </div>
+              </div>
+              <div className="mt-9">
+                <ProductSearchList/>
               </div>
             </div>
         </div>
