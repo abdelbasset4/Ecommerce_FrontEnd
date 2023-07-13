@@ -78,7 +78,7 @@ export default function NavBar() {
         </Typography>
         <div className="hidden lg:block">{navList}</div>
         <div className="hidden lg:flex items-center gap-3">
-            <Badge content="0" color="red" className="min-w-[20px] min-h-[20px] bg-[#212121] ">
+            <Badge content="0" color="red" className="min-w-[20px] min-h-[20px] bg-[#212121]" placement="top-end" overlap="circular">
                 <IconButton color="white" >
                     <HiOutlineHeart size={"1rem"}/>
                 </IconButton>
