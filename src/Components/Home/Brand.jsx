@@ -4,11 +4,11 @@ import Countdown from 'react-countdown';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
-import "swiper/css";
+// import "swiper/css";
 import "swiper/css/pagination";
 
 // import required modules
-import { Autoplay, Pagination, Navigation } from "swiper";
+import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 
 import nike from "../../assets/brands/nike.jpg"
 import dior from "../../assets/brands/dior.png"

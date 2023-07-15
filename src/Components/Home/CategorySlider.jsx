@@ -13,7 +13,7 @@ import {ImLink} from "react-icons/im"
 
 
 // import required modules
-import { Autoplay, Pagination, Navigation } from "swiper";
+import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 
 export default function CategorySlider() {
 

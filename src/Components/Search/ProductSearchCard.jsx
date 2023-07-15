@@ -11,6 +11,7 @@ import {
 import { Fragment, useState } from "react";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import Counter from "../Utility/Counter";
+import { Link } from "react-router-dom";
 
 
   // eslint-disable-next-line react/prop-types
@@ -57,13 +58,13 @@ import Counter from "../Utility/Counter";
         </div>
       <DialogBody divider className="p-0 overflow-scroll">
         <div className="flex flex-col lg:flex-row gap-6">
-          <div className="w-1/2 h-full">
+          <div className="w-full lg:w-1/2 h-full">
           <img 
           src="https://images.unsplash.com/photo-1629367494173-c78a56567877?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=927&q=80" 
           className="w-full rounded-bl-lg h-full object-cover"
           />
           </div>
-          <div className="py-6 w-1/2 pe-5">
+          <div className="py-6 w-full lg:w-1/2 pe-5">
             <Typography  className=" text-heading text-lg md:text-xl lg:text-2xl font-semibold hover:text-black">
               {value}
             </Typography>
@@ -108,9 +109,11 @@ import Counter from "../Utility/Counter";
              Add to Card
             </Button>
             </div>
+            <Link to='/products/:id'>
             <Button className="mt-6 bg-gray-900 py-4 flex justify-center items-center gap-2 capitalize font-semibold text-sm hover:opacity-80" fullWidth>
              View Details
             </Button>
+            </Link>
           </div>
         </div>
       </DialogBody>
