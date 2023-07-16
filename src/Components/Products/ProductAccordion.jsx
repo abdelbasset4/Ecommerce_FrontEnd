@@ -3,7 +3,11 @@ import {
   Accordion,
   AccordionHeader,
   AccordionBody,
+  Rating,
+  Textarea,
+  Button,
 } from "@material-tailwind/react";
+
  
 // eslint-disable-next-line react/prop-types
 function Icon({ id, open }) {
@@ -52,6 +56,18 @@ export default function ProductAccordion() {
           We&apos;re constantly growing. We&apos;re constantly making mistakes.
           We&apos;re constantly trying to express ourselves and actualize our
           dreams.
+        </AccordionBody>
+      </Accordion>
+      <Accordion open={open === 3} icon={<Icon id={3} open={open} />}>
+        <AccordionHeader onClick={() => handleOpen(3)} className="text-gray-900 font-semibold">
+          Write a testimonial
+        </AccordionHeader>
+        <AccordionBody>
+          <Rating className="mb-3" />
+          <Textarea label="Message" />
+          <Button className=" bg-gray-900 py-3 flex justify-center items-center gap-2 capitalize font-semibold text-sm hover:opacity-80 mt-3" >
+             Submit
+            </Button>
         </AccordionBody>
       </Accordion>
     </Fragment>
