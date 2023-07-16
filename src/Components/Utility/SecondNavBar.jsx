@@ -376,11 +376,11 @@ function NavList() {
       <div className="w-full lg:w-auto ms-4">
         <Link to='/search'>
         <button className="block lg:inline-block me-4">
-          <Typography variant="div" className="font-light text-lg">Search</Typography>
+          <Typography  className="font-light text-lg">Search</Typography>
         </button>
         </Link>
         <button className="block lg:inline-block">
-          <Typography variant="div" className="font-light text-lg">Shop</Typography>
+          <Typography  className="font-light text-lg">Shop</Typography>
         </button>
       </div>
     </List>
@@ -407,18 +407,18 @@ export default function SecondNavBar() {
         </div>
         <div className="hidden gap-2 lg:flex">
           <Link to="/login">
-            <Button variant="text" size="sm" color="blue-gray" className="flex items-center gap-3">
+            <Button  size="sm" color="blue-gray" className="flex items-center gap-3">
               <UserIcon strokeWidth={2} className="h-5 w-5"/> Login
             </Button>
           </Link>
           <Link to="/signup">
-            <Button variant="" size="sm" className="bg-gray-900">
+            <Button size="sm" className="bg-gray-900">
               Sign Up
             </Button>
           </Link>
         </div>
         <IconButton
-          variant="text"
+          
           color="blue-gray"
           className="lg:hidden"
           onClick={() => setOpenNav(!openNav)}
@@ -433,10 +433,10 @@ export default function SecondNavBar() {
       <Collapse open={openNav}>
         <NavList />
         <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden flex-col ">
-        <Button variant="text" size="sm" color="blue-gray" className="flex items-center gap-3">
+        <Button  size="sm" color="blue-gray" className="flex items-center gap-3">
           <UserIcon strokeWidth={2} className="h-5 w-5"/> Login
         </Button>
-          <Button variant="gradient" size="sm" fullWidth>
+          <Button  size="sm" fullWidth>
             Sign Up
           </Button>
         </div>
