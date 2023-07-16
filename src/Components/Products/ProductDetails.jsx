@@ -4,7 +4,7 @@ import SecondNavBar from "../Utility/SecondNavBar";
 import ProductCarousel from "./ProductCarousel";
 import ProductAccordion from "./ProductAccordion";
 
-export default function ProductDetalisPage() {
+export default function ProductDetails() {
   return (
 
     <>

@@ -8,7 +8,7 @@ import Home from "./Pages/Home/Home"
 import Login from "./Pages/Auth/Login"
 import Register from "./Pages/Auth/Register"
 import SearchPage from "./Pages/Search/SearchPage"
-import ProductDetalisPage from "./Components/Products/ProductDetalisPage"
+import ProductDetalisPage from "./Pages/Product/ProductDetailsPage"
 
 
 const router = createBrowserRouter(
