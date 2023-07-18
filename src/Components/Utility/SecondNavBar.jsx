@@ -379,9 +379,11 @@ function NavList() {
           <Typography  className="font-light text-lg">Search</Typography>
         </button>
         </Link>
+        <Link to='/dashboard'>
         <button className="block lg:inline-block">
           <Typography  className="font-light text-lg">Shop</Typography>
         </button>
+        </Link>
       </div>
     </List>
   );
