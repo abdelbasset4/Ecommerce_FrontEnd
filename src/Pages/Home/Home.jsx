@@ -14,8 +14,8 @@ import Footer from "../../Components/Utility/Footer"
 export default function Home() {
   return (
     <>
-    <NavBar/>
-    <SecondNavBar/>
+      <NavBar/>
+      <SecondNavBar/>
       <HomeSlider/>
       <CategorySlider/>
       <CollectionCard/>

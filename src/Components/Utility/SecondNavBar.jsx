@@ -414,7 +414,7 @@ export default function SecondNavBar() {
             </Button>
           </Link>
           <Link to="/signup">
-            <Button size="sm" className="bg-gray-900">
+            <Button size="sm" className="bg-gray-900 py-[10px] px-5">
               Sign Up
             </Button>
           </Link>

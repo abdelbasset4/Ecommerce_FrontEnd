@@ -10,6 +10,7 @@ import {
 import logo from '../../assets/logo.svg'
 import { HiOutlineHeart } from "react-icons/hi";
 import { CgShoppingBag } from "react-icons/cg";
+import { Link } from "react-router-dom";
 
 export default function NavBar() {
   const [openNav, setOpenNav] = useState(false);
@@ -74,23 +75,29 @@ export default function NavBar() {
           href="#"
           className="mr-4 cursor-pointer py-1.5 font-medium"
         >
-          <img src={logo} alt="" />
+          <Link to='/'>
+            <img src={logo} alt="" />
+          </Link>
         </Typography>
         <div className="hidden lg:block">{navList}</div>
         <div className="hidden lg:flex items-center gap-3">
+            <Link to="wishlist" className="flex items-center gap-1">
+            
             <Badge content="0" color="red" className="min-w-[20px] min-h-[20px] bg-[#212121]" placement="top-end" overlap="circular">
                 <IconButton color="white" >
                     <HiOutlineHeart size={"1rem"}/>
                 </IconButton>
             </Badge>
-            <span>Wishlist</span>
-
-            <Badge content="1" color="red" className="min-w-[20px] min-h-[20px] bg-[#212121]">
-                <IconButton color="white" >
-                    <CgShoppingBag size={"1rem"}/>
-                </IconButton>
-            </Badge>
-            <span>Shopping</span>
+            <span >Wishlist</span>
+            </Link>
+            <Link to='/cart' className="flex items-center gap-1">
+              <Badge content="1" color="red" className="min-w-[20px] min-h-[20px] bg-[#212121]">
+                  <IconButton color="white" >
+                      <CgShoppingBag size={"1rem"}/>
+                  </IconButton>
+              </Badge>
+              <span>Shopping</span>
+            </Link>
         </div>
         <IconButton
           variant="text"
