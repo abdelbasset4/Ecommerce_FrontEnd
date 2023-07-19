@@ -12,6 +12,8 @@ import SearchPage from "./Pages/Search/SearchPage"
 import ProductDetalisPage from "./Pages/Product/ProductDetailsPage"
 import ECommerce from './Pages/Dashboard/Dashboard/ECommerce';
 import Loader from './common/Loader';
+import CartPage from './Pages/Cart/CartPage'
+import CheckoutPage from './Pages/Checkout/CheckoutPage'
 
 const Calendar = lazy(() => import('./Pages/Dashboard/Calendar'));
 const Chart = lazy(() => import('./Pages/Dashboard/Chart'));
@@ -33,12 +35,22 @@ const router = createBrowserRouter(
         <Route path="signup" element={<Register />} />
         <Route path="search" element={<SearchPage/>} />
         <Route path="/products/:id" element={<ProductDetalisPage />} />
+        <Route path="cart" element={<CartPage/>} />
+        <Route path="checkout" element={<CheckoutPage/>} />
         
       </Route>
-      <Route path="/dashboard" element={<DefaultLayout/>}>
-            <Route element={<ECommerce />} />
+      <Route  element={<DefaultLayout/>}>
+            
             <Route
-              path="calendar"
+              path="/dashboard"
+              element={
+                <Suspense fallback={<Loader />}>
+                  <ECommerce />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/calendar"
               element={
                 <Suspense fallback={<Loader />}>
                   <Calendar />
@@ -46,7 +58,7 @@ const router = createBrowserRouter(
               }
             />
             <Route
-              path="profile"
+              path="/profile"
               element={
                 <Suspense fallback={<Loader />}>
                   <Profile />
