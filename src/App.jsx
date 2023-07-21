@@ -14,12 +14,16 @@ import ECommerce from './Pages/Dashboard/Dashboard/ECommerce';
 import Loader from './common/Loader';
 import CartPage from './Pages/Cart/CartPage'
 import CheckoutPage from './Pages/Checkout/CheckoutPage'
+import Orders from './Pages/Dashboard/Mange/Orders'
+import Products from './Pages/Dashboard/Mange/Products'
+import AddProduct from './Pages/Dashboard/Mange/AddProduct'
+import Brand from './Pages/Dashboard/Mange/Brand'
+import Category from './Pages/Dashboard/Mange/Category'
+import SubCategory from './Pages/Dashboard/Mange/SubCategory'
 
-const Calendar = lazy(() => import('./Pages/Dashboard/Calendar'));
 const Chart = lazy(() => import('./Pages/Dashboard/Chart'));
 const FormElements = lazy(() => import('./Pages/Dashboard/Form/FormElements'));
 const FormLayout = lazy(() => import('./Pages/Dashboard/Form/FormLayout'));
-const Profile = lazy(() => import('./Pages/Dashboard/Profile'));
 const Settings = lazy(() => import('./Pages/Dashboard/Settings'));
 const Tables = lazy(() => import('./Pages/Dashboard/Tables'));
 const Alerts = lazy(() => import('./Pages/Dashboard/UiElements/Alerts'));
@@ -50,18 +54,50 @@ const router = createBrowserRouter(
               }
             />
             <Route
-              path="/calendar"
+              path="dashboard/orders"
               element={
                 <Suspense fallback={<Loader />}>
-                  <Calendar />
+                  <Orders />
                 </Suspense>
               }
             />
             <Route
-              path="/profile"
+              path="dashboard/products"
               element={
                 <Suspense fallback={<Loader />}>
-                  <Profile />
+                  <Products />
+                </Suspense>
+              }
+            />
+            <Route
+              path="dashboard/addproduct"
+              element={
+                <Suspense fallback={<Loader />}>
+                  <AddProduct />
+                </Suspense>
+              }
+            />
+            <Route
+              path="dashboard/brands"
+              element={
+                <Suspense fallback={<Loader />}>
+                  <Brand />
+                </Suspense>
+              }
+            />
+            <Route
+              path="dashboard/category"
+              element={
+                <Suspense fallback={<Loader />}>
+                  <Category />
+                </Suspense>
+              }
+            />
+            <Route
+              path="dashboard/subcategory"
+              element={
+                <Suspense fallback={<Loader />}>
+                  <SubCategory />
                 </Suspense>
               }
             />
