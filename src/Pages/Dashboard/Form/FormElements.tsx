@@ -320,8 +320,8 @@ const FormElements = () => {
                     id=""
                     className="absolute top-0 left-0 z-20 h-full w-full bg-transparent opacity-0"
                   >
-                    <option value="">Option</option>
-                    <option value="">Option</option>
+                    <option value="irr">Option</option>
+                    <option value="iis">Option</option>
                   </select>
                   <span className="absolute top-1/2 right-4 z-10 -translate-y-1/2">
                     <svg
