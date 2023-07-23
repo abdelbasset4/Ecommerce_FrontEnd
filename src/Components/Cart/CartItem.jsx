@@ -8,7 +8,7 @@ import Counter from "../Utility/Counter";
 import {AiFillCloseCircle,AiOutlineDelete} from "react-icons/ai"   
   export default function CartItem() {
     return (
-      <Card className="flex-col lg:flex-row w-full max-w-[48rem] mb-4">
+      <Card className="flex-col lg:flex-row w-full max-w-[40rem]  mb-4">
         <CardHeader shadow={false} floated={false} className="w-full lg:w-2/5 shrink-0 m-0 rounded-md relative group cursor-pointer">
           <img 
             src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80" 
