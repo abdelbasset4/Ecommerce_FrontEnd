@@ -23,6 +23,7 @@ import {
   UserIcon
 } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
+import { ProfileMenu } from "./ProfileMenu";
 
 // nav list menu
 const navListCategory = [
@@ -391,7 +392,7 @@ function NavList() {
  
 export default function SecondNavBar() {
   const [openNav, setOpenNav] = useState(false);
- 
+  const [isAuth,setIsAuth] = useState(true);
   useEffect(() => {
     window.addEventListener(
       "resize",
@@ -407,22 +408,25 @@ export default function SecondNavBar() {
           <NavList />
 
         </div>
-        <div className="hidden gap-2 lg:flex">
-          <Link to="/login">
-            <Button  size="sm" color="blue-gray" className="flex items-center gap-3">
-              <UserIcon strokeWidth={2} className="h-5 w-5"/> Login
-            </Button>
-          </Link>
-          <Link to="/signup">
-            <Button size="sm" className="bg-gray-900 py-[10px] px-5">
-              Sign Up
-            </Button>
-          </Link>
-        </div>
+        {
+          isAuth ? (<ProfileMenu  />):(<div className="hidden gap-2 lg:flex">
+        <Link to="/login">
+          <Button  size="sm" color="blue-gray" className="flex items-center gap-3">
+            <UserIcon strokeWidth={2} className="h-5 w-5"/> Login
+          </Button>
+        </Link>
+        <Link to="/signup">
+          <Button size="sm" className="bg-gray-900 py-[10px] px-5">
+            Sign Up
+          </Button>
+        </Link>
+      </div>)
+        }
+        
         <IconButton
           
           color="blue-gray"
-          className="lg:hidden"
+          className=" lg:hidden"
           onClick={() => setOpenNav(!openNav)}
         >
           {openNav ? (

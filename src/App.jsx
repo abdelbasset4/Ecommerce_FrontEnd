@@ -20,6 +20,8 @@ import AddProduct from './Pages/Dashboard/Mange/AddProduct'
 import Brand from './Pages/Dashboard/Mange/Brand'
 import Category from './Pages/Dashboard/Mange/Category'
 import SubCategory from './Pages/Dashboard/Mange/SubCategory'
+import ProfilePage from './Pages/Profile/ProfilePage'
+import WishListPage from './Pages/WishList/WishListPage'
 
 const Chart = lazy(() => import('./Pages/Dashboard/Chart'));
 const FormElements = lazy(() => import('./Pages/Dashboard/Form/FormElements'));
@@ -41,6 +43,8 @@ const router = createBrowserRouter(
         <Route path="/products/:id" element={<ProductDetalisPage />} />
         <Route path="cart" element={<CartPage/>} />
         <Route path="checkout" element={<CheckoutPage/>} />
+        <Route path="myprofile" element={<ProfilePage/>} />
+        <Route path="wishlist" element={<WishListPage/>} />
         
       </Route>
       <Route  element={<DefaultLayout/>}>
