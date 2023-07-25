@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function AccountDetails() {
   return (
-    <div className="rounded-sm border border-stroke bg-white p-5 w-full lg:max-w-[50%] mx-auto shadow-default dark:border-strokedark dark:bg-boxdark">
+    <div className="rounded-sm border border-stroke bg-white p-2 lg:p-5 w-full lg:max-w-[50%] mx-auto shadow-default dark:border-strokedark dark:bg-boxdark">
        <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
                   <div className="w-full xl:w-1/2">
                     <label className="mb-2.5 block text-black dark:text-white text-start ms-3">
