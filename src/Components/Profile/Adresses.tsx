@@ -1,8 +1,9 @@
 import { Typography } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
+import {AiOutlineDelete} from "react-icons/ai"  
+import {GrUpdate} from "react-icons/gr"  
 export default function Adresses() {
   return (
-    <div className="rounded-sm border border-stroke bg-white p-2 lg:p-5 w-full lg:max-w-[50%] mx-auto shadow-default dark:border-strokedark dark:bg-boxdark mb-3">
+    <div className="rounded-sm border border-stroke bg-white p-2 lg:p-5 w-full lg:max-w-[50%] mx-auto shadow-default dark:border-strokedark dark:bg-boxdark mb-3 relative">
 
         <div className="w-full xl:w-1/2">
                     <label className="mb-2.5 block text-black dark:text-white text-start ms-3">
@@ -40,7 +41,10 @@ export default function Adresses() {
                     </label>
                     <Typography variant="h6" className="text-start ms-4">0685471154</Typography>
         </div>
-
+        <div className="absolute right-2 top-2 cursor-pointer flex gap-2">
+            <GrUpdate size={"1rem"}/>
+            <AiOutlineDelete size={"1.2rem"}/>
+        </div>
     </div>
   )
 }
