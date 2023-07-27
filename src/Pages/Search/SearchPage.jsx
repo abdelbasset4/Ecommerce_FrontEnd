@@ -6,6 +6,7 @@ import ColorsSearch from "../../Components/Search/ColorsSearch";
 import SortingMenu from "../../Components/Search/SortingMenu";
 import DrawerFilter from "../../Components/Search/DrawerFilter";
 import ProductSearchList from "../../Components/Search/ProductSearchList";
+import Pagination from "../../Components/Utility/Pagination";
 
 
 
@@ -50,6 +51,7 @@ export default function SearchPage() {
               </div>
               <div className="mt-9">
                 <ProductSearchList/>
+                <Pagination/>
               </div>
             </div>
         </div>
