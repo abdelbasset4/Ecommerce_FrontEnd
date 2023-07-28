@@ -59,7 +59,7 @@ export default function Testimonial() {
               {data.map(({ name,obj,text }) => (
                 // eslint-disable-next-line react/jsx-key
                 <SplideSlide>
-                  <TestimonialCard name={name} obj={obj} text={text} />
+                  <TestimonialCard name={name} obj={obj} text={text} key={Math.random()}/>
                 </SplideSlide>
 
               ))}  

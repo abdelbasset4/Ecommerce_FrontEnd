@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import {
   Navbar,
-  MobileNav,
   Typography,
   IconButton,
   Input,
   Badge,
+  Collapse,
 } from "@material-tailwind/react";
 import logo from '../../assets/logo.svg'
 import { HiOutlineHeart } from "react-icons/hi";
@@ -83,7 +83,7 @@ export default function NavBar() {
         <div className="hidden lg:flex items-center gap-3">
             <Link to="/wishlist" className="flex items-center gap-1">
             
-              <Badge content="0" color="red" className="min-w-[20px] min-h-[20px] bg-[#212121]" placement="top-end" overlap="circular">
+              <Badge content="0" color="red" className="min-w-[20px] min-h-[20px] bg-[#212121]" >
                   <IconButton color="white" >
                       <HiOutlineHeart size={"1rem"}/>
                   </IconButton>
@@ -137,12 +137,12 @@ export default function NavBar() {
           )}
         </IconButton>
       </div>
-      <MobileNav open={openNav}>
+      <Collapse  open={openNav}>
         <div className="container mx-auto">
           {navList}
 
         </div>
-      </MobileNav>
+      </Collapse>
     </Navbar>
   );
 }

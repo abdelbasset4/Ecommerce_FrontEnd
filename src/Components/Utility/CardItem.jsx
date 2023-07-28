@@ -58,7 +58,7 @@ import {
         </CardFooter>
 
    
-        <div className="absolute bottom-[270px] right-6 ">
+        <div className="absolute bottom-[290px] right-6 ">
         <SpeedDial>
           <SpeedDialHandler>
             <IconButton size="lg" className="rounded-full bg-gray-900 shadow-gray-900">
