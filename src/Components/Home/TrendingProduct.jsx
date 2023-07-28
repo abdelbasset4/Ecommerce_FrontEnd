@@ -65,7 +65,7 @@ export default function TrendingProduct() {
                 data.map(({desc,value})=>(
                     
                         // eslint-disable-next-line react/jsx-key
-                        <CardItem desc = {desc} value={value}/>
+                        <CardItem desc = {desc} value={value} key={Math.random()}/>
 
                 ))
             }
