@@ -14,6 +14,7 @@ import {ImLink} from "react-icons/im"
 
 // import required modules
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import { Link } from "react-router-dom";
 
 export default function CategorySlider() {
 
@@ -126,6 +127,14 @@ export default function CategorySlider() {
         </SwiperSlide>
 
       </Swiper>
+      <div className="mx-auto my-5 text-center ">
+        <Link
+                to="categories"
+                className="inline-flex items-center justify-center rounded-md border border-black py-4 px-10 text-center font-medium text-black hover:bg-opacity-90 lg:px-8 xl:px-10 hover:bg-black hover:text-white duration-300 cursor-pointer"
+              >
+                View All
+        </Link>
+      </div>
     </>
   );
 }
