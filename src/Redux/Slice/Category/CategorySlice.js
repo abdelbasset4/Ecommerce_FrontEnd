@@ -3,7 +3,7 @@ import { getAllCategory } from './CategoryThunk'
 
 const initialState = {
     category: [],
-    loading: true,
+    isLoading: true,
     error:null
 }
 
