@@ -5,7 +5,7 @@ export  const getAllCategory=createAsyncThunk('category/getAll' ,async (url ,thu
     const {rejectWithValue}=thunkAPI;
     try{
         const res = await useGetData(url);
-        return res.data;
+        return res;
     }catch (err){
         return rejectWithValue(err.message);
     }

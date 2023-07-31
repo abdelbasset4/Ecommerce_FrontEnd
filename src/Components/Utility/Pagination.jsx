@@ -2,10 +2,10 @@ import ReactPaginate from 'react-paginate';
 
 
 // eslint-disable-next-line react/prop-types
-export default function Pagination() {
+export default function Pagination({numberPages,onPress}) {
 
   const handlePageClick = (data)=>{
-    console.log(data);
+    onPress(data.selected +1 )
   }
 
   return (
@@ -16,6 +16,7 @@ export default function Pagination() {
         onPageChange={handlePageClick}
         pageRangeDisplayed={2}
         previousLabel="< previous"
+        pageCount={numberPages}
         renderOnZeroPageCount={null}
         containerClassName={'flex border-2'}
         pageClassName={'bg-white rounded py-2 px-3 font-semibold'}

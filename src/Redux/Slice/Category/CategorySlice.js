@@ -24,7 +24,7 @@ const initialState = {
 
       state.isLoading=false;
       state.erorr=action?.error?.message;
-    },
+    }
   }
 })
 
