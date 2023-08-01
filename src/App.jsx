@@ -56,6 +56,7 @@ const router = createBrowserRouter(
             <Route
               path="/dashboard"
               element={
+                
                 <Suspense fallback={<Loader />}>
                   <ECommerce />
                 </Suspense>
@@ -165,7 +166,7 @@ const router = createBrowserRouter(
                 </Suspense>
               }
             />
-          </Route>
+      </Route>
     </Fragment>
     
 

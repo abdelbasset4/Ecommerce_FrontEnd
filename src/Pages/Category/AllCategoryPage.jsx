@@ -13,19 +13,18 @@ export default function AllCategoryPage() {
   
   useEffect(() => {
       dispatch(getAllCategory(`/api/v1/categories?limit=3`));
-    }, [dispatch]);
+  }, [dispatch]);
     
     let pageCount = 0;
     if(categories.paginationResults) {pageCount = categories.paginationResults.numberPages;}
     
   const getPageNumber =(page)=>{
     dispatch(getAllCategory(`/api/v1/categories?limit=3&page=${page}`));
-    console.log(page);
   }
   return (
     <div>
         <NavBar/>
-        <AllCategory data={categories} isLoading={isLoading}/>
+        <AllCategory data={categories.data} isLoading={isLoading}/>
         {
           pageCount >1 ?(<Pagination numberPages={pageCount} onPress={getPageNumber} />):null
         }
