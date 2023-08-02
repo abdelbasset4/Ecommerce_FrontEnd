@@ -1,50 +1,10 @@
 import { Link } from 'react-router-dom';
 import Breadcrumb from '../../../Components/Dashboard/Breadcrumb';
-import { useState } from 'react';
-import { useDispatch,  } from "react-redux";
-import { createCategory } from "../../../Redux/Slice/Category/CategoryThunk";
-import { useEffect } from 'react';
+import { ToastContainer } from 'react-toastify';
 import { Spinner } from '@material-tailwind/react';
-import { useRef } from 'react';
-
+import useAddCategory from '../../../hook/category/useAddCategory';
 export default function Category() {
-  const inputRef = useRef(null);
-  const dispatch = useDispatch()
-  const [img,setImg] = useState('')
-  const [selectedFile,setSelectedFile] = useState(null)
-  const [name,setName] = useState('')
-  const [loading,setLoading] = useState(true)
-  const [press,setPress] = useState(false)
-
-  const changeImg =(e)=>{
-    if (e.target.files && e.target.files[0]) {
-      setImg(URL.createObjectURL(e.target.files[0]))
-      setSelectedFile(e.target.files[0])
-    }
-  }
-  const submitData = async(e)=>{
-    e.preventDefault()
-    const formData = new FormData();
-    formData.append("name", name)
-    formData.append("image", selectedFile)
-    setLoading(true)
-    setPress(true)
-    await dispatch(createCategory(formData))
-    setLoading(false)
-  }
-  useEffect(
-    ()=>{
-      if(loading === false){
-        setName('')
-        setImg('')
-        console.log('تم الانتهاء')
-        setSelectedFile(null)
-        setLoading(true)
-        setPress(false)
-        inputRef.current.value = ''
-      }
-    }
-    ,[loading])
+  const [name,img,inputRef,loading,press,changeImg,changeName,submitData]  = useAddCategory()
   return (
     <>
       <Breadcrumb pageName="Category" />
@@ -56,7 +16,7 @@ export default function Category() {
             <input
               type="text"
               value={name}
-              onChange={(e)=>setName(e.target.value)}
+              onChange={(e)=>changeName(e)}
               placeholder="Category Name"
               className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
             />
@@ -87,6 +47,7 @@ export default function Category() {
       {
         press ? loading ? (<Spinner className="h-16 w-16 text-blue-500/10" />):(<p>finish</p>):null
       }  
+      <ToastContainer />
     </>
   )
 }
