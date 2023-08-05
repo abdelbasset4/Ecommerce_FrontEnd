@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { createSubCategory } from './SubCategoryThunk'
+import { createSubCategory,getAllSubCategoryOnCatID } from './SubCategoryThunk'
 
 const initialState = {
     subCategory: [],
@@ -22,6 +22,19 @@ const initialState = {
     },
     [createSubCategory.rejected]:(state,action)=>{
 
+      state.isLoading=false;
+      state.erorr=action?.error?.message;
+    },
+    [getAllSubCategoryOnCatID.pending]:(state)=>{
+      state.isLoading=true;
+      state.erorr=null;
+    },
+    [getAllSubCategoryOnCatID.fulfilled]:(state,action)=>{
+      state.subCategory = action.payload
+      state.isLoading=false;
+      state.erorr=null;
+    },
+    [getAllSubCategoryOnCatID.rejected]:(state,action)=>{
       state.isLoading=false;
       state.erorr=action?.error?.message;
     }

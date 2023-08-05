@@ -3,13 +3,37 @@ import Multiselect from "multiselect-react-dropdown";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import Breadcrumb from "../../../Components/Dashboard/Breadcrumb";
 import { UploadMedia } from "react-upload-media";
+import { CompactPicker } from "react-color";
 import { useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllCategory } from "../../../Redux/Slice/Category/CategoryThunk";
+import { getAllBrand } from "../../../Redux/Slice/Brand/BrandThunk";
+import { getAllSubCategoryOnCatID } from "../../../Redux/Slice/SubCategory/SubCategoryThunk";
 export default function AddProduct() {
+  // States
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [priceBefore, setPriceBefore] = useState(0);
+  const [priceAfter, setPriceAfter] = useState(0);
+  const [quantity, setQuantity] = useState(0);
+  const [categoryId, setCategoryID] = useState("");
+  const [subCategoryId, setSubCategoryID] = useState("");
+  const [selectSubCategoryId, setSelectSubCategoryID] = useState([]);
+  const [brandId, setBrandID] = useState("");
+  const [loading, setLoading] = useState(true);
   const [files, setFiles] = useState([]);
+  const [file, setFile] = useState([]);
+  const [showColor, setShowColor] = useState(false);
+  const [colors, setColors] = useState([]);
+  const [options, setOptions] = useState([]);
 
-  const submitHandler = (files) => {
+  const submitHandlerCover = (file) => {
+    setFile(file);
+  };
+
+  const submitHandlerImages = (files) => {
     setFiles(files);
-    console.log(files);
   };
   const optionsMultiple = {
     multiple: true,
@@ -22,10 +46,56 @@ export default function AddProduct() {
   const onSelect = () => {};
   const onRemove = () => {};
 
-  const options = [
-    { name: "Phones", id: 1 },
-    { name: "Airpods", id: 2 },
-  ];
+  const dispatch = useDispatch();
+  const categories = useSelector((state) => state.category.category);
+  const brands = useSelector((state) => state.brand.brand);
+  const subCategory = useSelector((state) => state.subCategory.subCategory);
+
+  useEffect(() => {
+    dispatch(getAllCategory(`/api/v1/categories`));
+    dispatch(getAllBrand(`/api/v1/brands`));
+  }, [dispatch]);
+
+  const getCategoryId =  (e) => {
+    if (e.target.value !== "0") {
+       dispatch(
+        getAllSubCategoryOnCatID(
+          `/api/v1/categories/${e.target.value}/subcategories`
+        )
+      );
+    }
+    console.log(categoryId);
+    setCategoryID(e.target.value);
+    console.log(categoryId);
+  };
+
+  useEffect(() => {
+    if (categoryId !== "0") {
+      if (subCategory.data) {
+        setOptions(subCategory.data);
+      }else{
+        console.log('there is no category');
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [categoryId]);
+  console.log(options);
+
+  const getBrandId = (e) => {
+    setBrandID(e.target.value);
+  };
+  const showColorPicker = () => {
+    setShowColor(!showColor);
+  };
+  const handleColorCompleteChange = (color) => {
+    setColors([...colors, color.hex]);
+    setShowColor(!showColor);
+    console.log(colors);
+  };
+  const removeColor = (color) => {
+    const removedArray = colors.filter((e) => color !== e);
+    setColors(removedArray);
+  };
   return (
     <>
       <Breadcrumb pageName="Add product" />
@@ -35,6 +105,8 @@ export default function AddProduct() {
             Product Name:
           </label>
           <input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             type="text"
             placeholder="Product Name"
             className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
@@ -45,7 +117,9 @@ export default function AddProduct() {
             Product Description:
           </label>
           <textarea
+            value={description}
             rows={6}
+            onChange={(e) => setDescription(e.target.value)}
             placeholder="Product Description"
             className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></textarea>
         </div>
@@ -54,7 +128,9 @@ export default function AddProduct() {
             Price before discount:
           </label>
           <input
+            value={priceBefore}
             type="number"
+            onChange={(e) => setPriceBefore(e.target.value)}
             placeholder="Price before descount"
             className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
           />
@@ -64,8 +140,22 @@ export default function AddProduct() {
             Price:
           </label>
           <input
+            value={priceAfter}
+            onChange={(e) => setPriceAfter(e.target.value)}
             type="number"
             placeholder="Price"
+            className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+          />
+        </div>
+        <div className="mt-4">
+          <label className="mb-3 block text-black dark:text-white">
+            Quantity:
+          </label>
+          <input
+            value={quantity}
+            onChange={(e) => setQuantity(e.target.value)}
+            type="number"
+            placeholder="Quantity"
             className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
           />
         </div>
@@ -83,10 +173,20 @@ export default function AddProduct() {
                 <path d="M405-274h361v-258H405v258ZM140-160q-24 0-42-18t-18-42v-520q0-24 18-42t42-18h680q24 0 42 18t18 42v520q0 24-18 42t-42 18H140Zm0-60h680v-520H140v520Zm0 0v-520 520Z" />
               </svg>
             </span>
-            <select className="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-12 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input">
-              <option value="">Apple</option>
-              <option value="">Gucci</option>
-              <option value="">Nike</option>
+            <select
+              value={brandId}
+              onChange={getBrandId}
+              className="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-12 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input">
+              <option value="0">Choose Category</option>
+              {brands.data
+                ? brands.data.map((brand) => {
+                    return (
+                      <option value={brand._id} key={brand._id}>
+                        {brand.name}
+                      </option>
+                    );
+                  })
+                : null}
             </select>
             <span className="absolute top-1/2 right-4 z-10 -translate-y-1/2">
               <svg
@@ -121,10 +221,20 @@ export default function AddProduct() {
                 <path d="m261-526 220-354 220 354H261ZM706-80q-74 0-124-50t-50-124q0-74 50-124t124-50q74 0 124 50t50 124q0 74-50 124T706-80Zm-586-25v-304h304v304H120Zm586.085-35Q754-140 787-173.085q33-33.084 33-81Q820-302 786.916-335q-33.085-33-81.001-33Q658-368 625-334.915q-33 33.084-33 81Q592-206 625.084-173q33.085 33 81.001 33ZM180-165h184v-184H180v184Zm189-421h224L481-767 369-586Zm112 0ZM364-349Zm342 95Z" />
               </svg>
             </span>
-            <select className="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-12 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input">
-              <option value="">Electronique</option>
-              <option value="">Fashion</option>
-              <option value="">Watches</option>
+            <select
+              value={categoryId}
+              onChange={getCategoryId}
+              className="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-12 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input">
+              <option value="0">Choose Category</option>
+              {categories.data
+                ? categories.data.map((category) => {
+                    return (
+                      <option value={category._id} key={category._id}>
+                        {category.name}
+                      </option>
+                    );
+                  })
+                : null}
             </select>
             <span className="absolute top-1/2 right-4 z-10 -translate-y-1/2">
               <svg
@@ -178,16 +288,26 @@ export default function AddProduct() {
             Colors:
           </label>
           <div className="mt-1 flex">
-            <div
-              className="w-8 h-8 ms-2 border rounded-full mt-1"
-              style={{ backgroundColor: "#E52C2C" }}></div>
-            <div
-              className="w-8 h-8 ms-2 border rounded-full mt-1 "
-              style={{ backgroundColor: "white" }}></div>
-            <div
-              className="w-8 h-8 ms-2 border rounded-full mt-1"
-              style={{ backgroundColor: "black" }}></div>
-            <AiOutlinePlusCircle className="w-8 h-8 ms-2 mt-1 dark:text-white text-gray-900" />
+            {colors.length >= 1
+              ? colors.map((color, index) => {
+                  return (
+                    // eslint-disable-next-line react/jsx-key
+                    <div
+                      key={index}
+                      onClick={() => removeColor(color)}
+                      className="w-8 h-8 ms-2 border rounded-full mt-1 cursor-pointer"
+                      style={{ backgroundColor: color }}></div>
+                  );
+                })
+              : null}
+
+            <AiOutlinePlusCircle
+              className="w-8 h-8 ms-2 mt-1 dark:text-white text-gray-900 cursor-pointer"
+              onClick={showColorPicker}
+            />
+            {showColor === true ? (
+              <CompactPicker onChangeComplete={handleColorCompleteChange} />
+            ) : null}
           </div>
         </div>
         <div className="mt-4">
@@ -197,11 +317,10 @@ export default function AddProduct() {
           <UploadMedia
             height={"200px"}
             primaryColor="rgb(13, 31, 51)"
-            onSubmit={submitHandler}
+            onSubmit={submitHandlerCover}
             options={optionsSingle}
             style={{ marginTop: "15px" }}
           />
-          
         </div>
         <div className="my-4">
           <label className="mb-3 block text-black dark:text-white">
@@ -210,15 +329,15 @@ export default function AddProduct() {
           <UploadMedia
             height={"200px"}
             primaryColor="rgb(13, 31, 51)"
-            onSubmit={submitHandler}
+            onSubmit={submitHandlerImages}
             options={optionsMultiple}
             style={{ marginTop: "15px" }}
           />
           <div>
             <p>Files Uploaded</p>
             <ul>
-              {files.map((file) => (
-                <li key={file.path}>{file.name}</li>
+              {files.map((file, index) => (
+                <li key={index}>{file.name}</li>
               ))}
             </ul>
           </div>
