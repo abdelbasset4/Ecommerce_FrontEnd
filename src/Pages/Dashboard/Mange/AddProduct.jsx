@@ -45,9 +45,15 @@ export default function AddProduct() {
     multiple: false,
     accept: "/*",
   };
-  const onSelect = (selectedList) => {setSelectSubCategoryID(selectedList);console.log(selectSubCategoryId);};
-  const onRemove = (selectedList) => {setSelectSubCategoryID(selectedList);console.log(selectSubCategoryId);};
-  
+  const onSelect = (selectedList) => {
+    setSelectSubCategoryID(selectedList);
+    console.log(selectSubCategoryId);
+  };
+  const onRemove = (selectedList) => {
+    setSelectSubCategoryID(selectedList);
+    console.log(selectSubCategoryId);
+  };
+
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.category.category);
   const brands = useSelector((state) => state.brand.brand);
@@ -63,11 +69,12 @@ export default function AddProduct() {
       try {
         setCategoryID(e.target.value);
         await dispatch(
-          getAllSubCategoryOnCatID(`/api/v1/categories/${e.target.value}/subcategories`)
+          getAllSubCategoryOnCatID(
+            `/api/v1/categories/${e.target.value}/subcategories`
+          )
         );
-        
       } catch (error) {
-        console.error('Error occurred during dispatch:', error);
+        console.error("Error occurred during dispatch:", error);
       }
     }
   };
@@ -101,19 +108,23 @@ export default function AddProduct() {
     setColors(removedArray);
   };
 
-  const hundelSubmit = async ()=>{
+  const hundelSubmit = async () => {
     const formData = new FormData();
-    formData.append('title',name)
-    formData.append('description',description)
-    formData.append('quantity',quantity)
-    formData.append('price',priceBefore)
-    formData.append('priceAfterDiscount',priceAfter)
-    formData.append('imageCover',file[0].name)
-    formData.append('category',categoryId)
-    formData.append('brand',brandId)
-    
-    await dispatch(createProduct(formData))
-  }
+    formData.append("title", name);
+    formData.append("description", description);
+    formData.append("quantity", quantity);
+    formData.append("price", priceBefore);
+    formData.append("priceAfterDiscount", priceAfter);
+    formData.append("imageCover", file[0].name);
+    formData.append("category", categoryId);
+    formData.append("brand", brandId);
+    colors.map((color) => formData.append("colors", color));
+    const subCategoryIDs = selectSubCategoryId.map((item) => item._id);
+    subCategoryIDs.map((item) => formData.append("subcategories", item));
+    const filesSelected = files.map(({name}) => name);
+    filesSelected.map((item) => formData.append("images", item));
+    await dispatch(createProduct(formData));
+  };
   return (
     <>
       <Breadcrumb pageName="Add product" />
