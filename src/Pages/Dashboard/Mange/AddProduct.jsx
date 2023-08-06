@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCategory } from "../../../Redux/Slice/Category/CategoryThunk";
 import { getAllBrand } from "../../../Redux/Slice/Brand/BrandThunk";
+import { createProduct } from "../../../Redux/Slice/product/ProductThunk";
 import { getAllSubCategoryOnCatID } from "../../../Redux/Slice/SubCategory/SubCategoryThunk";
 export default function AddProduct() {
   // States
@@ -18,10 +19,10 @@ export default function AddProduct() {
   const [priceAfter, setPriceAfter] = useState(0);
   const [quantity, setQuantity] = useState(0);
   const [categoryId, setCategoryID] = useState("");
-  const [subCategoryId, setSubCategoryID] = useState("");
+  // const [subCategoryId, setSubCategoryID] = useState("");
   const [selectSubCategoryId, setSelectSubCategoryID] = useState([]);
   const [brandId, setBrandID] = useState("");
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   const [files, setFiles] = useState([]);
   const [file, setFile] = useState([]);
   const [showColor, setShowColor] = useState(false);
@@ -29,6 +30,7 @@ export default function AddProduct() {
   const [options, setOptions] = useState([]);
 
   const submitHandlerCover = (file) => {
+    console.log(file);
     setFile(file);
   };
 
@@ -43,9 +45,9 @@ export default function AddProduct() {
     multiple: false,
     accept: "/*",
   };
-  const onSelect = () => {};
-  const onRemove = () => {};
-
+  const onSelect = (selectedList) => {setSelectSubCategoryID(selectedList);console.log(selectSubCategoryId);};
+  const onRemove = (selectedList) => {setSelectSubCategoryID(selectedList);console.log(selectSubCategoryId);};
+  
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.category.category);
   const brands = useSelector((state) => state.brand.brand);
@@ -56,30 +58,32 @@ export default function AddProduct() {
     dispatch(getAllBrand(`/api/v1/brands`));
   }, [dispatch]);
 
-  const getCategoryId =  (e) => {
-    if (e.target.value !== "0") {
-       dispatch(
-        getAllSubCategoryOnCatID(
-          `/api/v1/categories/${e.target.value}/subcategories`
-        )
-      );
+  const getCategoryId = async (e) => {
+    if (e.target.value != "0") {
+      try {
+        setCategoryID(e.target.value);
+        await dispatch(
+          getAllSubCategoryOnCatID(`/api/v1/categories/${e.target.value}/subcategories`)
+        );
+        
+      } catch (error) {
+        console.error('Error occurred during dispatch:', error);
+      }
     }
-    console.log(categoryId);
-    setCategoryID(e.target.value);
-    console.log(categoryId);
   };
 
   useEffect(() => {
-    if (categoryId !== "0") {
-      if (subCategory.data) {
-        setOptions(subCategory.data);
-      }else{
-        console.log('there is no category');
+    const updateOptions = async () => {
+      if (categoryId !== "0") {
+        if (subCategory.data) {
+          console.log(subCategory.data);
+          setOptions(subCategory.data);
+        }
       }
-    }
+    };
+    updateOptions();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [categoryId]);
-  console.log(options);
+  }, [categoryId, subCategory.data]);
 
   const getBrandId = (e) => {
     setBrandID(e.target.value);
@@ -96,6 +100,20 @@ export default function AddProduct() {
     const removedArray = colors.filter((e) => color !== e);
     setColors(removedArray);
   };
+
+  const hundelSubmit = async ()=>{
+    const formData = new FormData();
+    formData.append('title',name)
+    formData.append('description',description)
+    formData.append('quantity',quantity)
+    formData.append('price',priceBefore)
+    formData.append('priceAfterDiscount',priceAfter)
+    formData.append('imageCover',file[0].name)
+    formData.append('category',categoryId)
+    formData.append('brand',brandId)
+    
+    await dispatch(createProduct(formData))
+  }
   return (
     <>
       <Breadcrumb pageName="Add product" />
@@ -177,7 +195,7 @@ export default function AddProduct() {
               value={brandId}
               onChange={getBrandId}
               className="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-12 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input">
-              <option value="0">Choose Category</option>
+              <option value="0">Choose Brand</option>
               {brands.data
                 ? brands.data.map((brand) => {
                     return (
@@ -345,6 +363,7 @@ export default function AddProduct() {
 
         <Link
           to="#"
+          onClick={hundelSubmit}
           className="inline-flex items-center justify-center rounded-md bg-black py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10 mt-4">
           Add
         </Link>
