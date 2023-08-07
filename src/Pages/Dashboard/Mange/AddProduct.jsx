@@ -11,6 +11,8 @@ import { getAllCategory } from "../../../Redux/Slice/Category/CategoryThunk";
 import { getAllBrand } from "../../../Redux/Slice/Brand/BrandThunk";
 import { createProduct } from "../../../Redux/Slice/product/ProductThunk";
 import { getAllSubCategoryOnCatID } from "../../../Redux/Slice/SubCategory/SubCategoryThunk";
+import Notify from "../../../hooks/useNotify"
+import { ToastContainer } from "react-toastify";
 export default function AddProduct() {
   // States
   const [name, setName] = useState("");
@@ -22,7 +24,7 @@ export default function AddProduct() {
   // const [subCategoryId, setSubCategoryID] = useState("");
   const [selectSubCategoryId, setSelectSubCategoryID] = useState([]);
   const [brandId, setBrandID] = useState("");
-  // const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [files, setFiles] = useState([]);
   const [file, setFile] = useState([]);
   const [showColor, setShowColor] = useState(false);
@@ -83,7 +85,6 @@ export default function AddProduct() {
     const updateOptions = async () => {
       if (categoryId !== "0") {
         if (subCategory.data) {
-          console.log(subCategory.data);
           setOptions(subCategory.data);
         }
       }
@@ -108,7 +109,12 @@ export default function AddProduct() {
     setColors(removedArray);
   };
 
-  const hundelSubmit = async () => {
+  const hundelSubmit = async (e) => {
+    e.preventDefault();
+    if(categoryId ==="0" || name ===""|| description==="" || priceBefore === 0 || file.length <=0 || quantity ===""){
+      Notify("there are problem with added","warn")
+      return;
+    }
     const formData = new FormData();
     formData.append("title", name);
     formData.append("description", description);
@@ -119,12 +125,47 @@ export default function AddProduct() {
     formData.append("category", categoryId);
     formData.append("brand", brandId);
     colors.map((color) => formData.append("colors", color));
-    const subCategoryIDs = selectSubCategoryId.map((item) => item._id);
-    subCategoryIDs.map((item) => formData.append("subcategories", item));
-    const filesSelected = files.map(({name}) => name);
+
+    const filesSelected = files.map(({ name }) => name);
     filesSelected.map((item) => formData.append("images", item));
+
+    const subCategoryIDs = selectSubCategoryId.map((item) => item._id);
+
+    if (subCategoryIDs.every((id) => typeof id === "string")) {
+      subCategoryIDs.map((item) => formData.append("subcategories", item));
+    }else{
+      console.log("there are problem");
+    }
+    setLoading(true)
     await dispatch(createProduct(formData));
+    setLoading(false)
   };
+  const products = useSelector(state => state.product.products)
+
+  useEffect(()=>{
+    if(loading ===false){
+      setName('')
+      setDescription('')
+      setPriceAfter(0)
+      setPriceBefore(0)
+      setQuantity(0)
+      setBrandID("0")
+      setCategoryID("0")
+      setColors([])
+      setFile([])
+      setFiles([])
+      setSelectSubCategoryID([])
+      setTimeout(() => setLoading(true), 1500)
+      if(products.status ===201){
+        Notify("Added succsusful","success");
+        
+      }else{
+        Notify("Added error ","error");
+
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[loading])
   return (
     <>
       <Breadcrumb pageName="Add product" />
@@ -379,6 +420,8 @@ export default function AddProduct() {
           Add
         </Link>
       </div>
+      <ToastContainer />
     </>
+
   );
 }
