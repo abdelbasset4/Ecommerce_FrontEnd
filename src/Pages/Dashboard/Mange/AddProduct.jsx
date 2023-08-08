@@ -7,7 +7,38 @@ import { CompactPicker } from "react-color";
 import { ToastContainer } from "react-toastify";
 import useAddProduct from "../../../hook/product/useAddProduct";
 export default function AddProduct() {
-  const [name,description,priceAfter,priceBefore,quantity,categoryId,colors,brandId,images,showColor,options,optionsMultipleImages,optionsSingleImage,categories,brands,changeName,changeDescription,changePriceBefore,changePriceAfter,changeQuantity,submitHandlerImageCover,submitHandlerImages,onSelectSubCategory,onRemoveSubCategory,getBrandId,getCategoryId,showColorPicker,removeColor,handleColorCompleteChange,hundelSubmit] = useAddProduct()
+  const [
+    name,
+    description,
+    priceAfter,
+    priceBefore,
+    quantity,
+    categoryId,
+    colors,
+    brandId,
+    images,
+    showColor,
+    options,
+    optionsMultipleImages,
+    optionsSingleImage,
+    categories,
+    brands,
+    changeName,
+    changeDescription,
+    changePriceBefore,
+    changePriceAfter,
+    changeQuantity,
+    submitHandlerImageCover,
+    submitHandlerImages,
+    onSelectSubCategory,
+    onRemoveSubCategory,
+    getBrandId,
+    getCategoryId,
+    showColorPicker,
+    removeColor,
+    handleColorCompleteChange,
+    hundelSubmit,
+  ] = useAddProduct();
   return (
     <>
       <Breadcrumb pageName="Add product" />
@@ -264,6 +295,5 @@ export default function AddProduct() {
       </div>
       <ToastContainer />
     </>
-
   );
 }

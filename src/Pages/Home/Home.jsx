@@ -5,7 +5,7 @@ import SecondNavBar from "../../Components/Utility/SecondNavBar"
 import HomeSlider from "../../Components/Home/HomeSlider"
 import CategorySlider from "../../Components/Home/CategorySlider"
 import CollectionCard from "../../Components/Home/CollectionCard"
-import CardListHome from "../../Components/Home/CardListHome"
+// import CardListHome from "../../Components/Home/CardListHome"
 import Brand from "../../Components/Home/Brand"
 import TrendingProduct from "../../Components/Home/TrendingProduct"
 import Banner from "../../Components/Home/Banner"
@@ -23,7 +23,6 @@ export default function Home() {
       <HomeSlider/>
       <CategorySlider/>
       <CollectionCard/>
-      <CardListHome/>
       <Brand/>
       <TrendingProduct/>
       <Banner/>

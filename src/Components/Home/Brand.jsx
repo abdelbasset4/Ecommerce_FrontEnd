@@ -54,7 +54,7 @@ export default function Brand() {
     <div
       className="px-8 py-8 mt-10 rounded-2xl  text-white mx-4"
       style={{ backgroundColor: "#004743" }}>
-      <div className="content flex justify-between">
+      <div className="content flex flex-col lg:flex-row gap-3 justify-center lg:justify-between">
         <div className="text">
           <h3 className="text-2xl font-bold">Top Brands Deal</h3>
           <p className="text-xl mt-4">

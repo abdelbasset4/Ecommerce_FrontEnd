@@ -7,15 +7,16 @@ import SortingMenu from "../../Components/Search/SortingMenu";
 import DrawerFilter from "../../Components/Search/DrawerFilter";
 import ProductSearchList from "../../Components/Search/ProductSearchList";
 import Pagination from "../../Components/Utility/Pagination";
-
-
-
+import useGetAllSearchProducts from "../../hook/product/useGetAllSearchProducts";
 
 const categoryList = ['Men','Women','Watch','Kids','Sport','Sunglass','Bugs','Sneakers']
 const brandList = ['Shovia',' Fusion', 'Hunter Shoes', 'Club Shoes', 'Hoppister', 'Blaze Fashion', 'Elegance', 'Fashadil']
 const priceList = ['Under $50', '$50 to $100', '$100 to $150', '$150 to $200', '$200 to $300', '$300 to $500', '$500 to $1000', 'Over $1000']
 
 export default function SearchPage() {
+  const  [products,pageCount,getPageNumber]= useGetAllSearchProducts()
+  console.log(products);
+  console.log(pageCount);
   return (
     <div>
         <NavBar/>
@@ -43,15 +44,21 @@ export default function SearchPage() {
               </Typography>
               <div className="flex items-center gap-8 justify-between">
                 <Typography  className=" hidden lg:block text-sm text-gray-600 ">
-                   7392 items
+                   {
+                    products.data ? (`${products.data.length} items`):(`0 items`)
+                   } 
                 </Typography>
                 <DrawerFilter/> 
                 <SortingMenu/>
               </div>
               </div>
               <div className="mt-9">
-                <ProductSearchList/>
-                <Pagination/>
+                <ProductSearchList products={products}/>
+                <div className="mt-8">
+                {
+                  pageCount >1 ?(<Pagination numberPages={pageCount} onPress={getPageNumber} />):null
+                }
+                </div>
               </div>
             </div>
         </div>
