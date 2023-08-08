@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { createProduct } from './ProductThunk'
+import { createProduct,getAllProducts } from './ProductThunk'
 
 const initialState = {
     products: [],
@@ -11,6 +11,19 @@ const initialState = {
   name: 'products',
   initialState,
   extraReducers:{
+    [getAllProducts.pending]:(state)=>{
+      state.isLoading=true;
+      state.erorr=null;
+    },
+    [getAllProducts.fulfilled]:(state,action)=>{
+      state.products = action.payload
+      state.isLoading=false;
+      state.erorr=null;
+    },
+    [getAllProducts.rejected]:(state,action)=>{
+      state.isLoading=false;
+      state.erorr=action?.error?.message;
+    },
     [createProduct.pending]:(state)=>{
       state.isLoading=true;
       state.erorr=null;
