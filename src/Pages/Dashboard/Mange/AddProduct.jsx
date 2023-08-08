@@ -4,168 +4,10 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 import Breadcrumb from "../../../Components/Dashboard/Breadcrumb";
 import { UploadMedia } from "react-upload-media";
 import { CompactPicker } from "react-color";
-import { useState } from "react";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllCategory } from "../../../Redux/Slice/Category/CategoryThunk";
-import { getAllBrand } from "../../../Redux/Slice/Brand/BrandThunk";
-import { createProduct } from "../../../Redux/Slice/product/ProductThunk";
-import { getAllSubCategoryOnCatID } from "../../../Redux/Slice/SubCategory/SubCategoryThunk";
-import Notify from "../../../hooks/useNotify"
 import { ToastContainer } from "react-toastify";
+import useAddProduct from "../../../hook/product/useAddProduct";
 export default function AddProduct() {
-  // States
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [priceBefore, setPriceBefore] = useState(0);
-  const [priceAfter, setPriceAfter] = useState(0);
-  const [quantity, setQuantity] = useState(0);
-  const [categoryId, setCategoryID] = useState("");
-  // const [subCategoryId, setSubCategoryID] = useState("");
-  const [selectSubCategoryId, setSelectSubCategoryID] = useState([]);
-  const [brandId, setBrandID] = useState("");
-  const [loading, setLoading] = useState(true);
-  const [files, setFiles] = useState([]);
-  const [file, setFile] = useState([]);
-  const [showColor, setShowColor] = useState(false);
-  const [colors, setColors] = useState([]);
-  const [options, setOptions] = useState([]);
-
-  const submitHandlerCover = (file) => {
-    console.log(file);
-    setFile(file);
-  };
-
-  const submitHandlerImages = (files) => {
-    setFiles(files);
-  };
-  const optionsMultiple = {
-    multiple: true,
-    accept: "/*",
-  };
-  const optionsSingle = {
-    multiple: false,
-    accept: "/*",
-  };
-  const onSelect = (selectedList) => {
-    setSelectSubCategoryID(selectedList);
-    console.log(selectSubCategoryId);
-  };
-  const onRemove = (selectedList) => {
-    setSelectSubCategoryID(selectedList);
-    console.log(selectSubCategoryId);
-  };
-
-  const dispatch = useDispatch();
-  const categories = useSelector((state) => state.category.category);
-  const brands = useSelector((state) => state.brand.brand);
-  const subCategory = useSelector((state) => state.subCategory.subCategory);
-
-  useEffect(() => {
-    dispatch(getAllCategory(`/api/v1/categories`));
-    dispatch(getAllBrand(`/api/v1/brands`));
-  }, [dispatch]);
-
-  const getCategoryId = async (e) => {
-    if (e.target.value != "0") {
-      try {
-        setCategoryID(e.target.value);
-        await dispatch(
-          getAllSubCategoryOnCatID(
-            `/api/v1/categories/${e.target.value}/subcategories`
-          )
-        );
-      } catch (error) {
-        console.error("Error occurred during dispatch:", error);
-      }
-    }
-  };
-
-  useEffect(() => {
-    const updateOptions = async () => {
-      if (categoryId !== "0") {
-        if (subCategory.data) {
-          setOptions(subCategory.data);
-        }
-      }
-    };
-    updateOptions();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [categoryId, subCategory.data]);
-
-  const getBrandId = (e) => {
-    setBrandID(e.target.value);
-  };
-  const showColorPicker = () => {
-    setShowColor(!showColor);
-  };
-  const handleColorCompleteChange = (color) => {
-    setColors([...colors, color.hex]);
-    setShowColor(!showColor);
-    console.log(colors);
-  };
-  const removeColor = (color) => {
-    const removedArray = colors.filter((e) => color !== e);
-    setColors(removedArray);
-  };
-
-  const hundelSubmit = async (e) => {
-    e.preventDefault();
-    if(categoryId ==="0" || name ===""|| description==="" || priceBefore === 0 || file.length <=0 || quantity ===""){
-      Notify("there are problem with added","warn")
-      return;
-    }
-    const formData = new FormData();
-    formData.append("title", name);
-    formData.append("description", description);
-    formData.append("quantity", quantity);
-    formData.append("price", priceBefore);
-    formData.append("priceAfterDiscount", priceAfter);
-    formData.append("imageCover", file[0].name);
-    formData.append("category", categoryId);
-    formData.append("brand", brandId);
-    colors.map((color) => formData.append("colors", color));
-
-    const filesSelected = files.map(({ name }) => name);
-    filesSelected.map((item) => formData.append("images", item));
-
-    const subCategoryIDs = selectSubCategoryId.map((item) => item._id);
-
-    if (subCategoryIDs.every((id) => typeof id === "string")) {
-      subCategoryIDs.map((item) => formData.append("subcategories", item));
-    }else{
-      console.log("there are problem");
-    }
-    setLoading(true)
-    await dispatch(createProduct(formData));
-    setLoading(false)
-  };
-  const products = useSelector(state => state.product.products)
-
-  useEffect(()=>{
-    if(loading ===false){
-      setName('')
-      setDescription('')
-      setPriceAfter(0)
-      setPriceBefore(0)
-      setQuantity(0)
-      setBrandID("0")
-      setCategoryID("0")
-      setColors([])
-      setFile([])
-      setFiles([])
-      setSelectSubCategoryID([])
-      setTimeout(() => setLoading(true), 1500)
-      if(products.status ===201){
-        Notify("Added succsusful","success");
-        
-      }else{
-        Notify("Added error ","error");
-
-      }
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[loading])
+  const [name,description,priceAfter,priceBefore,quantity,categoryId,colors,brandId,images,showColor,options,optionsMultipleImages,optionsSingleImage,categories,brands,changeName,changeDescription,changePriceBefore,changePriceAfter,changeQuantity,submitHandlerImageCover,submitHandlerImages,onSelectSubCategory,onRemoveSubCategory,getBrandId,getCategoryId,showColorPicker,removeColor,handleColorCompleteChange,hundelSubmit] = useAddProduct()
   return (
     <>
       <Breadcrumb pageName="Add product" />
@@ -176,7 +18,7 @@ export default function AddProduct() {
           </label>
           <input
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={changeName}
             type="text"
             placeholder="Product Name"
             className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
@@ -189,7 +31,7 @@ export default function AddProduct() {
           <textarea
             value={description}
             rows={6}
-            onChange={(e) => setDescription(e.target.value)}
+            onChange={changeDescription}
             placeholder="Product Description"
             className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></textarea>
         </div>
@@ -200,7 +42,7 @@ export default function AddProduct() {
           <input
             value={priceBefore}
             type="number"
-            onChange={(e) => setPriceBefore(e.target.value)}
+            onChange={changePriceBefore}
             placeholder="Price before descount"
             className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
           />
@@ -211,7 +53,7 @@ export default function AddProduct() {
           </label>
           <input
             value={priceAfter}
-            onChange={(e) => setPriceAfter(e.target.value)}
+            onChange={changePriceAfter}
             type="number"
             placeholder="Price"
             className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
@@ -223,7 +65,7 @@ export default function AddProduct() {
           </label>
           <input
             value={quantity}
-            onChange={(e) => setQuantity(e.target.value)}
+            onChange={changeQuantity}
             type="number"
             placeholder="Quantity"
             className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
@@ -333,8 +175,8 @@ export default function AddProduct() {
               className="mt-2 text-end"
               placeholder="Sub category"
               options={options}
-              onSelect={onSelect}
-              onRemove={onRemove}
+              onSelect={onSelectSubCategory}
+              onRemove={onRemoveSubCategory}
               displayValue="name"
               style={{
                 chips: {
@@ -387,8 +229,8 @@ export default function AddProduct() {
           <UploadMedia
             height={"200px"}
             primaryColor="rgb(13, 31, 51)"
-            onSubmit={submitHandlerCover}
-            options={optionsSingle}
+            onSubmit={submitHandlerImageCover}
+            options={optionsSingleImage}
             style={{ marginTop: "15px" }}
           />
         </div>
@@ -400,13 +242,13 @@ export default function AddProduct() {
             height={"200px"}
             primaryColor="rgb(13, 31, 51)"
             onSubmit={submitHandlerImages}
-            options={optionsMultiple}
+            options={optionsMultipleImages}
             style={{ marginTop: "15px" }}
           />
           <div>
             <p>Files Uploaded</p>
             <ul>
-              {files.map((file, index) => (
+              {images.map((file, index) => (
                 <li key={index}>{file.name}</li>
               ))}
             </ul>
