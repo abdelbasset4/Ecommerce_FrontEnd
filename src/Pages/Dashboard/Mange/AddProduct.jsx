@@ -6,9 +6,11 @@ import { UploadMedia } from "react-upload-media";
 import { CompactPicker } from "react-color";
 import { ToastContainer } from "react-toastify";
 import useAddProduct from "../../../hook/product/useAddProduct";
+
 export default function AddProduct() {
   const [
     name,
+    changeImg,
     description,
     priceAfter,
     priceBefore,
@@ -220,7 +222,7 @@ export default function AddProduct() {
                   border:
                     "1px solid rgb(226 232 240 / var(--tw-border-opacity))",
                   padding: "12px",
-                  "border-radius": "4px",
+                  "borderRadius": "4px",
                 },
               }}
             />
@@ -257,13 +259,12 @@ export default function AddProduct() {
           <label className="mb-3 block text-black dark:text-white">
             Cover Image:
           </label>
-          <UploadMedia
-            height={"200px"}
-            primaryColor="rgb(13, 31, 51)"
-            onSubmit={submitHandlerImageCover}
-            options={optionsSingleImage}
-            style={{ marginTop: "15px" }}
-          />
+          <input
+                  type="file"
+                  onChange={changeImg}
+                  className="w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent font-medium outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:py-3 file:px-5 file:hover:bg-primary file:hover:bg-opacity-10 focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:file:border-form-strokedark dark:file:bg-white/30 dark:file:text-white dark:focus:border-primary"
+                />
+         
         </div>
         <div className="my-4">
           <label className="mb-3 block text-black dark:text-white">

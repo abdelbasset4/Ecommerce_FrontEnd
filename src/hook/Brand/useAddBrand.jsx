@@ -25,6 +25,7 @@ function useAddBrand() {
     if (e.target.files && e.target.files[0]) {
       setImg(URL.createObjectURL(e.target.files[0]));
       setSelectedFile(e.target.files[0]);
+      console.log(e.target.files[0]);
     }
   };
   const submitData = async (e) => {

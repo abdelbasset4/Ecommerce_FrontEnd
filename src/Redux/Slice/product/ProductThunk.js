@@ -18,6 +18,7 @@ export  const createProduct=createAsyncThunk('product/create' ,async (formData ,
         const res = await useInsertDataWithImage(`/api/v1/products`,formData);
         return res;
     }catch (err){
+        console.log("hi error" + err);
         return rejectWithValue(err.message);
     }
 })
