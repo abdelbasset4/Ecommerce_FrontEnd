@@ -90,7 +90,12 @@ function useAddProduct() {
     setColors([...colors, color.hex]);
     setShowColor(!showColor);
   };
-
+  const [selectedFile, setSelectedFile] = useState(null);
+  const changeImg = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setSelectedFile(e.target.files[0]);
+    }
+  };
   const getCategoryId = async (e) => {
     if (e.target.value != "0") {
       try {
@@ -126,7 +131,7 @@ function useAddProduct() {
       name === "" ||
       description === "" ||
       priceBefore === 0 ||
-      imageCover.length <= 0 ||
+      
       quantity === ""
     ) {
       Notify("there are problem with added", "warn");
@@ -142,10 +147,16 @@ function useAddProduct() {
     formData.append("quantity", quantity);
     formData.append("price", priceBefore);
     formData.append("priceAfterDiscount", priceAfter);
-    formData.append("imageCover", imageCover[0].name);
+    formData.append("imageCover", selectedFile);
     formData.append("category", categoryId);
     formData.append("brand", brandId);
-    colors.map((color) => formData.append("colors", color));
+    if(colors.length ==1){
+      console.log("this is 1");
+      formData.append("colors", colors)
+    }else{
+
+      colors.map((color) => formData.append("colors", color));
+    }
 
     const filesSelected = images.map(({ name }) => name);
     filesSelected.map((item) => formData.append("images", item));
@@ -158,6 +169,9 @@ function useAddProduct() {
       console.log("there are problem");
     }
     setLoading(true);
+    console.log(colors);
+    console.log(subCategoryIDs);
+    console.log(filesSelected);
     await dispatch(createProduct(formData));
     setLoading(false);
   };
@@ -188,6 +202,7 @@ function useAddProduct() {
   }, [loading]);
   return [
     name,
+    changeImg,
     description,
     priceAfter,
     priceBefore,
