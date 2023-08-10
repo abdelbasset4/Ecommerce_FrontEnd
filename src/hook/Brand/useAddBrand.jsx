@@ -34,7 +34,7 @@ function useAddBrand() {
   useEffect(() => {
     if (loading === false) {
       setName("");
-
+      setFiles([])
       setLoading(true);
       setPress(false);
       if (res.status === 201) {

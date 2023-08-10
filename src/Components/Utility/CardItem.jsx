@@ -30,7 +30,7 @@ import {
         <CardHeader shadow={false} floated={false} className="h-96">
           <img 
             src={product.imageCover}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain"
           />
         </CardHeader>
         <CardBody>
@@ -40,7 +40,7 @@ import {
               {product.title}
             </Typography>
             <Typography color="blue-gray" className="font-medium">
-             $ {product.price}
+             ${product.price}
             </Typography>
           </div>
           <Typography variant="small" color="gray" className="font-normal opacity-75">
@@ -58,7 +58,7 @@ import {
         </CardFooter>
 
    
-        <div className="absolute bottom-[290px] right-6 ">
+        <div className="absolute bottom-[200px] right-6 ">
         <SpeedDial>
           <SpeedDialHandler>
             <IconButton size="lg" className="rounded-full bg-gray-900 shadow-gray-900">

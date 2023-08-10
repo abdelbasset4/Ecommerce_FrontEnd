@@ -3,8 +3,12 @@ import Counter from "../Utility/Counter";
 import SecondNavBar from "../Utility/SecondNavBar";
 import ProductCarousel from "./ProductCarousel";
 import ProductAccordion from "./ProductAccordion";
-
+import { useParams } from "react-router";
+import  useGetOneProduct  from "../../hook/product/useGetOneProduct";
 export default function ProductDetails() {
+    const {id} = useParams()
+    const [product] = useGetOneProduct(id)
+    console.log(product);
   return (
 
     <>
@@ -25,7 +29,7 @@ export default function ProductDetails() {
                 <Typography  className="font-semibold text-base md:text-xl lg:text-2xl">
                 $950.00
                 </Typography>
-                <Typography  className="font-segoe text-gray-400 text-base lg:text-xl ltr:pl-2.5 rtl:pr-2.5 -mt-0.5 md:mt-0">
+                <Typography  className="font-segoe line-through text-gray-400 text-base lg:text-xl ltr:pl-2.5 rtl:pr-2.5 -mt-0.5 md:mt-0">
                 $1905.00
                 </Typography>
             </div>
@@ -45,7 +49,7 @@ export default function ProductDetails() {
                     Color
                 </Typography>
                 <ButtonGroup size="sm" className="flex gap-4 mt-3 divide-x-0 divide-y-0 h-8" >
-                    <Button  className="bg-orange-900 text-gray-900 rounded-md"></Button>
+                    <Button  className="bg-orange-900 text-gray-900 rounded-md" ></Button>
                     <Button className="bg-purple-300 text-gray-900 rounded-md"></Button>
                     <Button className="bg-pink-600  text-gray-900 rounded-md"></Button>
                     <Button className="bg-red-800   text-gray-900 rounded-md"></Button>
