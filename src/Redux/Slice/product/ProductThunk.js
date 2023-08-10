@@ -12,6 +12,16 @@ export  const getAllProducts=createAsyncThunk('product/getAll' ,async (url ,thun
     }
 })
 
+export  const getOneProduct=createAsyncThunk('product/getOne' ,async (url ,thunkAPI)=>{
+    const {rejectWithValue}=thunkAPI;
+    try{
+        const res = await useGetData(url);
+        return res;
+    }catch (err){
+        return rejectWithValue(err.message);
+    }
+})
+
 export  const createProduct=createAsyncThunk('product/create' ,async (formData ,thunkAPI)=>{
     const {rejectWithValue}=thunkAPI;
     try{

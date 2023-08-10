@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { createProduct,getAllProducts } from './ProductThunk'
+import { createProduct,getAllProducts,getOneProduct } from './ProductThunk'
 
 const initialState = {
     products: [],
+    product:[],
     isLoading: true,
     error:null
 }
@@ -36,7 +37,20 @@ const initialState = {
     [createProduct.rejected]:(state,action)=>{
       state.isLoading=false;
       state.erorr=action?.error?.message;
-    }
+    },
+    [getOneProduct.pending]:(state)=>{
+      state.isLoading=true;
+      state.erorr=null;
+    },
+    [getOneProduct.fulfilled]:(state,action)=>{
+      state.product = action.payload
+      state.isLoading=false;
+      state.erorr=null;
+    },
+    [getOneProduct.rejected]:(state,action)=>{
+      state.isLoading=false;
+      state.erorr=action?.error?.message;
+    },
   }
 })
 

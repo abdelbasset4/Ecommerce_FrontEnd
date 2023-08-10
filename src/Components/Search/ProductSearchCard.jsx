@@ -70,8 +70,8 @@ export default function ProductSearchCard({ product }) {
           <div className="flex flex-col lg:flex-row gap-6">
             <div className="w-full lg:w-1/2 h-full">
               <img
-                src="https://images.unsplash.com/photo-1629367494173-c78a56567877?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=927&q=80"
-                className="w-full rounded-bl-lg h-full object-cover"
+                src={product.imageCover}
+                className="w-full rounded-bl-lg h-full object-contain"
               />
             </div>
             <div className="py-6 w-full lg:w-1/2 pe-5">
@@ -89,7 +89,7 @@ export default function ProductSearchCard({ product }) {
                 <Typography className="font-semibold text-base md:text-xl lg:text-2xl">
                   ${product.priceAfterDiscount}
                 </Typography>
-                <Typography className="font-segoe text-gray-400 text-base lg:text-xl ltr:pl-2.5 rtl:pr-2.5 -mt-0.5 md:mt-0">
+                <Typography className="font-segoe line-through text-gray-400 text-base lg:text-xl ltr:pl-2.5 rtl:pr-2.5 -mt-0.5 md:mt-0">
                   ${product.price}
                 </Typography>
               </div>
