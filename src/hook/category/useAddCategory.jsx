@@ -1,67 +1,48 @@
-import { useState } from 'react';
-import { useDispatch, useSelector,  } from "react-redux";
-import { useEffect } from 'react';
-import { useRef } from 'react';
-import Notify from '../../hooks/useNotify';
-import cloudComputing from '../../assets/uploadImage/cloudComputing.png';
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import Notify from "../../hooks/useNotify";
 import { createCategory } from "../../Redux/Slice/Category/CategoryThunk";
 
 function useAddCategory() {
-    const inputRef = useRef(null);
-    const dispatch = useDispatch()
-    const [img,setImg] = useState(cloudComputing)
-    const [selectedFile,setSelectedFile] = useState(null)
-    const [name,setName] = useState('')
-    const [loading,setLoading] = useState(true)
-    const [press,setPress] = useState(false)
-  
-    const res = useSelector(state => state.category.category);
+  const dispatch = useDispatch();
+  const [name, setName] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [press, setPress] = useState(false);
+  const [files, setFiles] = useState([]);
+  const res = useSelector((state) => state.category.category);
 
-    const changeName = (e)=>{
-        e.persist()
-        setName(e.target.value)
+  const changeName = (e) => {
+    e.persist();
+    setName(e.target.value);
+  };
+  const submitData = async (e) => {
+    e.preventDefault();
+    if (name === "") {
+      Notify("there are some problems with add", "warn");
+      return;
     }
-    const changeImg =(e)=>{
-      if (e.target.files && e.target.files[0]) {
-        setImg(URL.createObjectURL(e.target.files[0]))
-        setSelectedFile(e.target.files[0])
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("image", files[0].file);
+    setLoading(true);
+    setPress(true);
+    await dispatch(createCategory(formData));
+    setLoading(false);
+  };
+  useEffect(() => {
+    if (loading === false) {
+      setName("");
+      setLoading(true);
+      setPress(false);
+      if (res.status === 201) {
+        Notify("Added succsusful", "success");
+      } else {
+        Notify("Added error ", "error");
       }
     }
-    const submitData = async(e)=>{
-      e.preventDefault()
-      if(name ==="" || selectedFile === null){
-        Notify("there are some problems with add","warn");
-        return 
-      }
-      const formData = new FormData();
-      formData.append("name", name)
-      formData.append("image", selectedFile)
-      setLoading(true)
-      setPress(true)
-      await dispatch(createCategory(formData))
-      setLoading(false)
-    }
-    useEffect(
-      ()=>{
-        if(loading === false){
-          setName('')
-          setImg(cloudComputing)
-         
-          setSelectedFile(null)
-          setLoading(true)
-          setPress(false)
-          inputRef.current.value = ''
-          if(res.status ===201){
-            Notify("Added succsusful","success");
-            
-          }else{
-            Notify("Added error ","error");
-  
-          }
-        }
-      }
-      ,[loading, res.status])
-     return [name,img,inputRef,loading,press,changeImg,changeName,submitData] 
+  }, [loading, res.status]);
+  return [name, loading, press, changeName, submitData, files, setFiles];
 }
 
-export default useAddCategory
+export default useAddCategory;

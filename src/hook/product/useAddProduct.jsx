@@ -19,34 +19,15 @@ function useAddProduct() {
   const [selectSubCategoryId, setSelectSubCategoryID] = useState([]);
   const [brandId, setBrandID] = useState("");
   const [loading, setLoading] = useState(true);
-  const [images, setImages] = useState([]);
-  const [imageCover, setImageCover] = useState([]);
   const [showColor, setShowColor] = useState(false);
   const [colors, setColors] = useState([]);
   const [options, setOptions] = useState([]);
-
+  const [files, setFiles] = useState([]);
+  const [multipleFiles, setMultipleFiles] = useState([]);
   //  select all category sub category brand in redux
   const categories = useSelector((state) => state.category.category);
   const brands = useSelector((state) => state.brand.brand);
   const subCategory = useSelector((state) => state.subCategory.subCategory);
-
-  // option for upload image cover and images
-  const optionsMultipleImages = {
-    multiple: true,
-    accept: "/*",
-  };
-  const optionsSingleImage = {
-    multiple: false,
-    accept: "/*",
-  };
-
-  const submitHandlerImageCover = (file) => {
-    setImageCover(file);
-  };
-
-  const submitHandlerImages = (files) => {
-    setImages(files);
-  };
 
   const onSelectSubCategory = (selectedList) => {
     setSelectSubCategoryID(selectedList);
@@ -90,12 +71,7 @@ function useAddProduct() {
     setColors([...colors, color.hex]);
     setShowColor(!showColor);
   };
-  const [selectedFile, setSelectedFile] = useState(null);
-  const changeImg = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      setSelectedFile(e.target.files[0]);
-    }
-  };
+
   const getCategoryId = async (e) => {
     if (e.target.value != "0") {
       try {
@@ -131,14 +107,16 @@ function useAddProduct() {
       name === "" ||
       description === "" ||
       priceBefore === 0 ||
-      
       quantity === ""
     ) {
       Notify("there are problem with added", "warn");
       return;
     }
-    if(priceBefore <priceBefore){
-      Notify("the price after discount must be smaller than before discount", "warn");
+    if (priceBefore < priceBefore) {
+      Notify(
+        "the price after discount must be smaller than before discount",
+        "warn"
+      );
       return;
     }
     const formData = new FormData();
@@ -147,19 +125,15 @@ function useAddProduct() {
     formData.append("quantity", quantity);
     formData.append("price", priceBefore);
     formData.append("priceAfterDiscount", priceAfter);
-    formData.append("imageCover", selectedFile);
+    formData.append("imageCover", files[0].file);
     formData.append("category", categoryId);
     formData.append("brand", brandId);
-    if(colors.length ==1){
-      console.log("this is 1");
-      formData.append("colors", colors)
-    }else{
-
+    if (colors.length == 1) {
+      formData.append("colors", colors);
+    } else {
       colors.map((color) => formData.append("colors", color));
     }
-
-    const filesSelected = images.map(({ name }) => name);
-    filesSelected.map((item) => formData.append("images", item));
+    multipleFiles.map((file)=> formData.append("images", file.file))
 
     const subCategoryIDs = selectSubCategoryId.map((item) => item._id);
 
@@ -169,9 +143,6 @@ function useAddProduct() {
       console.log("there are problem");
     }
     setLoading(true);
-    console.log(colors);
-    console.log(subCategoryIDs);
-    console.log(filesSelected);
     await dispatch(createProduct(formData));
     setLoading(false);
   };
@@ -188,8 +159,6 @@ function useAddProduct() {
       setBrandID("0");
       setCategoryID("0");
       setColors([]);
-      setImageCover([]);
-      setImages([]);
       setSelectSubCategoryID([]);
       setTimeout(() => setLoading(true), 1500);
       if (products.status === 201) {
@@ -202,7 +171,7 @@ function useAddProduct() {
   }, [loading]);
   return [
     name,
-    changeImg,
+
     description,
     priceAfter,
     priceBefore,
@@ -210,11 +179,12 @@ function useAddProduct() {
     categoryId,
     colors,
     brandId,
-    images,
     showColor,
+    files,
+    setFiles,
+    multipleFiles,
+    setMultipleFiles,
     options,
-    optionsMultipleImages,
-    optionsSingleImage,
     categories,
     brands,
     changeName,
@@ -222,8 +192,6 @@ function useAddProduct() {
     changePriceBefore,
     changePriceAfter,
     changeQuantity,
-    submitHandlerImageCover,
-    submitHandlerImages,
     onSelectSubCategory,
     onRemoveSubCategory,
     getBrandId,
