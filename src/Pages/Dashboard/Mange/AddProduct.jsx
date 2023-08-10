@@ -2,15 +2,19 @@ import { Link } from "react-router-dom";
 import Multiselect from "multiselect-react-dropdown";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import Breadcrumb from "../../../Components/Dashboard/Breadcrumb";
-import { UploadMedia } from "react-upload-media";
 import { CompactPicker } from "react-color";
 import { ToastContainer } from "react-toastify";
 import useAddProduct from "../../../hook/product/useAddProduct";
+import { FilePond, registerPlugin } from "react-filepond";
+import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
+import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
+registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
+import "filepond/dist/filepond.min.css";
 
 export default function AddProduct() {
   const [
     name,
-    changeImg,
     description,
     priceAfter,
     priceBefore,
@@ -18,11 +22,12 @@ export default function AddProduct() {
     categoryId,
     colors,
     brandId,
-    images,
     showColor,
+    files,
+    setFiles,
+    multipleFiles,
+    setMultipleFiles,
     options,
-    optionsMultipleImages,
-    optionsSingleImage,
     categories,
     brands,
     changeName,
@@ -30,8 +35,6 @@ export default function AddProduct() {
     changePriceBefore,
     changePriceAfter,
     changeQuantity,
-    submitHandlerImageCover,
-    submitHandlerImages,
     onSelectSubCategory,
     onRemoveSubCategory,
     getBrandId,
@@ -259,32 +262,28 @@ export default function AddProduct() {
           <label className="mb-3 block text-black dark:text-white">
             Cover Image:
           </label>
-          <input
-                  type="file"
-                  onChange={changeImg}
-                  className="w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent font-medium outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:py-3 file:px-5 file:hover:bg-primary file:hover:bg-opacity-10 focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:file:border-form-strokedark dark:file:bg-white/30 dark:file:text-white dark:focus:border-primary"
-                />
+          <FilePond
+            files={files}
+            onupdatefiles={setFiles}
+            allowMultiple={true}
+            maxFiles={1}
+            name="files"
+            labelIdle='Drag & Drop your image or <span class="filepond--label-action">Browse</span>'
+          />
          
         </div>
         <div className="my-4">
           <label className="mb-3 block text-black dark:text-white">
             Product images:
           </label>
-          <UploadMedia
-            height={"200px"}
-            primaryColor="rgb(13, 31, 51)"
-            onSubmit={submitHandlerImages}
-            options={optionsMultipleImages}
-            style={{ marginTop: "15px" }}
-          />
-          <div>
-            <p>Files Uploaded</p>
-            <ul>
-              {images.map((file, index) => (
-                <li key={index}>{file.name}</li>
-              ))}
-            </ul>
-          </div>
+          <FilePond
+          files={multipleFiles}
+          onupdatefiles={setMultipleFiles}
+          allowMultiple={true}
+          maxFiles={5}
+          name="files"
+          labelIdle='Drag & Drop your images or <span class="filepond--label-action">Browse</span>'
+        />
         </div>
 
         <Link
