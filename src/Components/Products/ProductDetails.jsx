@@ -5,10 +5,12 @@ import ProductCarousel from "./ProductCarousel";
 import ProductAccordion from "./ProductAccordion";
 import { useParams } from "react-router";
 import useGetOneProduct from "../../hook/product/useGetOneProduct";
+import ProductSearchCard from "../Search/ProductSearchCard";
 export default function ProductDetails() {
   const { id } = useParams();
-  const [items, brand, subCategories,productsWithoutThisProd] = useGetOneProduct(id);
-  
+  const [items, brand, subCategories, productsWithoutThisProd] =
+    useGetOneProduct(id);
+  console.log(productsWithoutThisProd);
   return (
     <>
       <SecondNavBar />
@@ -94,7 +96,7 @@ export default function ProductDetails() {
               </Typography>
               {items.category ? (
                 <Typography className="text-gray-700 text-sm font-medium">
-                  items.category.name
+                  {items.category.name}
                 </Typography>
               ) : null}
             </div>
@@ -104,9 +106,16 @@ export default function ProductDetails() {
                   Tags:
                 </Typography>
                 <div className="flex gap-2">
-                  {subCategories.data.map((subCategory) => {
+                  {subCategories.data.map((subCategory, index) => {
                     // eslint-disable-next-line react/jsx-key
-                    return <Chip color="indigo" value={subCategory.name} />;
+                    return (
+                      <Chip
+                        size="sm"
+                        key={index}
+                        color="indigo"
+                        value={subCategory.name}
+                      />
+                    );
                   })}
                 </div>
               </div>
@@ -116,6 +125,18 @@ export default function ProductDetails() {
             </div>
           </div>
         </div>
+      </div>
+      <h2 className="mb-4 text-2xl font-extrabold text-gray-900 ms-4">Products you may like</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mx-4 ">
+        {
+          // eslint-disable-next-line react/prop-types
+          productsWithoutThisProd
+            ? productsWithoutThisProd.map((product) => (
+                // eslint-disable-next-line react/jsx-key
+                <ProductSearchCard product={product} />
+              ))
+            : null
+        }
       </div>
     </>
   );
