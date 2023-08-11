@@ -55,10 +55,10 @@ export default function Testimonial() {
             className='pt-0'
           >
             <div  className='custom-wrapper grid grid-cols-1'>
-              <SplideTrack className='grid lg:block' key={Math.random()}>
+              <SplideTrack className='grid lg:block' >
               {data.map(({ name,obj,text }) => (
                 // eslint-disable-next-line react/jsx-key
-                <SplideSlide>
+                <SplideSlide key={Math.random()}>
                   <TestimonialCard name={name} obj={obj} text={text} key={Math.random()}/>
                 </SplideSlide>
 

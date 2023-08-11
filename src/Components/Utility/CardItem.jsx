@@ -43,7 +43,7 @@ import {
              ${product.price}
             </Typography>
           </div>
-          <Typography variant="small" color="gray" className="font-normal opacity-75">
+          <Typography variant="small" color="gray" className="font-normal opacity-75 truncate	">
             {product.description}
           </Typography>
         </CardBody>

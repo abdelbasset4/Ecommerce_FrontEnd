@@ -7,7 +7,6 @@ import {
   Dialog,
   DialogBody,
   Button,
-  ButtonGroup,
 } from "@material-tailwind/react";
 import { Fragment, useState } from "react";
 import { XMarkIcon } from "@heroicons/react/24/solid";
@@ -93,27 +92,7 @@ export default function ProductSearchCard({ product }) {
                   ${product.price}
                 </Typography>
               </div>
-              <div className="my-5">
-                <Typography className="text-black text-xl font-semibold">
-                  Size
-                </Typography>
-                <ButtonGroup
-                  size="sm"
-                  className="flex gap-4 divide-x-0 divide-y-0">
-                  <Button className="bg-white border-2 border-gray-300 hover:border-gray-800 text-gray-900 rounded-md">
-                    S
-                  </Button>
-                  <Button className="bg-white border-2 border-gray-300 hover:border-gray-800 text-gray-900 rounded-md">
-                    M
-                  </Button>
-                  <Button className="bg-white border-2 border-gray-300 hover:border-gray-800 text-gray-900 rounded-md">
-                    L
-                  </Button>
-                  <Button className="bg-white border-2 border-gray-500 hover:border-gray-800 text-gray-900 rounded-md">
-                    XL
-                  </Button>
-                </ButtonGroup>
-              </div>
+
               <div className="my-5">
                 <Typography className="text-black text-xl font-semibold">
                   Color

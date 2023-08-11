@@ -37,7 +37,7 @@ function useGetOneProduct(id) {
   if(products) productsLookLike = products
   let productsWithoutThisProd 
   if(productsLookLike.data) productsWithoutThisProd = productsLookLike.data.filter((product)=>product._id !== items._id)
-  return [items, brand, subCategories,productsLookLike,productsWithoutThisProd];
+  return [items, brand, subCategories,productsWithoutThisProd];
 }
 
 export default useGetOneProduct;
