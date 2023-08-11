@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import { Fragment, Suspense, lazy } from "react";
 import RootLayout from "./Layout/RootLayout";
+import DefaultLayout from "./Layout/DefaultLayout";
 import Home from "./Pages/Home/Home";
 import Login from "./Pages/Auth/Login";
 import Register from "./Pages/Auth/Register";
@@ -34,7 +35,6 @@ const Settings = lazy(() => import("./Pages/Dashboard/Settings"));
 const Tables = lazy(() => import("./Pages/Dashboard/Tables"));
 const Alerts = lazy(() => import("./Pages/Dashboard/UiElements/Alerts"));
 const Buttons = lazy(() => import("./Pages/Dashboard/UiElements/Buttons"));
-const DefaultLayout = lazy(() => import("./Layout/DefaultLayout"));
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -53,13 +53,14 @@ const router = createBrowserRouter(
         <Route path="categories" element={<AllCategoryPage />} />
         <Route path="brands" element={<AllBrandPage />} />
       </Route>
+
       <Route element={<DefaultLayout />}>
         <Route
-          path="/dashboard"
+          path="dashboard"
           element={
             <Suspense fallback={<Loader />}>
               <ECommerce />
-            </Suspense>
+           </Suspense>
           }
         />
         <Route
@@ -167,6 +168,7 @@ const router = createBrowserRouter(
           }
         />
       </Route>
+      
     </Fragment>
   )
 );

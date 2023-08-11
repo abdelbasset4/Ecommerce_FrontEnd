@@ -118,17 +118,17 @@ export default function ProductSearchCard({ product }) {
                 <Typography className="text-black text-xl font-semibold">
                   Color
                 </Typography>
-                <ButtonGroup
+                <ul
                   size="sm"
                   className="flex gap-4 mt-3 divide-x-0 divide-y-0 h-8">
                  
                   {
                     product.colors.map((color)=>{
                       // eslint-disable-next-line react/jsx-key
-                      return ( <Button className=" text-gray-900 rounded-md" style={{backgroundColor:`${color}`}}></Button>)
+                      return ( <li className=" w-8 h-8 rounded-md" style={{backgroundColor:`${color}`}}></li>)
                     })
                   }
-                </ButtonGroup>
+                </ul>
               </div>
               <div className="flex items-center gap-3 my-5">
                 <Counter />

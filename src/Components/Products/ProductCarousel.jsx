@@ -8,10 +8,10 @@ import '@splidejs/react-splide/css/sea-green';
 
 // or only core styles
 import '@splidejs/react-splide/css/core';
-import { generateSlides } from './generateSlides';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 
-const ProductCarousel = () => {
+// eslint-disable-next-line react/prop-types
+const ProductCarousel = ({images}) => {
   const mainRef = useRef(null);
   const thumbsRef = useRef(null);
 
@@ -22,11 +22,14 @@ const ProductCarousel = () => {
   }, []);
 
   const renderSlides = () => {
-    return generateSlides().map((slide) => (
-      <SplideSlide key={slide.src}>
-        <img src={slide.src} alt={slide.alt} className='w-full h-full'/>
+    if(images){ 
+    // eslint-disable-next-line react/prop-types
+    return images.map((slide) => (
+      <SplideSlide key={slide}>
+        <img src={slide} alt={slide} className='w-full h-full'/>
       </SplideSlide>
     ));
+    }
   };
 
   const mainOptions = {
