@@ -2,7 +2,7 @@ import useGetAllProducts from "../../hook/product/useGetAllProducts";
 import CardItem from "../Utility/CardItem";
 
 export default function TrendingProduct() {
-    const [products] = useGetAllProducts()
+    const [products] = useGetAllProducts(1)
   return (
     <div className="mt-16 px-4">
         <h2 className="mb-6 text-2xl font-extrabold text-gray-900">Trending Products</h2>
