@@ -14,9 +14,7 @@ const brandList = ['Shovia',' Fusion', 'Hunter Shoes', 'Club Shoes', 'Hoppister'
 const priceList = ['Under $50', '$50 to $100', '$100 to $150', '$150 to $200', '$200 to $300', '$300 to $500', '$500 to $1000', 'Over $1000']
 
 export default function SearchPage() {
-  const  [products,pageCount,getPageNumber]= useGetAllSearchProducts()
-  console.log(products);
-  console.log(pageCount);
+  const  [products,pageCount,getPageNumber]= useGetAllSearchProducts(12)
   return (
     <div>
         <NavBar/>
