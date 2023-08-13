@@ -1,8 +1,9 @@
+import { Link } from "react-router-dom";
 import useGetAllProducts from "../../hook/product/useGetAllProducts";
 import CardItem from "../Utility/CardItem";
 
 export default function TrendingProduct() {
-    const [products] = useGetAllProducts(1)
+    const [products] = useGetAllProducts(4)
   return (
     <div className="mt-16 px-4">
         <h2 className="mb-6 text-2xl font-extrabold text-gray-900">Trending Products</h2>
@@ -15,6 +16,13 @@ export default function TrendingProduct() {
 
       ))):null
             }
+        </div>
+        <div className="mx-auto my-5 text-center ">
+          <Link
+            to="search"
+            className="inline-flex bg-black items-center justify-center rounded-md border border-black py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10 hover:bg-white hover:text-black duration-300 cursor-pointer">
+            View All
+          </Link>
         </div>
     </div>
   )

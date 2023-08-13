@@ -49,7 +49,7 @@ const Products = () => {
             products.data ?(
               products.data.map((product)=>{
                // eslint-disable-next-line react/jsx-key
-               return ( <ProductTableRow product={product}/>)
+               return ( <ProductTableRow key={product._id} product={product}/>)
               })
               
             ):( <Alert>A simple filled alert for showing message.</Alert>)
