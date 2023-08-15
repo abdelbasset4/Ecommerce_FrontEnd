@@ -27,6 +27,7 @@ import OrdersPage from "./Pages/Profile/OrdersPage";
 import WishListPage from "./Pages/WishList/WishListPage";
 import AllCategoryPage from "./Pages/Category/AllCategoryPage";
 import AllBrandPage from "./Pages/Brand/AllBrandPage";
+import EditProduct from "./Pages/Dashboard/Mange/EditProduct";
 
 const Chart = lazy(() => import("./Pages/Dashboard/Chart"));
 const FormElements = lazy(() => import("./Pages/Dashboard/Form/FormElements"));
@@ -84,6 +85,14 @@ const router = createBrowserRouter(
           element={
             <Suspense fallback={<Loader />}>
               <AddProduct />
+            </Suspense>
+          }
+        />
+        <Route
+          path="dashboard/editproduct/:id"
+          element={
+            <Suspense fallback={<Loader />}>
+              <EditProduct />
             </Suspense>
           }
         />
