@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllCategory } from "../../Redux/Slice/Category/CategoryThunk";
 import { getAllBrand } from "../../Redux/Slice/Brand/BrandThunk";
 import {
-  createProduct,
   getOneProduct,
+  updateProduct,
 } from "../../Redux/Slice/product/ProductThunk";
 import { getAllSubCategoryOnCatID } from "../../Redux/Slice/SubCategory/SubCategoryThunk";
 import Notify from "../../hooks/useNotify";
@@ -97,7 +97,7 @@ function useEditProduct(productId) {
     setShowColor(!showColor);
   };
 
-  const getCategoryId = async(e) => {
+  const getCategoryId = (e) => {
     setCategoryID(e.target.value);
   };
   useEffect(() => {
@@ -111,7 +111,8 @@ function useEditProduct(productId) {
           );
 
       };
-      run();
+      if(categoryId)
+        run();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoryId]);
@@ -169,10 +170,11 @@ function useEditProduct(productId) {
       console.log("there are problem");
     }
     setLoading(true);
-    await dispatch(createProduct(formData));
+    let args = [product.data._id,formData];
+    await dispatch(updateProduct(args));
     setLoading(false);
   };
-  const products = useSelector((state) => state.product.products);
+  const products = useSelector((state) => state.product.updateProduct);
 
   //  reset inputs and show notification
   useEffect(() => {
@@ -187,11 +189,15 @@ function useEditProduct(productId) {
       setColors([]);
       setSelectSubCategoryID([]);
       setTimeout(() => setLoading(true), 1500);
-      if (products.status === 201) {
-        Notify("Added succsusful", "success");
-      } else {
-        Notify("Added error ", "error");
+      if(products){
+        if (products.status === 200) {
+            Notify("Added succsusful", "success");
+          } else {
+            console.log(products);
+            Notify("Added error ", "error");
+          }
       }
+      
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading]);

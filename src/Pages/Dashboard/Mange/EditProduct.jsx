@@ -45,8 +45,6 @@ export default function EditProduct() {
     handleColorCompleteChange,
     hundelSubmit,
   ] = useEditProduct(id);
-  if(files[0])
-    console.log(files[0].file);
   return (
     <>
       <Breadcrumb pageName="Add product" />
@@ -265,15 +263,13 @@ export default function EditProduct() {
           <label className="mb-3 block text-black dark:text-white">
             Cover Image:
           </label>
-          {
-            files[0] ? (<img src={`http://localhost:3000/products/${files[0].filename}`} alt="" />):null
-          }
+
           <FilePond
             files={files}
             onupdatefiles={setFiles}
             allowMultiple={true}
             maxFiles={1}
-            server="http://localhost:3000/products/"
+            server={`http://localhost:3000/products/`}
             name="files"
             labelIdle='Drag & Drop your image or <span class="filepond--label-action">Browse</span>'
           />
@@ -297,7 +293,7 @@ export default function EditProduct() {
           to="#"
           onClick={hundelSubmit}
           className="inline-flex items-center justify-center rounded-md bg-black py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10 mt-4">
-          Add
+          Update
         </Link>
       </div>
       <ToastContainer />

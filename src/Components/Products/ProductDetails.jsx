@@ -10,7 +10,6 @@ export default function ProductDetails() {
   const { id } = useParams();
   const [items, brand, subCategories, productsWithoutThisProd] =
     useGetOneProduct(id);
-  console.log(productsWithoutThisProd);
   return (
     <>
       <SecondNavBar />
