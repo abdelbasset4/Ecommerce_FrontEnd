@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { createProduct,getAllProducts,getOneProduct ,getProductsLookLike ,deleteProduct} from './ProductThunk'
+import { createProduct,getAllProducts,getOneProduct ,getProductsLookLike ,deleteProduct,updateProduct} from './ProductThunk'
 
 const initialState = {
     products: [],
     product:[],
+    updateProduct:[],
     deleteProduct:"idle",
     isLoading: true,
     error:null
@@ -44,6 +45,7 @@ const initialState = {
       state.erorr=null;
     },
     [createProduct.fulfilled]:(state,action)=>{
+      console.log(action.payload);
       state.products = action.payload
       state.isLoading=false;
       state.erorr=null;
@@ -75,6 +77,21 @@ const initialState = {
       state.erorr=null;
     },
     [deleteProduct.rejected]:(state,action)=>{
+      state.isLoading=false;
+      state.erorr=action?.error?.message;
+    },
+    [updateProduct.pending]:(state)=>{
+      state.isLoading=true;
+      state.erorr=null;
+    },
+    [updateProduct.fulfilled]:(state,action)=>{
+      console.log(action.payload);
+      state.updateProduct = action.payload
+      state.isLoading=false;
+      state.erorr=null;
+    },
+    [updateProduct.rejected]:(state,action)=>{
+      console.log(action?.error?.message);
       state.isLoading=false;
       state.erorr=action?.error?.message;
     },

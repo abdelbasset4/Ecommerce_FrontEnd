@@ -5,8 +5,7 @@ import { Alert } from "@material-tailwind/react";
 import ProductTableRow from "../../../Components/Admin/ProductTableRow";
 const Products = () => {
   const  [products,pageCount,getPageNumber]= useGetAllSearchProducts(12)
- if(products.data) console.log(products.data[0].imageCover);
-  console.log(pageCount);
+
   return (
     <>
       <Breadcrumb pageName="products" />
