@@ -45,7 +45,6 @@ const initialState = {
       state.erorr=null;
     },
     [createProduct.fulfilled]:(state,action)=>{
-      console.log(action.payload);
       state.products = action.payload
       state.isLoading=false;
       state.erorr=null;
@@ -85,13 +84,11 @@ const initialState = {
       state.erorr=null;
     },
     [updateProduct.fulfilled]:(state,action)=>{
-      console.log(action.payload);
       state.updateProduct = action.payload
       state.isLoading=false;
       state.erorr=null;
     },
     [updateProduct.rejected]:(state,action)=>{
-      console.log(action?.error?.message);
       state.isLoading=false;
       state.erorr=action?.error?.message;
     },

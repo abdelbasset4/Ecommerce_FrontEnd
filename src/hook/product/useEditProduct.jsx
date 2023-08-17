@@ -63,6 +63,7 @@ function useEditProduct(productId) {
       setBrandID(product.data.brand);
       setCategoryID(product.data.category._id);
       setFiles(product.data.imageCover);
+      console.log(product.data.imageCover);
       setMultipleFiles(product.data.images);
     }
   }, [product]);
@@ -125,7 +126,15 @@ function useEditProduct(productId) {
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoryId, subCategory.data]);
-
+//convert url to file
+const convertURLtoFile = async (url) => {
+  const response = await fetch(url, { mode: "cors" });
+  const data = await response.blob();
+  const ext = url.split(".").pop();
+  // const filename = url.split("/").pop();
+  const metadata = { type: `image/${ext}` };
+  return new File([data], Math.random(), metadata);
+};
   //  submit form to add product
   const hundelSubmit = async (e) => {
     e.preventDefault();
@@ -146,13 +155,20 @@ function useEditProduct(productId) {
       );
       return;
     }
+   
+    let imgCover;
+
+        convertURLtoFile(product.data.imageCover).then(val => imgCover = val)
+    
     const formData = new FormData();
     formData.append("title", name);
     formData.append("description", description);
     formData.append("quantity", quantity);
     formData.append("price", priceBefore);
     formData.append("priceAfterDiscount", priceAfter);
-    formData.append("imageCover", files[0].file);
+    setTimeout(() => {
+      formData.append("imageCover", imgCover);
+  }, 1000);
     formData.append("category", categoryId);
     formData.append("brand", brandId);
     if (colors.length == 1) {
@@ -191,10 +207,10 @@ function useEditProduct(productId) {
       setTimeout(() => setLoading(true), 1500);
       if(products){
         if (products.status === 200) {
-            Notify("Added succsusful", "success");
+            Notify("Update succsusful", "success");
           } else {
             console.log(products);
-            Notify("Added error ", "error");
+            Notify("Update error ", "error");
           }
       }
       

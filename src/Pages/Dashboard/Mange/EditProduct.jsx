@@ -267,9 +267,10 @@ export default function EditProduct() {
           <FilePond
             files={files}
             onupdatefiles={setFiles}
+            onremovefile={setFiles}
             allowMultiple={true}
             maxFiles={1}
-            server={`http://localhost:3000/products/`}
+            server="http://localhost:3000/products/"
             name="files"
             labelIdle='Drag & Drop your image or <span class="filepond--label-action">Browse</span>'
           />
@@ -280,6 +281,7 @@ export default function EditProduct() {
           </label>
           <FilePond
             files={multipleFiles}
+            onremovefile={setMultipleFiles}
             onupdatefiles={setMultipleFiles}
             allowMultiple={true}
             server="http://localhost:3000/products/"
