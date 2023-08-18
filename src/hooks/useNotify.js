@@ -5,7 +5,7 @@ export default function Notify(msg,type) {
   if(type === "success"){
     toast.success(msg, {
       position: "top-right",
-      autoClose: 3000,
+      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -16,7 +16,7 @@ export default function Notify(msg,type) {
   }else if(type ==="warn"){
     toast.warn(msg, {
       position: "top-right",
-      autoClose: 3000,
+      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -28,7 +28,7 @@ export default function Notify(msg,type) {
   }else if(type === "error"){
     toast.error(msg, {
       position: "top-right",
-      autoClose: 3000,
+      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,

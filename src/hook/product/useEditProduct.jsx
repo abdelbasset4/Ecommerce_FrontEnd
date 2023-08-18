@@ -9,7 +9,7 @@ import {
 } from "../../Redux/Slice/product/ProductThunk";
 import { getAllSubCategoryOnCatID } from "../../Redux/Slice/SubCategory/SubCategoryThunk";
 import Notify from "../../hooks/useNotify";
-
+import {baseURL} from "../../API/mainBaseURL";
 
 function useEditProduct(productId) {
   const dispatch = useDispatch();
@@ -62,10 +62,11 @@ function useEditProduct(productId) {
       setColors(product.data.colors);
       setBrandID(product.data.brand);
       setCategoryID(product.data.category._id);
-      setFiles(product.data.imageCover);
-      console.log(product.data.imageCover);
-      setMultipleFiles(product.data.images);
+      setFiles(`${baseURL}/products/${product.data.imageCover}`);
+      let images = product.data.images.map((image) =>`${baseURL}/products/${image}`)
+      setMultipleFiles(images);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
 
   const changeName = (e) => {
@@ -104,37 +105,25 @@ function useEditProduct(productId) {
   useEffect(() => {
     if (categoryId != "0") {
       const run = async () => {
-
-          await dispatch(
-            getAllSubCategoryOnCatID(
-              `/api/v1/categories/${categoryId}/subcategories`
-            )
-          );
-
+        await dispatch(
+          getAllSubCategoryOnCatID(
+            `/api/v1/categories/${categoryId}/subcategories`
+          )
+        );
       };
-      if(categoryId)
-        run();
+      if (categoryId) run();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoryId]);
 
   //  fill sub category option based on category id
   useEffect(() => {
-
-        if (subCategory.data) {
-          setOptions(subCategory.data);
-        }
+    if (subCategory.data) {
+      setOptions(subCategory.data);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoryId, subCategory.data]);
-//convert url to file
-const convertURLtoFile = async (url) => {
-  const response = await fetch(url, { mode: "cors" });
-  const data = await response.blob();
-  const ext = url.split(".").pop();
-  // const filename = url.split("/").pop();
-  const metadata = { type: `image/${ext}` };
-  return new File([data], Math.random(), metadata);
-};
+
   //  submit form to add product
   const hundelSubmit = async (e) => {
     e.preventDefault();
@@ -155,20 +144,20 @@ const convertURLtoFile = async (url) => {
       );
       return;
     }
-   
-    let imgCover;
 
-        convertURLtoFile(product.data.imageCover).then(val => imgCover = val)
-    
+
     const formData = new FormData();
     formData.append("title", name);
     formData.append("description", description);
     formData.append("quantity", quantity);
     formData.append("price", priceBefore);
     formData.append("priceAfterDiscount", priceAfter);
-    setTimeout(() => {
-      formData.append("imageCover", imgCover);
-  }, 1000);
+    if(files[0].file ===undefined){
+      formData.append("imageCover",product.data.imageCover);
+    }else{
+      formData.append("imageCover",files[0].file);
+
+    }
     formData.append("category", categoryId);
     formData.append("brand", brandId);
     if (colors.length == 1) {
@@ -176,7 +165,13 @@ const convertURLtoFile = async (url) => {
     } else {
       colors.map((color) => formData.append("colors", color));
     }
-    multipleFiles.map((file) => formData.append("images", file.file));
+    multipleFiles.map((file,index) => {
+      if(file.file === undefined){
+        formData.append("images",product.data.images[index]);
+      }else{
+        formData.append("images", file.file)
+      }
+    });
 
     const subCategoryIDs = selectSubCategoryId.map((item) => item._id);
 
@@ -185,10 +180,12 @@ const convertURLtoFile = async (url) => {
     } else {
       console.log("there are problem");
     }
-    setLoading(true);
-    let args = [product.data._id,formData];
-    await dispatch(updateProduct(args));
-    setLoading(false);
+
+      setLoading(true);
+      let args = [product.data._id, formData];
+      await dispatch(updateProduct(args));
+      setLoading(false);
+
   };
   const products = useSelector((state) => state.product.updateProduct);
 
@@ -205,15 +202,14 @@ const convertURLtoFile = async (url) => {
       setColors([]);
       setSelectSubCategoryID([]);
       setTimeout(() => setLoading(true), 1500);
-      if(products){
+      if (products) {
         if (products.status === 200) {
-            Notify("Update succsusful", "success");
-          } else {
-            console.log(products);
-            Notify("Update error ", "error");
-          }
+          Notify("Update succsusful", "success");
+        } else {
+          console.log(products);
+          Notify("Update error ", "error");
+        }
       }
-      
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading]);
