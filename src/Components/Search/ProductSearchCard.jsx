@@ -12,7 +12,7 @@ import { Fragment, useState } from "react";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import Counter from "../Utility/Counter";
 import { Link } from "react-router-dom";
-
+import {baseURL} from "../../API/mainBaseURL";
 // eslint-disable-next-line react/prop-types
 export default function ProductSearchCard({ product }) {
   const [open, setOpen] = useState(false);
@@ -29,7 +29,7 @@ export default function ProductSearchCard({ product }) {
           className="h-72 rounded-md m-0">
           <img
             // eslint-disable-next-line react/prop-types
-            src={product.imageCover}
+            src={`${baseURL}/products/${product.imageCover}`}
             className="w-full rounded-none h-full object-cover"
           />
         </CardHeader>
@@ -69,8 +69,8 @@ export default function ProductSearchCard({ product }) {
           <div className="flex flex-col lg:flex-row gap-6">
             <div className="w-full lg:w-1/2 h-full">
               <img
-                src={product.imageCover}
-                className="w-full rounded-bl-lg h-full object-contain"
+              src={`${baseURL}/products/${product.imageCover}`}
+                className="w-full rounded-bl-lg h-full object-contain hoho"
               />
             </div>
             <div className="py-6 w-full lg:w-1/2 pe-5">
