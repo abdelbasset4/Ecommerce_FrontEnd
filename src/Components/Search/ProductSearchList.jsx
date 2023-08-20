@@ -7,9 +7,9 @@ export default function ProductSearchList({products}) {
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
     {
       // eslint-disable-next-line react/prop-types
-      products.data ?(products.data.map((product) => (
+      products.data ?(products.data.map((product,index) => (
         // eslint-disable-next-line react/jsx-key
-        <ProductSearchCard product={product}/>
+        <ProductSearchCard key={index} product={product}/>
     ))):null
     }
     </div>

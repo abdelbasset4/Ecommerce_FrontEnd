@@ -20,7 +20,7 @@ import {
     ArrowsRightLeftIcon,
     PlusIcon
   } from "@heroicons/react/24/outline";
-
+  import {baseURL} from "../../API/mainBaseURL";
   // eslint-disable-next-line react/prop-types
   export default function CardItem({product}) {
 
@@ -29,7 +29,7 @@ import {
       <Chip value="25% OFF"  className="absolute top-7 left-6 z-50 text-white bg-[#212121]" variant="ghost"/>
         <CardHeader shadow={false} floated={false} className="h-96">
           <img 
-            src={product.imageCover}
+            src={`${baseURL}/products/${product.imageCover}`}
             className="w-full h-full object-contain"
           />
         </CardHeader>

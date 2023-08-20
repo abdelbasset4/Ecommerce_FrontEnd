@@ -1,4 +1,5 @@
 import  { useEffect, useRef } from 'react';
+import {baseURL} from "../../API/mainBaseURL";
 // Default theme
 import '@splidejs/react-splide/css';
 
@@ -26,7 +27,7 @@ const ProductCarousel = ({images}) => {
     // eslint-disable-next-line react/prop-types
     return images.map((slide) => (
       <SplideSlide key={slide}>
-        <img src={slide} alt={slide} className='w-full h-full'/>
+        <img src={`${baseURL}/products/${slide}`} alt={slide} className='w-full h-full'/>
       </SplideSlide>
     ));
     }

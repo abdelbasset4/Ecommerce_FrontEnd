@@ -11,10 +11,15 @@ import logo from '../../assets/logo.svg'
 import { HiOutlineHeart } from "react-icons/hi";
 import { CgShoppingBag } from "react-icons/cg";
 import { Link } from "react-router-dom";
+import useSearchNavBar from "../../hook/Search/useSearchNavBar";
 
 export default function NavBar() {
+  const [word,onChangeSearch] = useSearchNavBar()
   const [openNav, setOpenNav] = useState(false);
- 
+  let searchword = ""
+  if(localStorage.getItem("searchWord"))
+    // eslint-disable-next-line no-const-assign
+    searchword = localStorage.getItem("searchWord")
   useEffect(() => {
     window.addEventListener("resize", () => window.innerWidth >= 960 && setOpenNav(false));
   }, []);
@@ -62,7 +67,7 @@ export default function NavBar() {
         </a>
       </Typography>
       <div className="w-72">
-      <Input label="Search Anything ..." icon={<i className="fas fa-magnifying-glass" />} />
+      <Input label="Search Anything ..." icon={<i className="fas fa-magnifying-glass" />} value={searchword} onChange={onChangeSearch} />
     </div>
     </ul>
   );
