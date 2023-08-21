@@ -7,7 +7,12 @@ import {
   } from "@material-tailwind/react";
    
 import { LuChevronsUpDown } from "react-icons/lu";
-  export default function SortingMenu() {
+  // eslint-disable-next-line react/prop-types
+  export default function SortingMenu({onClick}) {
+    const getSelectedMenu = (key)=>{
+      localStorage.setItem("sortType", key)
+      onClick();
+    }
     return (
       <Menu>
         <MenuHandler>
@@ -16,10 +21,11 @@ import { LuChevronsUpDown } from "react-icons/lu";
           </Button>
         </MenuHandler>
         <MenuList>
-          <MenuItem>Newest</MenuItem>
-          <MenuItem>Popularity</MenuItem>
-          <MenuItem>Price :low to height</MenuItem>
-          <MenuItem>Price :height to low</MenuItem>
+          <MenuItem onClick={()=>getSelectedMenu("")}>None</MenuItem>
+          <MenuItem onClick={()=>getSelectedMenu("Newest")}>Newest</MenuItem>
+          <MenuItem onClick={()=>getSelectedMenu("Popularity")}>Popularity</MenuItem>
+          <MenuItem onClick={()=>getSelectedMenu("low-to-height")}>Price :low to height</MenuItem>
+          <MenuItem onClick={()=>getSelectedMenu("height-to-low")}>Price :height to low</MenuItem>
         </MenuList>
       </Menu>
     );
