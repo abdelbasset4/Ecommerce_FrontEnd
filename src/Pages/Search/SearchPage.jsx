@@ -14,7 +14,7 @@ const brandList = ['Shovia',' Fusion', 'Hunter Shoes', 'Club Shoes', 'Hoppister'
 const priceList = ['Under $50', '$50 to $100', '$100 to $150', '$150 to $200', '$200 to $300', '$300 to $500', '$500 to $1000', 'Over $1000']
 
 export default function SearchPage() {
-  const  [products,pageCount,getPageNumber,result,]= useGetAllSearchProducts(0)
+  const  [products,pageCount,getPageNumber,result,getProductData]= useGetAllSearchProducts(0)
   return (
     <div>
         <NavBar/>
@@ -47,7 +47,7 @@ export default function SearchPage() {
                    } 
                 </Typography>
                 <DrawerFilter/> 
-                <SortingMenu/>
+                <SortingMenu onClick={getProductData}/>
               </div>
               </div>
               <div className="mt-9">

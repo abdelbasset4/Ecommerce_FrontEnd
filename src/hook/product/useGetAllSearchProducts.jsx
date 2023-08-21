@@ -11,7 +11,8 @@ function useGetAllSearchProducts(limit) {
     if(localStorage.getItem("searchWord"))
       // eslint-disable-next-line no-const-assign
       word = localStorage.getItem("searchWord")
-    await dispatch(getAllProducts(`/api/v1/products?limit=${limit}&keyword=${word}`));
+      sortData()
+    await dispatch(getAllProducts(`/api/v1/products?sort=${sort}&limit=${limit}&keyword=${word}`));
   }
   useEffect(() => {
     getProductData()
@@ -34,9 +35,30 @@ function useGetAllSearchProducts(limit) {
     if(localStorage.getItem("searchWord"))
       // eslint-disable-next-line no-const-assign
       word = localStorage.getItem("searchWord")
-    dispatch(getAllProducts(`/api/v1/products?limit=${limit}&page=${page}&keyword=${word}`));
+      sortData()
+    dispatch(getAllProducts(`/api/v1/products?sort=${sort}&limit=${limit}&page=${page}&keyword=${word}`));
   };
-
+  // eslint-disable-next-line no-unused-vars
+  let sortType = "", sort;
+  const sortData = ()=>{
+    if (localStorage.getItem("sortType") !== null){
+      sortType = localStorage.getItem("sortType")
+    }else{
+      sortType = ""
+    }
+    if(sortType ===""){
+      sort = ""
+    }else if(sortType ==="Newest"){
+      sort = "+createdAt"
+    }else if(sortType ==="Popularity"){
+      sort = "+sold"
+    }else if(sortType ==="low-to-height"){
+      sort = "+price"
+    
+    }else if(sortType ==="height-to-low"){
+      sort = "-price"
+    }
+  }
   return [products, pageCount, getPageNumber,result,getProductData];
 }
 
