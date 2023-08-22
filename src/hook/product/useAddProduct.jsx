@@ -142,7 +142,6 @@ function useAddProduct() {
     } else {
       console.log("there are problem");
     }
-    console.log(files[0].file);
     setLoading(true);
     await dispatch(createProduct(formData));
     setLoading(false);

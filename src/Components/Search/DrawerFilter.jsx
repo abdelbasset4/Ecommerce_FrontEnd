@@ -8,13 +8,12 @@ import {
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {CiSliderHorizontal} from "react-icons/ci"
 import Filter from "./Filter";
-import ColorsSearch from "./ColorsSearch";
 import CheckboxListSearch from "./CheckboxListSearch";
+import PriceSideFilter from "./PriceSideFilter";
+import useSideBarFilter from "../../hook/Search/useSideBarFilter";
 
-const categoryList = ['Men','Women','Watch','Kids','Sport','Sunglass','Bugs','Sneakers']
-const brandList = ['Shovia',' Fusion', 'Hunter Shoes', 'Club Shoes', 'Hoppister', 'Blaze Fashion', 'Elegance', 'Fashadil']
-const priceList = ['Under $50', '$50 to $100', '$100 to $150', '$150 to $200', '$200 to $300', '$300 to $500', '$500 to $1000', 'Over $1000']
 export default function DrawerFilter() {
+  const [allBrand,allCategory,onChangeInput,onChangePriceRange] = useSideBarFilter()
   const [open, setOpen] = useState(false);
   const openDrawer = () => setOpen(true);
   const closeDrawer = () => setOpen(false);
@@ -34,10 +33,14 @@ export default function DrawerFilter() {
         </div>
         <div >
                 <Filter/>
-                <CheckboxListSearch title="Category" searchList={categoryList}/>
-                <CheckboxListSearch title="Brands" searchList={brandList}/>
-                <CheckboxListSearch title="Price" searchList={priceList}/>
-                <ColorsSearch/>
+                {
+                  allCategory ? <CheckboxListSearch title="Category" searchList={allCategory} onChangeChecked={onChangeInput}/> :null
+                }
+                {
+                  allBrand ? <CheckboxListSearch title="Brand" searchList={allBrand} onChangeChecked={onChangeInput}/> :null
+                }
+                <PriceSideFilter onChangeChecked={onChangePriceRange} />
+                
         </div>
         </Drawer>
     </Fragment>

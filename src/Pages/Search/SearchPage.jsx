@@ -2,19 +2,20 @@ import { Typography } from "@material-tailwind/react";
 import NavBar from "../../Components/Utility/NavBar";
 import Filter from "../../Components/Search/Filter";
 import CheckboxListSearch from "../../Components/Search/CheckboxListSearch";
-import ColorsSearch from "../../Components/Search/ColorsSearch";
+// import ColorsSearch from "../../Components/Search/ColorsSearch";
 import SortingMenu from "../../Components/Search/SortingMenu";
 import DrawerFilter from "../../Components/Search/DrawerFilter";
 import ProductSearchList from "../../Components/Search/ProductSearchList";
 import Pagination from "../../Components/Utility/Pagination";
 import useGetAllSearchProducts from "../../hook/product/useGetAllSearchProducts";
-
-const categoryList = ['Men','Women','Watch','Kids','Sport','Sunglass','Bugs','Sneakers']
-const brandList = ['Shovia',' Fusion', 'Hunter Shoes', 'Club Shoes', 'Hoppister', 'Blaze Fashion', 'Elegance', 'Fashadil']
-const priceList = ['Under $50', '$50 to $100', '$100 to $150', '$150 to $200', '$200 to $300', '$300 to $500', '$500 to $1000', 'Over $1000']
+import useSideBarFilter from "../../hook/Search/useSideBarFilter";
+import PriceSideFilter from "../../Components/Search/PriceSideFilter";
 
 export default function SearchPage() {
   const  [products,pageCount,getPageNumber,result,getProductData]= useGetAllSearchProducts(0)
+  const [allBrand,allCategory,onChangeInput,onChangePriceRange] = useSideBarFilter()
+  // console.log(allBrand);
+  console.log(allCategory);
   return (
     <div>
         <NavBar/>
@@ -30,10 +31,13 @@ export default function SearchPage() {
                 </Typography>
                 <Filter/>
                 </div>
-                <CheckboxListSearch title="Category" searchList={categoryList}/>
-                <CheckboxListSearch title="Brands" searchList={brandList}/>
-                <CheckboxListSearch title="Price" searchList={priceList}/>
-                <ColorsSearch/>
+                {
+                  allCategory ? <CheckboxListSearch title="Category" searchList={allCategory} onChangeChecked={onChangeInput}/> :null
+                }
+                {
+                  allBrand ? <CheckboxListSearch title="Brand" searchList={allBrand} onChangeChecked={onChangeInput}/> :null
+                }
+                <PriceSideFilter onChangeChecked={onChangePriceRange} />
             </div>
             <div className="searchHeader lg:col-span-9">
               <div className="header lg:flex lg:justify-between">
