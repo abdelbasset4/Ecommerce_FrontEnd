@@ -14,8 +14,7 @@ import PriceSideFilter from "../../Components/Search/PriceSideFilter";
 export default function SearchPage() {
   const  [products,pageCount,getPageNumber,result,getProductData]= useGetAllSearchProducts(0)
   const [allBrand,allCategory,onChangeInput,onChangePriceRange] = useSideBarFilter()
-  // console.log(allBrand);
-  console.log(allCategory);
+
   return (
     <div>
         <NavBar/>

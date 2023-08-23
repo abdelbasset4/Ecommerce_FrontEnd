@@ -59,7 +59,6 @@ export  const updateProduct=createAsyncThunk('product/update' ,async (args ,thun
         const res = await useUpdateDataWithImage(`/api/v1/products/${args[0]}`,args[1]);
         return res;
     }catch (err){
-        console.log(err.message);
         return rejectWithValue(err.message);
     }
 })

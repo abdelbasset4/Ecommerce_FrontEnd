@@ -9,7 +9,7 @@ export function AdminPagination() {
     ({
       variant: active === index ? "filled" : "text",
       color: "gray",
-      onClick: () => {setActive(index);console.log(index);},
+      onClick: () => {setActive(index);},
       className: "rounded-full",
     } );
  
@@ -17,14 +17,12 @@ export function AdminPagination() {
     if (active === 5) return;
  
     setActive(active + 1);
-    console.log(active +1);
   };
  
   const prev = () => {
     if (active === 1) return;
  
     setActive(active - 1);
-    console.log(active - 1);
   };
  
   return (
