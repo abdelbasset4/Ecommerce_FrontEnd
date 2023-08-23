@@ -5,14 +5,12 @@ import { getAllProducts } from "../../Redux/Slice/product/ProductThunk";
 function useGetAllSearchProducts(limit) {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product.products);
-
+  limit = limit ||0;
+  let word = "",catQuery = "",brandQuery = "";
   const getProductData = async()=>{
-    let word = ""
-    if(localStorage.getItem("searchWord"))
-      // eslint-disable-next-line no-const-assign
-      word = localStorage.getItem("searchWord")
-      sortData()
-    await dispatch(getAllProducts(`/api/v1/products?sort=${sort}&limit=${limit}&keyword=${word}`));
+    getStorage()
+    sortData()
+    await dispatch(getAllProducts(`/api/v1/products?sort=${sort}&limit=${limit}&keyword=${word}&${catQuery}&${brandQuery}`));
   }
   useEffect(() => {
     getProductData()
@@ -33,10 +31,9 @@ function useGetAllSearchProducts(limit) {
   const getPageNumber = (page) => {
     let word = ""
     if(localStorage.getItem("searchWord"))
-      // eslint-disable-next-line no-const-assign
-      word = localStorage.getItem("searchWord")
+      getStorage()
       sortData()
-    dispatch(getAllProducts(`/api/v1/products?sort=${sort}&limit=${limit}&page=${page}&keyword=${word}`));
+    dispatch(getAllProducts(`/api/v1/products?sort=${sort}&limit=${limit}&page=${page}&keyword=${word}&${catQuery}&${brandQuery}`));
   };
   // eslint-disable-next-line no-unused-vars
   let sortType = "", sort;
@@ -58,6 +55,18 @@ function useGetAllSearchProducts(limit) {
     }else if(sortType ==="height-to-low"){
       sort = "-price"
     }
+  }
+  const getStorage = ()=>{
+    if(localStorage.getItem("searchWord") !==null)
+    // eslint-disable-next-line no-const-assign
+    word = localStorage.getItem("searchWord")
+  
+  if(localStorage.getItem("categoryChecked") !==null)
+    // eslint-disable-next-line no-const-assign, no-unused-vars
+    catQuery = localStorage.getItem("categoryChecked")
+  if(localStorage.getItem("brandChecked") !==null)
+    // eslint-disable-next-line no-const-assign, no-unused-vars
+    brandQuery = localStorage.getItem("brandChecked")
   }
   return [products, pageCount, getPageNumber,result,getProductData];
 }

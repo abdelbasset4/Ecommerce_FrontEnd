@@ -206,7 +206,6 @@ function useEditProduct(productId) {
         if (products.status === 200) {
           Notify("Update succsusful", "success");
         } else {
-          console.log(products);
           Notify("Update error ", "error");
         }
       }
