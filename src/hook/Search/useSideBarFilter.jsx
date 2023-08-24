@@ -31,7 +31,8 @@ function useSideBarFilter() {
   }
   const [checkCategory, setCheckCategory] = useState([]);
   const [checkBrand, setCheckBrand] = useState([]);
-  const [checkPrice, setCheckPrice] = useState([]);
+  const [lowPrice, setLowPrice] = useState(0);
+  const [heightPrice, setHeightPrice] = useState(0);
   const onChangeInput = (e) => {
     let value = e.target.value;
     let name = e.target.name;
@@ -52,16 +53,23 @@ function useSideBarFilter() {
       }
     }
   };
-  const onChangePriceRange = (e) => {
-    let value = e.target.value;
-    if (e.target.checked === true) {
-      setCheckPrice([...checkPrice, value]);
-    } else if (e.target.checked === false) {
-      const newArry = checkPrice.filter((e) => e !== value);
-      setCheckPrice(newArry);
-    }
-  };
-  console.log(checkPrice);
+  const priceFrom = (e) => {
+    localStorage.setItem("priceFrom", e.target.value);
+    setLowPrice(e.target.value);
+  }
+  const priceTo = (e) => {
+    localStorage.setItem("priceTo", e.target.value);
+    setHeightPrice(e.target.value);
+  }
+  // const onChangePriceRange = (e) => {
+  //   let value = e.target.value;
+  //   if (e.target.checked === true) {
+  //     setCheckPrice([...checkPrice, value]);
+  //   } else if (e.target.checked === false) {
+  //     const newArry = checkPrice.filter((e) => e !== value);
+  //     setCheckPrice(newArry);
+  //   }
+  // };
   let queryCategory ="",queryBrand ="";
   useEffect(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -80,8 +88,13 @@ function useSideBarFilter() {
         getProductData()
     }, 1000);
   }, [checkBrand])
-  
-  return [allBrand, allCategory, onChangeInput, onChangePriceRange];
+  useEffect(() => {
+    setTimeout(() => {
+      getProductData();
+    }, 1000);
+// eslint-disable-next-line react-hooks/exhaustive-deps
+}, [lowPrice, heightPrice])
+  return [allBrand, allCategory, onChangeInput,priceFrom,priceTo];
 }
 
 export default useSideBarFilter;
