@@ -51,7 +51,7 @@ const Products = () => {
                return ( <ProductTableRow key={product._id} product={product}/>)
               })
               
-            ):( <Alert>A simple filled alert for showing message.</Alert>)
+            ):( <Alert>there are no products found.</Alert>)
           }
         
 

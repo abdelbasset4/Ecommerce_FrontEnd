@@ -1,56 +1,52 @@
-import { Link } from 'react-router-dom';
-import Breadcrumb from '../../../Components/Dashboard/Breadcrumb';
-
-
-import useAddSubCategory from '../../../hook/subCategory/useAddSubCategory';
-import { Spinner } from '@material-tailwind/react';
-import { ToastContainer } from 'react-toastify';
-export default function SubCategory() {
-  const [name,categories, loading, press, changeName,changeId, submitData] = useAddSubCategory()
-  return (
-    <>
-      <Breadcrumb pageName="SubCategory" />
-      <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark p-6">
-      <div>
-            <label className="mb-3 block text-black dark:text-white">
-            SubCategory Name:
-            </label>
+import Breadcrumb from "../../../Components/Dashboard/Breadcrumb";
+const SubCategory = () => {
+    return(
+        <>
+        <Breadcrumb pageName="subcategory" />
+        <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+        <div className="py-6 px-4 md:px-6 xl:px-7.5 flex justify-between gap-8 items-center">
+          <h4 className="text-xl font-semibold text-black dark:text-white">
+            Sub Category
+          </h4>
+          <div className="grow">
             <input
-              value={name}
-              onChange={changeName}
               type="text"
-              placeholder="SubCategory Name"
+              placeholder="Search sub category"
               className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
             />
           </div>
-          <div className='mt-4'>
-                <label className="mb-3 block text-black dark:text-white">
-                  Category:
-                </label>
-                <select name='category' className="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-12 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input" onChange={changeId}>
-                  <option value="0">Choose category</option>
-                  {
-                    categories.data ?(
-                      categories.data.map(category=>{
-                        
-                        return (<option value={category._id} key={category._id}>{category.name}</option>)
-                      })
-                    ):null
-                  }
-                </select> 
-          </div>
-          <Link
-              onClick={submitData}
-              to="#"
-              className="inline-flex items-center justify-center rounded-md bg-black py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10 mt-4"
-            >
-              Add
-            </Link>
+          {
+            // pageCount >1 ?(<Pagination numberPages={pageCount} onPress={getPageNumber} />):null
+          }
         </div>
-        {
-          press ? loading ? (<Spinner className="h-16 w-16 text-blue-500/10" />):(<p>finish</p>):null
-        }  
-        <ToastContainer />
-    </>
-  )
+
+        <div className="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
+          <div className="col-span-3 flex items-center">
+            <p className="font-medium">Sub Category Name</p>
+          </div>
+          <div className="col-span-2 hidden items-center sm:flex">
+            <p className="font-medium">Category</p>
+          </div>
+          
+          <div className="col-span-1 flex items-center">
+            <p className="font-medium">Actions</p>
+          </div>
+        </div>
+          {
+            // products.data ?(
+            //   products.data.map((product)=>{
+            //    // eslint-disable-next-line react/jsx-key
+            //    return ( <ProductTableRow key={product._id} product={product}/>)
+            //   })
+              
+            // ):( <Alert>there are no products found.</Alert>)
+          }
+        
+
+      </div>
+        </>
+    )
+
 }
+
+export default SubCategory;
