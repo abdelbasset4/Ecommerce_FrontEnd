@@ -19,24 +19,21 @@ import CheckoutPage from "./Pages/Checkout/CheckoutPage";
 import Orders from "./Pages/Dashboard/Mange/Orders";
 import Products from "./Pages/Dashboard/Mange/Products";
 import AddProduct from "./Pages/Dashboard/Mange/AddProduct";
-import Brand from "./Pages/Dashboard/Mange/Brand";
-import Category from "./Pages/Dashboard/Mange/Category";
-import SubCategory from "./Pages/Dashboard/Mange/SubCategory";
+import AddBrand from "./Pages/Dashboard/Mange/AddBrand";
+import AddCategory from "./Pages/Dashboard/Mange/AddCategory";
+import AddSubCategory from "./Pages/Dashboard/Mange/AddSubCategory";
 import ProfilePage from "./Pages/Profile/ProfilePage";
 import OrdersPage from "./Pages/Profile/OrdersPage";
 import WishListPage from "./Pages/WishList/WishListPage";
 import AllCategoryPage from "./Pages/Category/AllCategoryPage";
 import AllBrandPage from "./Pages/Brand/AllBrandPage";
 import EditProduct from "./Pages/Dashboard/Mange/EditProduct";
+import Brand from "./Pages/Dashboard/Mange/Brand";
+import Category from "./Pages/Dashboard/Mange/Category";
+import SubCategory from "./Pages/Dashboard/Mange/SubCategory";
 
-const Chart = lazy(() => import("./Pages/Dashboard/Chart"));
-const FormElements = lazy(() => import("./Pages/Dashboard/Form/FormElements"));
-const FormLayout = lazy(() => import("./Pages/Dashboard/Form/FormLayout"));
+
 const Settings = lazy(() => import("./Pages/Dashboard/Settings"));
-const Tables = lazy(() => import("./Pages/Dashboard/Tables"));
-const Alerts = lazy(() => import("./Pages/Dashboard/UiElements/Alerts"));
-const Buttons = lazy(() => import("./Pages/Dashboard/UiElements/Buttons"));
-
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Fragment>
@@ -105,10 +102,34 @@ const router = createBrowserRouter(
           }
         />
         <Route
+          path="dashboard/addbrand"
+          element={
+            <Suspense fallback={<Loader />}>
+              <AddBrand />
+            </Suspense>
+          }
+        />
+        <Route
+          path="dashboard/addcategory"
+          element={
+            <Suspense fallback={<Loader />}>
+              <AddCategory />
+            </Suspense>
+          }
+        />
+        <Route
           path="dashboard/category"
           element={
             <Suspense fallback={<Loader />}>
               <Category />
+            </Suspense>
+          }
+        />
+        <Route
+          path="dashboard/addsubcategory"
+          element={
+            <Suspense fallback={<Loader />}>
+              <AddSubCategory />
             </Suspense>
           }
         />
@@ -121,30 +142,6 @@ const router = createBrowserRouter(
           }
         />
         <Route
-          path="forms/form-elements"
-          element={
-            <Suspense fallback={<Loader />}>
-              <FormElements />
-            </Suspense>
-          }
-        />
-        <Route
-          path="forms/form-layout"
-          element={
-            <Suspense fallback={<Loader />}>
-              <FormLayout />
-            </Suspense>
-          }
-        />
-        <Route
-          path="tables"
-          element={
-            <Suspense fallback={<Loader />}>
-              <Tables />
-            </Suspense>
-          }
-        />
-        <Route
           path="settings"
           element={
             <Suspense fallback={<Loader />}>
@@ -152,30 +149,7 @@ const router = createBrowserRouter(
             </Suspense>
           }
         />
-        <Route
-          path="chart"
-          element={
-            <Suspense fallback={<Loader />}>
-              <Chart />
-            </Suspense>
-          }
-        />
-        <Route
-          path="ui/alerts"
-          element={
-            <Suspense fallback={<Loader />}>
-              <Alerts />
-            </Suspense>
-          }
-        />
-        <Route
-          path="ui/buttons"
-          element={
-            <Suspense fallback={<Loader />}>
-              <Buttons />
-            </Suspense>
-          }
-        />
+      
       </Route>
       
     </Fragment>
