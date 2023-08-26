@@ -28,6 +28,6 @@ export const createBrand=createAsyncThunk('brand/create' ,async (formData ,thunk
         const res = await useInsertDataWithImage(`/api/v1/brands`,formData);
         return res;
     }catch (err){
-        return rejectWithValue(err.message);
+        return rejectWithValue(err.response.data);
     }
 })

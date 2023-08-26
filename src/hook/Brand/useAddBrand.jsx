@@ -19,13 +19,15 @@ function useAddBrand() {
 
   const submitData = async (e) => {
     e.preventDefault();
-    if (name === "" ) {
-      Notify("there are some problems with add", "warn");
-      return;
-    }
+    // if (name === "" ) {
+    //   Notify("there are some problems with add", "warn");
+    //   return;
+    // }
     const formData = new FormData();
     formData.append("name", name);
-    formData.append("image", files[0].file);
+    if(typeof files[0] !== 'undefined') {
+      formData.append("image", files[0].file);
+    }
     setLoading(true);
     setPress(true);
     await dispatch(createBrand(formData));

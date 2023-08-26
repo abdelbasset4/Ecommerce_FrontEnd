@@ -397,7 +397,7 @@ function NavList() {
 
 export default function SecondNavBar() {
   const [openNav, setOpenNav] = useState(false);
-  const [isAuth, setIsAuth] = useState(true);
+  const [isAuth, setIsAuth] = useState(false);
   useEffect(() => {
     window.addEventListener(
       "resize",
@@ -444,17 +444,23 @@ export default function SecondNavBar() {
       </div>
       <Collapse open={openNav}>
         <NavList />
-        <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden flex-col ">
+        {
+          isAuth ? null:(
+            <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden flex-col ">
           <Button
             size="sm"
             color="blue-gray"
             className="flex items-center gap-3">
             <UserIcon strokeWidth={2} className="h-5 w-5" /> Login
           </Button>
+          <Link to="/signup">
           <Button size="sm" fullWidth>
             Sign Up
           </Button>
+          </Link>
         </div>
+          )
+        }
       </Collapse>
     </Navbar>
   );
