@@ -9,7 +9,18 @@ import logo from '../../assets/logo.svg'
 import {BiLogoFacebookSquare} from "react-icons/bi"
 import {AiFillGoogleSquare} from "react-icons/ai"
 import { Link } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import { useLogin } from "../../hook/Auth/useLogin";
 export default function Login() {
+  const [
+    email,
+    password,
+    changeEmail,
+    changePassword,
+    hundelSubmit,
+    // isPress,
+    // setIsPress,
+  ] = useLogin()
   return (
     <div className="flex justify-center items-center min-h-screen mt-5">
 
@@ -23,8 +34,8 @@ export default function Login() {
         </Typography>
         <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
           <div className="mb-4 flex flex-col gap-6">
-            <Input size="lg" label="Email" />
-            <Input type="password" size="lg" label="Password" />
+            <Input size="lg" label="Email" value={email} onChange={changeEmail} />
+            <Input type="password" size="lg" label="Password" value={password} onChange={changePassword} />
           </div>
           <div className="flex items-center justify-between">
           <Switch
@@ -39,7 +50,7 @@ export default function Login() {
           />
           <a href="" className="underline hover:no-underline">Forgot Password?</a>
           </div>
-          <Button className="mt-6 bg-gray-900 py-4 hover:opacity-80" fullWidth>
+          <Button className="mt-6 bg-gray-900 py-4 hover:opacity-80" onClick={hundelSubmit} fullWidth>
             Login
           </Button>
           <Typography color="gray" className=" font-normal text-center mt-3">
@@ -62,6 +73,7 @@ export default function Login() {
           </Typography>
         </form>
       </Card>
+      <ToastContainer />
     </div>
   );
 }
