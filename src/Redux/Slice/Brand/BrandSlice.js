@@ -50,6 +50,7 @@ const initialState = {
     },
     [createBrand.rejected]:(state,action)=>{
       state.isLoading=false;
+      console.log(action?.error?.message);
       state.erorr=action?.error?.message;
     }
   }

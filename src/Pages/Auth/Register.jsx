@@ -9,7 +9,10 @@ import logo from '../../assets/logo.svg'
 import {BiLogoFacebookSquare} from "react-icons/bi"
 import {AiFillGoogleSquare} from "react-icons/ai"
 import { Link } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import { useRegister } from "../../hook/Auth/useRegister";
 export default function Registre() {
+    const [name, email, password,confirmPassword, phone, changeName, changeEmail, changePassword,changeConfirmPassword,changePhone,hundelSubmit] = useRegister()
     return (
       <div className="flex justify-center items-center min-h-screen mt-5">
 
@@ -25,9 +28,11 @@ export default function Registre() {
           </Typography>
           <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
             <div className="mb-4 flex flex-col gap-6">
-              <Input size="lg" label="Name" />
-              <Input size="lg" label="Email" />
-              <Input type="password" size="lg" label="Password" />
+              <Input size="lg" label="Name" value={name} onChange={changeName} />
+              <Input size="lg" label="Email" value={email} onChange={changeEmail} />
+              <Input type="password" size="lg" label="Password" value={password} onChange={changePassword} />
+              <Input type="password" size="lg" label="Confirm Password" value={confirmPassword} onChange={changeConfirmPassword} />
+              <Input type="number" size="lg" label="Phone" value={phone} onChange={changePhone} />
             </div>
             <Checkbox
               label={
@@ -49,7 +54,7 @@ export default function Registre() {
               }
               containerProps={{ className: "-ml-2.5" }}
             />
-            <Button className="mt-6 bg-gray-900 py-4 hover:opacity-80" fullWidth>
+            <Button className="mt-6 bg-gray-900 py-4 hover:opacity-80" onClick={hundelSubmit} fullWidth>
               Register
             </Button>
             <Typography color="gray" className=" font-normal text-center mt-3">
@@ -72,6 +77,7 @@ export default function Registre() {
             </Typography>
           </form>
         </Card>
+        <ToastContainer />
       </div>
     );
   }
