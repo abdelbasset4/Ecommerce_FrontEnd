@@ -29,28 +29,8 @@ export const useRegister = () => {
     setPhone(e.target.value)
  }
 
- const validateForm = ()=>{
-    if(name ===""){
-        Notify("Please enter your name","warn")
-    }
-    if(email ===""){
-        Notify("Please enter your email","warn")
-    }
-    if(password ===""){
-        Notify("Please enter your password","warn")
-    }
-    if(confirmPassword ===""){
-        Notify("Please enter your confirm password","warn")
-    }
-    if(password !=confirmPassword){
-        Notify("the password and confirm password dont equal","warn")
-    }
-
-    
-    
- }
  const hundelSubmit = async()=>{
-    validateForm()
+    // validateForm()
     setLoading(true)
     await dispatch(createUser({
         name,
@@ -66,6 +46,7 @@ export const useRegister = () => {
    
     if(loading ===false){
         if(res){
+            console.log(res);
             if(res.data.token){
                 localStorage.setItem("token",res.data.token)
                 Notify("Sign up succes","success")
