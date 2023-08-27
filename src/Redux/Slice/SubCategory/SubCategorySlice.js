@@ -7,7 +7,6 @@ import {
 const initialState = {
   subCategory: [],
   isLoading: true,
-  error: null,
 };
 
 const subCategorySlice = createSlice({
@@ -16,29 +15,25 @@ const subCategorySlice = createSlice({
   extraReducers: {
     [createSubCategory.pending]: (state) => {
       state.isLoading = true;
-      state.erorr = null;
     },
     [createSubCategory.fulfilled]: (state, action) => {
       state.subCategory = action.payload;
       state.isLoading = false;
-      state.erorr = null;
     },
     [createSubCategory.rejected]: (state, action) => {
       state.isLoading = false;
-      state.erorr = action?.error?.message;
+      state.subCategory = action.payload;
     },
     [getAllSubCategoryOnCatID.pending]: (state) => {
       state.isLoading = true;
-      state.erorr = null;
     },
     [getAllSubCategoryOnCatID.fulfilled]: (state, action) => {
       state.subCategory = action.payload;
       state.isLoading = false;
-      state.erorr = null;
     },
     [getAllSubCategoryOnCatID.rejected]: (state, action) => {
       state.isLoading = false;
-      state.erorr = action?.error?.message;
+      state.subCategory = action.payload;
     },
   },
 });

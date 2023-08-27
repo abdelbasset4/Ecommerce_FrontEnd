@@ -7,7 +7,6 @@ const initialState = {
     updateProduct:[],
     deleteProduct:"idle",
     isLoading: true,
-    error:null
 }
 
  const productSlice = createSlice({
@@ -16,81 +15,69 @@ const initialState = {
   extraReducers:{
     [getAllProducts.pending]:(state)=>{
       state.isLoading=true;
-      state.erorr=null;
     },
     [getAllProducts.fulfilled]:(state,action)=>{
       state.products = action.payload
       state.isLoading=false;
-      state.erorr=null;
     },
     [getAllProducts.rejected]:(state,action)=>{
       state.isLoading=false;
-      state.erorr=action?.error?.message;
+      state.products = action.payload
     },
     [getProductsLookLike.pending]:(state)=>{
       state.isLoading=true;
-      state.erorr=null;
     },
     [getProductsLookLike.fulfilled]:(state,action)=>{
       state.products = action.payload
       state.isLoading=false;
-      state.erorr=null;
     },
     [getProductsLookLike.rejected]:(state,action)=>{
       state.isLoading=false;
-      state.erorr=action?.error?.message;
+      state.products = action.payload
     },
     [createProduct.pending]:(state)=>{
       state.isLoading=true;
-      state.erorr=null;
     },
     [createProduct.fulfilled]:(state,action)=>{
       state.products = action.payload
       state.isLoading=false;
-      state.erorr=null;
     },
     [createProduct.rejected]:(state,action)=>{
       state.isLoading=false;
-      state.erorr=action?.error?.message;
+      state.products = action.payload
     },
     [getOneProduct.pending]:(state)=>{
       state.isLoading=true;
-      state.erorr=null;
     },
     [getOneProduct.fulfilled]:(state,action)=>{
       state.product = action.payload
       state.isLoading=false;
-      state.erorr=null;
     },
     [getOneProduct.rejected]:(state,action)=>{
       state.isLoading=false;
-      state.erorr=action?.error?.message;
+      state.product = action.payload
     },
     [deleteProduct.pending]:(state)=>{
       state.isLoading=true;
-      state.erorr=null;
     },
     [deleteProduct.fulfilled]:(state)=>{
       state.deleteProduct = "succeeded"
       state.isLoading=false;
-      state.erorr=null;
     },
-    [deleteProduct.rejected]:(state,action)=>{
+    [deleteProduct.rejected]:(state)=>{
       state.isLoading=false;
-      state.erorr=action?.error?.message;
+      state.deleteProduct = "failed"
     },
     [updateProduct.pending]:(state)=>{
       state.isLoading=true;
-      state.erorr=null;
     },
     [updateProduct.fulfilled]:(state,action)=>{
       state.updateProduct = action.payload
       state.isLoading=false;
-      state.erorr=null;
     },
     [updateProduct.rejected]:(state,action)=>{
       state.isLoading=false;
-      state.erorr=action?.error?.message;
+      state.updateProduct = action.payload
     },
   }
 })

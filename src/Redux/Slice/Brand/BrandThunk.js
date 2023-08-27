@@ -10,7 +10,7 @@ export const getAllBrand = createAsyncThunk(
       const res = await useGetData(url);
       return res;
     } catch (err) {
-      return rejectWithValue(err.message);
+      return rejectWithValue(err.response);
     }
   }
 );
@@ -23,7 +23,7 @@ export const getOneBrand = createAsyncThunk(
       const res = await useGetData(url);
       return res;
     } catch (err) {
-      return rejectWithValue(err.message);
+      return rejectWithValue(err.response);
     }
   }
 );
@@ -36,7 +36,7 @@ export const createBrand = createAsyncThunk(
       const res = await useInsertDataWithImage(`/api/v1/brands`, formData);
       return res;
     } catch (err) {
-      return rejectWithValue(err.response.data);
+      return rejectWithValue(err.response);
     }
   }
 );

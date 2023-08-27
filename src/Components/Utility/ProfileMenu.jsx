@@ -26,7 +26,7 @@ export function ProfileMenu({ data }) {
         />
       </MenuHandler>
       <MenuList>
-      {data?.role === "user" ? (
+      {data?.role === "admin" ? (
         <Link to="/dashboard">
           <MenuItem className="flex items-center gap-2">
             <svg

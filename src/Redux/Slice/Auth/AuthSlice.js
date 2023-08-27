@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createUser, Login,GetLoggedUser } from "../Auth/AuthThunk";
+import { createUser, Login,GetLoggedUser ,ForgotPassword} from "../Auth/AuthThunk";
 
 const initialState = {
   user: [],
@@ -12,7 +12,6 @@ const AuthSlice = createSlice({
   extraReducers: {
     [createUser.pending]: (state) => {
       state.isLoading = true;
-      state.erorr = null;
     },
     [createUser.fulfilled]: (state, action) => {
       state.user = action.payload;
@@ -24,7 +23,6 @@ const AuthSlice = createSlice({
     },
     [Login.pending]: (state) => {
       state.isLoading = true;
-      state.erorr = null;
     },
     [Login.fulfilled]: (state, action) => {
       state.user = action.payload;
@@ -34,9 +32,19 @@ const AuthSlice = createSlice({
       state.isLoading = false;
       state.user = action.payload;
     },
+    [ForgotPassword.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [ForgotPassword.fulfilled]: (state, action) => {
+      state.user = action.payload;
+      state.isLoading = false;
+    },
+    [ForgotPassword.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.user = action.payload;
+    },
     [GetLoggedUser.pending]: (state) => {
       state.isLoading = true;
-      state.erorr = null;
     },
     [GetLoggedUser.fulfilled]: (state, action) => {
       state.user = action.payload;

@@ -12,7 +12,7 @@ export const getAllProducts = createAsyncThunk(
       const res = await useGetData(url);
       return res;
     } catch (err) {
-      return rejectWithValue(err.message);
+      return rejectWithValue(err.response);
     }
   }
 );
@@ -25,7 +25,7 @@ export const getOneProduct = createAsyncThunk(
       const res = await useGetData(url);
       return res;
     } catch (err) {
-      return rejectWithValue(err.message);
+      return rejectWithValue(err.response);
     }
   }
 );
@@ -37,7 +37,7 @@ export const getProductsLookLike = createAsyncThunk(
       const res = await useGetData(url);
       return res;
     } catch (err) {
-      return rejectWithValue(err.message);
+      return rejectWithValue(err.response);
     }
   }
 );
@@ -50,7 +50,7 @@ export const createProduct = createAsyncThunk(
       const res = await useInsertDataWithImage(`/api/v1/products`, formData);
       return res;
     } catch (err) {
-      return rejectWithValue(err.message);
+      return rejectWithValue(err.response);
     }
   }
 );
@@ -63,7 +63,7 @@ export const deleteProduct = createAsyncThunk(
       const res = await useDeleteData(url);
       return res;
     } catch (err) {
-      return rejectWithValue(err.message);
+      return rejectWithValue(err.response);
     }
   }
 );
@@ -79,7 +79,7 @@ export const updateProduct = createAsyncThunk(
       );
       return res;
     } catch (err) {
-      return rejectWithValue(err.message);
+      return rejectWithValue(err.response);
     }
   }
 );

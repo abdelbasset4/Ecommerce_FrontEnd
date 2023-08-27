@@ -48,7 +48,7 @@ export default function Login() {
               className: ""
             }}
           />
-          <a href="" className="underline hover:no-underline">Forgot Password?</a>
+          <Link to='/user/forgotpassword' className="underline hover:no-underline">Forgot Password?</Link>
           </div>
           <Button className="mt-6 bg-gray-900 py-4 hover:opacity-80" onClick={hundelSubmit} fullWidth>
             Login
