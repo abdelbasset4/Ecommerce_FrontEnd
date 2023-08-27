@@ -35,7 +35,6 @@ export const useLogin = () => {
   useEffect(() => {
     if (loading === false) {
       if (res) {
-        console.log(res);
         if (res.data.token) {
           localStorage.setItem("token", res.data.token);
           Notify("Login succes", "success");

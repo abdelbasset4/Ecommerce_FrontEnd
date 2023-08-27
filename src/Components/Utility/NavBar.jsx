@@ -7,31 +7,42 @@ import {
   Badge,
   Collapse,
 } from "@material-tailwind/react";
-import logo from '../../assets/logo.svg'
+import logo from "../../assets/logo.svg";
 import { HiOutlineHeart } from "react-icons/hi";
 import { CgShoppingBag } from "react-icons/cg";
 import { Link } from "react-router-dom";
 import useSearchNavBar from "../../hook/Search/useSearchNavBar";
+import { useDispatch, useSelector } from "react-redux";
+import { GetLoggedUser } from "../../Redux/Slice/Auth/AuthThunk";
 
 export default function NavBar() {
-  const [word,onChangeSearch] = useSearchNavBar()
+  const dispatch = useDispatch();
+  const [, onChangeSearch] = useSearchNavBar();
   const [openNav, setOpenNav] = useState(false);
-  let searchword = ""
-  if(localStorage.getItem("searchWord"))
+  let searchword = "";
+  if (localStorage.getItem("searchWord"))
     // eslint-disable-next-line no-const-assign
-    searchword = localStorage.getItem("searchWord")
+    searchword = localStorage.getItem("searchWord");
   useEffect(() => {
-    window.addEventListener("resize", () => window.innerWidth >= 960 && setOpenNav(false));
+    window.addEventListener(
+      "resize",
+      () => window.innerWidth >= 960 && setOpenNav(false)
+    );
   }, []);
- 
+  const res = useSelector((state) => state.auth.user);
+  useEffect(() => {
+    dispatch(GetLoggedUser());
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const navList = (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <Typography
         as="li"
         variant="small"
         color="blue-gray"
-        className="p-1 font-normal text-base"
-      >
+        className="p-1 font-normal text-base">
         <a href="#" className="flex items-center">
           Deals Today
         </a>
@@ -40,8 +51,7 @@ export default function NavBar() {
         as="li"
         variant="small"
         color="blue-gray"
-        className="p-1 font-normal text-base"
-      >
+        className="p-1 font-normal text-base">
         <a href="#" className="flex items-center">
           Offers
         </a>
@@ -50,8 +60,7 @@ export default function NavBar() {
         as="li"
         variant="small"
         color="blue-gray"
-        className="p-1 font-normal text-base"
-      >
+        className="p-1 font-normal text-base">
         <a href="#" className="flex items-center">
           FAQ
         </a>
@@ -60,56 +69,66 @@ export default function NavBar() {
         as="li"
         variant="small"
         color="blue-gray"
-        className="p-1 font-normal text-base"
-      >
+        className="p-1 font-normal text-base">
         <a href="#" className="flex items-center">
           Contact
         </a>
       </Typography>
       <div className="w-72">
-      <Input label="Search Anything ..." icon={<i className="fas fa-magnifying-glass" />} value={searchword} onChange={onChangeSearch} />
-    </div>
+        <Input
+          label="Search Anything ..."
+          icon={<i className="fas fa-magnifying-glass" />}
+          value={searchword}
+          onChange={onChangeSearch}
+        />
+      </div>
     </ul>
   );
- 
+
   return (
     <Navbar className="mx-auto py-2 px-4 lg:px-8 lg:py-4 rounded-none">
       <div className="container mx-auto flex items-center justify-between text-blue-gray-900">
         <Typography
           as="a"
           href="#"
-          className="mr-4 cursor-pointer py-1.5 font-medium"
-        >
-          <Link to='/'>
+          className="mr-4 cursor-pointer py-1.5 font-medium">
+          <Link to="/">
             <img src={logo} alt="" />
           </Link>
         </Typography>
         <div className="hidden lg:block">{navList}</div>
-        <div className="hidden lg:flex items-center gap-3">
+        {!res.status ? (
+          <div className="hidden lg:flex items-center gap-3">
             <Link to="/wishlist" className="flex items-center gap-1">
-            
-              <Badge content="0" color="red" className="min-w-[20px] min-h-[20px] bg-[#212121]" >
-                  <IconButton color="white" >
-                      <HiOutlineHeart size={"1rem"}/>
-                  </IconButton>
+              <Badge
+                content="0"
+                color="red"
+                className="min-w-[20px] min-h-[20px] bg-[#212121]">
+                <IconButton color="white">
+                  <HiOutlineHeart size={"1rem"} />
+                </IconButton>
               </Badge>
-              <span >Wishlist</span>
+              <span>Wishlist</span>
             </Link>
-            <Link to='/cart' className="flex items-center gap-1">
-              <Badge content="1" color="red" className="min-w-[20px] min-h-[20px] bg-[#212121]">
-                  <IconButton color="white" >
-                      <CgShoppingBag size={"1rem"}/>
-                  </IconButton>
+            <Link to="/cart" className="flex items-center gap-1">
+              <Badge
+                content="1"
+                color="red"
+                className="min-w-[20px] min-h-[20px] bg-[#212121]">
+                <IconButton color="white">
+                  <CgShoppingBag size={"1rem"} />
+                </IconButton>
               </Badge>
               <span>Shopping</span>
             </Link>
-        </div>
+          </div>
+        ) : null}
+
         <IconButton
           variant="text"
           className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
           ripple={false}
-          onClick={() => setOpenNav(!openNav)}
-        >
+          onClick={() => setOpenNav(!openNav)}>
           {openNav ? (
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -117,8 +136,7 @@ export default function NavBar() {
               className="h-6 w-6"
               viewBox="0 0 24 24"
               stroke="currentColor"
-              strokeWidth={2}
-            >
+              strokeWidth={2}>
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -131,8 +149,7 @@ export default function NavBar() {
               className="h-6 w-6"
               fill="none"
               stroke="currentColor"
-              strokeWidth={2}
-            >
+              strokeWidth={2}>
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -142,11 +159,8 @@ export default function NavBar() {
           )}
         </IconButton>
       </div>
-      <Collapse  open={openNav}>
-        <div className="container mx-auto">
-          {navList}
-
-        </div>
+      <Collapse open={openNav}>
+        <div className="container mx-auto">{navList}</div>
       </Collapse>
     </Navbar>
   );

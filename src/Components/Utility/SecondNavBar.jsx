@@ -21,6 +21,8 @@ import {
 } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import { ProfileMenu } from "./ProfileMenu";
+import { useDispatch, useSelector } from "react-redux";
+import { GetLoggedUser } from "../../Redux/Slice/Auth/AuthThunk";
 
 // nav list menu
 const navListCategory = [
@@ -396,23 +398,28 @@ function NavList() {
 }
 
 export default function SecondNavBar() {
+  const dispatch = useDispatch()
   const [openNav, setOpenNav] = useState(false);
-  const [isAuth, setIsAuth] = useState(false);
+  const res = useSelector((state) => state.auth.user)
+  useEffect(() => {
+    dispatch(GetLoggedUser())
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   useEffect(() => {
     window.addEventListener(
       "resize",
       () => window.innerWidth >= 960 && setOpenNav(false)
     );
   }, []);
-
   return (
     <Navbar className="mx-auto  px-4 py-2 rounded-none">
       <div className="flex items-center justify-between text-blue-gray-900">
         <div className="hidden lg:block">
           <NavList />
         </div>
-        {isAuth ? (
-          <ProfileMenu />
+        {!res.status  ? (
+          <ProfileMenu data={res.data} />
         ) : (
           <div className="hidden gap-2 lg:flex">
             <Link to="/login">
@@ -445,14 +452,16 @@ export default function SecondNavBar() {
       <Collapse open={openNav}>
         <NavList />
         {
-          isAuth ? null:(
+          !res.status ? null:(
             <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden flex-col ">
+            <Link to="/login">
           <Button
             size="sm"
             color="blue-gray"
             className="flex items-center gap-3">
             <UserIcon strokeWidth={2} className="h-5 w-5" /> Login
           </Button>
+          </Link>
           <Link to="/signup">
           <Button size="sm" fullWidth>
             Sign Up
