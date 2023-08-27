@@ -10,7 +10,7 @@ export const getAllCategory = createAsyncThunk(
       const res = await useGetData(url);
       return res;
     } catch (err) {
-      return rejectWithValue(err.message);
+      return rejectWithValue(err.response);
     }
   }
 );
@@ -23,7 +23,7 @@ export const createCategory = createAsyncThunk(
       const res = await useInsertDataWithImage(`/api/v1/categories`, formData);
       return res;
     } catch (err) {
-      return rejectWithValue(err.message);
+      return rejectWithValue(err.response);
     }
   }
 );

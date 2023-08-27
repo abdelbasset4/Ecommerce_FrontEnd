@@ -31,6 +31,7 @@ import EditProduct from "./Pages/Dashboard/Mange/EditProduct";
 import Brand from "./Pages/Dashboard/Mange/Brand";
 import Category from "./Pages/Dashboard/Mange/Category";
 import SubCategory from "./Pages/Dashboard/Mange/SubCategory";
+import ForgotPassword from "./Pages/Auth/ForgotPassword";
 
 
 const Settings = lazy(() => import("./Pages/Dashboard/Settings"));
@@ -40,6 +41,7 @@ const router = createBrowserRouter(
       <Route path="/" element={<RootLayout />}>
         <Route index element={<Home />} />
         <Route path="login" element={<Login />} />
+        <Route path="user/forgotpassword" element={<ForgotPassword />} />
         <Route path="signup" element={<Register />} />
         <Route path="search" element={<SearchPage />} />
         <Route path="search/products/:id" element={<ProductDetalisPage />} />

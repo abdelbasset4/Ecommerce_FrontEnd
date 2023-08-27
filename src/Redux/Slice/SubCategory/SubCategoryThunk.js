@@ -11,7 +11,7 @@ export const getAllSubCategoryOnCatID = createAsyncThunk(
       const res = await useGetData(url);
       return res;
     } catch (err) {
-      return rejectWithValue(err.message);
+      return rejectWithValue(err.response);
     }
   }
 );
@@ -24,7 +24,7 @@ export const createSubCategory = createAsyncThunk(
       const res = await useInsertData(`/api/v1/subcategories`, data);
       return res;
     } catch (err) {
-      return rejectWithValue(err.message);
+      return rejectWithValue(err.response);
     }
   }
 );

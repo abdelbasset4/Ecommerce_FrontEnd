@@ -28,6 +28,19 @@ export const Login = createAsyncThunk(
   }
 );
 
+export const ForgotPassword = createAsyncThunk(
+  "login/forgotpassword",
+  async (data, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      const res = await useInsertData(`/api/v1/auth/forgotPassword`, data);
+      return res;
+    } catch (err) {
+      return rejectWithValue(err.response);
+    }
+  }
+);
+
 export const GetLoggedUser = createAsyncThunk(
   "login/loggedUser",
   async (data, thunkAPI) => {

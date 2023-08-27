@@ -4,7 +4,6 @@ import { getAllCategory,createCategory } from './CategoryThunk'
 const initialState = {
     category: [],
     isLoading: true,
-    error:null
 }
 
  const categorySlice = createSlice({
@@ -13,31 +12,27 @@ const initialState = {
   extraReducers:{
     [getAllCategory.pending]:(state)=>{
       state.isLoading=true;
-      state.erorr=null;
     },
     [getAllCategory.fulfilled]:(state,action)=>{
       state.category = action.payload
       state.isLoading=false;
-      state.erorr=null;
     },
     [getAllCategory.rejected]:(state,action)=>{
 
       state.isLoading=false;
-      state.erorr=action?.error?.message;
+      state.category = action.payload
     },
     [createCategory.pending]:(state)=>{
       state.isLoading=true;
-      state.erorr=null;
     },
     [createCategory.fulfilled]:(state,action)=>{
       state.category = action.payload
       state.isLoading=false;
-      state.erorr=null;
     },
     [createCategory.rejected]:(state,action)=>{
 
       state.isLoading=false;
-      state.erorr=action?.error?.message;
+      state.category = action.payload
     }
   }
 })
