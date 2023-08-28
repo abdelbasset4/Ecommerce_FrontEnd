@@ -1,5 +1,11 @@
+import { Alert } from "@material-tailwind/react";
+import BrandTableRow from "../../../Components/Admin/BrandTableRow";
 import Breadcrumb from "../../../Components/Dashboard/Breadcrumb";
+import Pagination from "../../../Components/Utility/Pagination";
+import useGetAllBrand from "../../../hook/Brand/useGetAllBrand";
+
 const Brand = () => {
+  const [brands,,pageCount,getPageNumber] = useGetAllBrand(12)
     return(
         <>
         <Breadcrumb pageName="brands" />
@@ -16,7 +22,7 @@ const Brand = () => {
             />
           </div>
           {
-            // pageCount >1 ?(<Pagination numberPages={pageCount} onPress={getPageNumber} />):null
+            pageCount >1 ?(<Pagination numberPages={pageCount} onPress={getPageNumber} />):null
           }
         </div>
 
@@ -29,13 +35,13 @@ const Brand = () => {
           </div>
         </div>
           {
-            // products.data ?(
-            //   products.data.map((product)=>{
-            //    // eslint-disable-next-line react/jsx-key
-            //    return ( <ProductTableRow key={product._id} product={product}/>)
-            //   })
+            brands.data ?(
+              brands.data.map((brand)=>{
+               // eslint-disable-next-line react/jsx-key
+               return ( <BrandTableRow key={brand._id} brand={brand}/>)
+              })
               
-            // ):( <Alert>there are no products found.</Alert>)
+            ):( <Alert>there are no brand found.</Alert>)
           }
         
 

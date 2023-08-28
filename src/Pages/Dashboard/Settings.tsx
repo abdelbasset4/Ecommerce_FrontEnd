@@ -1,5 +1,4 @@
 import Breadcrumb from '../../Components/Dashboard/Breadcrumb';
-import userThree from '../../images/user/user-03.png';
 
 const Settings = () => {
   return (
@@ -220,7 +219,7 @@ const Settings = () => {
                 <form action="#">
                   <div className="mb-4 flex items-center gap-3">
                     <div className="h-14 w-14 rounded-full">
-                      <img src={userThree} alt="User" />
+                      <img src="" alt="User" />
                     </div>
                     <div>
                       <span className="mb-1.5 text-black dark:text-white">

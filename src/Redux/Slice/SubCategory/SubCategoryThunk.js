@@ -4,6 +4,18 @@ import { useInsertData } from "../../../hooks/useInsertData";
 import useDeleteData from "../../../hooks/useDeleteData";
 import { useUpdateDataWithImage } from "../../../hooks/useUpdateData";
 
+export const getAllSubCategory = createAsyncThunk(
+  "subcategory/getAlll",
+  async (url, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      const res = await useGetData(url);
+      return res;
+    } catch (err) {
+      return rejectWithValue(err.response);
+    }
+  }
+);
 export const getAllSubCategoryOnCatID = createAsyncThunk(
   "subcategory/getAll",
   async (url, thunkAPI) => {

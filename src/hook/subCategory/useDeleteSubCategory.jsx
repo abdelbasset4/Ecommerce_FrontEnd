@@ -1,24 +1,24 @@
 import { useState ,useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteProduct } from "../../Redux/Slice/product/ProductThunk";
+import { deleteSubCategory } from "../../Redux/Slice/SubCategory/SubCategoryThunk";
 import Notify from "../../hooks/useNotify";
-
-function useDeleteProduct() {
-    const [open, setOpen] = useState(false);
+const useDeleteSubCategory = () => {
+  const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const handleOpen = () => setOpen(!open);
   const dispatch = useDispatch()
-
-  const handelDeleteProduct = async (id) => {
+  
+  const handelDeleteSubCategory = async (id) => {
     setLoading(true);
-   await dispatch(deleteProduct(`/api/v1/products/${id}`))
+   await dispatch(deleteSubCategory(`/api/v1/subcategories/${id}`))
     setOpen(!open);
     setLoading(false);
+    // window.location.reload()
   };
-  const productDeleted = useSelector((state) => state.product.deleteProduct);
+  const subCategoryDeleted = useSelector((state) => state.subCategory.deleteSubCategory);
   useEffect(() => {
     if (loading === false) {
-      if (productDeleted == "succeeded") {
+      if (subCategoryDeleted == "succeeded") {
         Notify("Delete succsusful", "success");
         setTimeout(() => {
           window.location.reload();
@@ -30,7 +30,7 @@ function useDeleteProduct() {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading])
-  return [open,handleOpen,handelDeleteProduct]
+  return [open,handleOpen,handelDeleteSubCategory]
 }
 
-export default useDeleteProduct
+export default useDeleteSubCategory
