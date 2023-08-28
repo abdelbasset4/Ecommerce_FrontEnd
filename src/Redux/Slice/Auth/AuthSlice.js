@@ -1,5 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createUser, Login,GetLoggedUser ,ForgotPassword} from "../Auth/AuthThunk";
+import {
+  createUser,
+  Login,
+  GetLoggedUser,
+  ForgotPassword,
+  ResetCode,
+  ResetPassword,
+} from "../Auth/AuthThunk";
 
 const initialState = {
   user: [],
@@ -40,6 +47,28 @@ const AuthSlice = createSlice({
       state.isLoading = false;
     },
     [ForgotPassword.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.user = action.payload;
+    },
+    [ResetCode.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [ResetCode.fulfilled]: (state, action) => {
+      state.user = action.payload;
+      state.isLoading = false;
+    },
+    [ResetCode.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.user = action.payload;
+    },
+    [ResetPassword.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [ResetPassword.fulfilled]: (state, action) => {
+      state.user = action.payload;
+      state.isLoading = false;
+    },
+    [ResetPassword.rejected]: (state, action) => {
       state.isLoading = false;
       state.user = action.payload;
     },

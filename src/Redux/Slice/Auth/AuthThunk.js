@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { useInsertData } from "../../../hooks/useInsertData";
 import { useGetDataToken } from "../../../hooks/useGetData";
+import { useUpdatetData } from "../../../hooks/useUpdateData";
 
 export const createUser = createAsyncThunk(
   "register/create",
@@ -34,6 +35,31 @@ export const ForgotPassword = createAsyncThunk(
     const { rejectWithValue } = thunkAPI;
     try {
       const res = await useInsertData(`/api/v1/auth/forgotPassword`, data);
+      return res;
+    } catch (err) {
+      return rejectWithValue(err.response);
+    }
+  }
+);
+
+export const ResetCode = createAsyncThunk(
+  "login/verifyresetcode",
+  async (data, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      const res = await useInsertData(`/api/v1/auth/verifyResetCode`, data);
+      return res;
+    } catch (err) {
+      return rejectWithValue(err.response);
+    }
+  }
+);
+export const ResetPassword = createAsyncThunk(
+  "login/resetpassword",
+  async (data, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      const res = await useUpdatetData(`/api/v1/auth/resetPassword`, data);
       return res;
     } catch (err) {
       return rejectWithValue(err.response);
