@@ -1,9 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { createBrand,getAllBrand ,getOneBrand} from '../Brand/BrandThunk'
+import { createBrand,getAllBrand ,getOneBrand,deleteBrand,updateBrand} from '../Brand/BrandThunk'
 
 const initialState = {
     brand: [],
     oneBrand:[],
+    updateBrand:[],
+    deleteBrand:"idle",
     isLoading: true,
 }
 
@@ -19,7 +21,6 @@ const initialState = {
       state.isLoading=false;
     },
     [getAllBrand.rejected]:(state,action)=>{
-
       state.isLoading=false;
       state.brand=action.payload;
     },
@@ -44,7 +45,29 @@ const initialState = {
     [createBrand.rejected]:(state,action)=>{
       state.isLoading=false;
       state.brand=action.payload;
-    }
+    },
+    [deleteBrand.pending]:(state)=>{
+      state.isLoading=true;
+    },
+    [deleteBrand.fulfilled]:(state)=>{
+      state.deleteBrand = "succeeded"
+      state.isLoading=false;
+    },
+    [deleteBrand.rejected]:(state)=>{
+      state.isLoading=false;
+      state.deleteBrand = "failed"
+    },
+    [updateBrand.pending]:(state)=>{
+      state.isLoading=true;
+    },
+    [updateBrand.fulfilled]:(state,action)=>{
+      state.updateBrand = action.payload
+      state.isLoading=false;
+    },
+    [updateBrand.rejected]:(state,action)=>{
+      state.isLoading=false;
+      state.updateBrand = action.payload
+    },
   }
 })
 

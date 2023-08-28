@@ -1,24 +1,24 @@
 import { useState ,useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteProduct } from "../../Redux/Slice/product/ProductThunk";
+import { deleteBrand } from "../../Redux/Slice/Brand/BrandThunk";
 import Notify from "../../hooks/useNotify";
-
-function useDeleteProduct() {
-    const [open, setOpen] = useState(false);
+const useDeleteBrand = () => {
+  const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const handleOpen = () => setOpen(!open);
   const dispatch = useDispatch()
-
-  const handelDeleteProduct = async (id) => {
+  
+  const handelDeleteBrand = async (id) => {
     setLoading(true);
-   await dispatch(deleteProduct(`/api/v1/products/${id}`))
+   await dispatch(deleteBrand(`/api/v1/brands/${id}`))
     setOpen(!open);
     setLoading(false);
+    // window.location.reload()
   };
-  const productDeleted = useSelector((state) => state.product.deleteProduct);
+  const brandDeleted = useSelector((state) => state.brand.deleteBrand);
   useEffect(() => {
     if (loading === false) {
-      if (productDeleted == "succeeded") {
+      if (brandDeleted == "succeeded") {
         Notify("Delete succsusful", "success");
         setTimeout(() => {
           window.location.reload();
@@ -30,7 +30,7 @@ function useDeleteProduct() {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading])
-  return [open,handleOpen,handelDeleteProduct]
+  return [open,handleOpen,handelDeleteBrand]
 }
 
-export default useDeleteProduct
+export default useDeleteBrand
