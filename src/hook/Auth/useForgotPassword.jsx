@@ -22,6 +22,7 @@ const useForgotPassword = () => {
     await dispatch(ForgotPassword({
         email
     }))
+    localStorage.setItem("email", email)
     setLoading(false);
   }
   const res = useSelector((state) => state.auth.user);
@@ -32,6 +33,9 @@ useEffect(() => {
         console.log(res);
         if(res.data.status ==="success"){
             Notify("Code Send Succsussfuly", "success");
+            setTimeout(() => {
+              navigate("/user/reset-code")
+            }, 2500);
         }
         if(res.data.status ==="fail"){
             Notify("Error with Code Send", "error");
