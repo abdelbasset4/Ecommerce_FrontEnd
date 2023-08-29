@@ -1,19 +1,18 @@
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Multiselect from "multiselect-react-dropdown";
 import { AiOutlinePlusCircle } from "react-icons/ai";
-import Breadcrumb from "../../../Components/Dashboard/Breadcrumb";
+import Breadcrumb from "../../../../Components/Dashboard/Breadcrumb";
 import { CompactPicker } from "react-color";
 import { ToastContainer } from "react-toastify";
+import useAddProduct from "../../../../hook/product/useAddProduct";
 import { FilePond, registerPlugin } from "react-filepond";
 import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 import "filepond/dist/filepond.min.css";
-import useEditProduct from "../../../hook/product/useEditProduct";
 
-export default function EditProduct() {
-  const { id } = useParams();
+export default function AddProduct() {
   const [
     name,
     description,
@@ -44,7 +43,7 @@ export default function EditProduct() {
     removeColor,
     handleColorCompleteChange,
     hundelSubmit,
-  ] = useEditProduct(id);
+  ] = useAddProduct();
   return (
     <>
       <Breadcrumb pageName="Add product" />
@@ -226,7 +225,7 @@ export default function EditProduct() {
                   border:
                     "1px solid rgb(226 232 240 / var(--tw-border-opacity))",
                   padding: "12px",
-                  borderRadius: "4px",
+                  "borderRadius": "4px",
                 },
               }}
             />
@@ -263,39 +262,35 @@ export default function EditProduct() {
           <label className="mb-3 block text-black dark:text-white">
             Cover Image:
           </label>
-
           <FilePond
             files={files}
             onupdatefiles={setFiles}
-            onremovefile={setFiles}
             allowMultiple={true}
             maxFiles={1}
-            server="http://localhost:3000/products/"
             name="files"
             labelIdle='Drag & Drop your image or <span class="filepond--label-action">Browse</span>'
           />
+         
         </div>
         <div className="my-4">
           <label className="mb-3 block text-black dark:text-white">
             Product images:
           </label>
           <FilePond
-            files={multipleFiles}
-            onremovefile={setMultipleFiles}
-            onupdatefiles={setMultipleFiles}
-            allowMultiple={true}
-            server="http://localhost:3000/products/"
-            maxFiles={5}
-            name="files"
-            labelIdle='Drag & Drop your images or <span class="filepond--label-action">Browse</span>'
-          />
+          files={multipleFiles}
+          onupdatefiles={setMultipleFiles}
+          allowMultiple={true}
+          maxFiles={5}
+          name="files"
+          labelIdle='Drag & Drop your images or <span class="filepond--label-action">Browse</span>'
+        />
         </div>
 
         <Link
           to="#"
           onClick={hundelSubmit}
           className="inline-flex items-center justify-center rounded-md bg-black py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10 mt-4">
-          Update
+          Add
         </Link>
       </div>
       <ToastContainer />

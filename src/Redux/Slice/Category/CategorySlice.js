@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getAllCategory,createCategory,deleteCategory,updateCategory } from './CategoryThunk'
+import { getAllCategory,getOneCategory,createCategory,deleteCategory,updateCategory } from './CategoryThunk'
 
 const initialState = {
     category: [],
@@ -20,6 +20,18 @@ const initialState = {
       state.isLoading=false;
     },
     [getAllCategory.rejected]:(state,action)=>{
+
+      state.isLoading=false;
+      state.category = action.payload
+    },
+    [getOneCategory.pending]:(state)=>{
+      state.isLoading=true;
+    },
+    [getOneCategory.fulfilled]:(state,action)=>{
+      state.category = action.payload
+      state.isLoading=false;
+    },
+    [getOneCategory.rejected]:(state,action)=>{
 
       state.isLoading=false;
       state.category = action.payload

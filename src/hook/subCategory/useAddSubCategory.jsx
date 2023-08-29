@@ -12,7 +12,7 @@ function useAddSubCategory() {
   const [id, setId] = useState("0");
   const [loading, setLoading] = useState(true);
   const [press, setPress] = useState(false);
-
+  const [files, setFiles] = useState([]);
   useEffect(() => {
     dispatch(getAllCategory(`/api/v1/categories`));
   }, [dispatch]);
@@ -43,9 +43,16 @@ function useAddSubCategory() {
       Notify("please select category", "warn");
       return;
     }
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("category", id);
+
+    if(typeof files[0] !== 'undefined') {
+      formData.append("image", files[0].file);
+    }
     setLoading(true);
     setPress(true);
-    await dispatch(createSubCategory({ name, category: id }));
+    await dispatch(createSubCategory(formData));
     setLoading(false);
   };
   useEffect(() => {
@@ -57,11 +64,13 @@ function useAddSubCategory() {
       if (subCategory.status === 201) {
         Notify("Added succsusful", "success");
       } else {
+        console.log(subCategory);
         Notify("Added error ", "error");
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading, subCategory.status]);
-  return [name,categories, loading, press, changeName,changeId, submitData];
+  return [name,categories, loading, press, changeName,changeId, submitData,files,setFiles];
 }
 
 export default useAddSubCategory;

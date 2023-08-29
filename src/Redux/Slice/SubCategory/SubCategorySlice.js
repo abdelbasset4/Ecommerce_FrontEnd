@@ -4,7 +4,8 @@ import {
   getAllSubCategory,
   getAllSubCategoryOnCatID,
   deleteSubCategory,
-  updateSubCategory
+  updateSubCategory,
+  getOneSubCategory
 } from "./SubCategoryThunk";
 
 const initialState = {
@@ -37,6 +38,17 @@ const subCategorySlice = createSlice({
       state.isLoading = false;
     },
     [getAllSubCategoryOnCatID.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.subCategory = action.payload;
+    },
+    [getOneSubCategory.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [getOneSubCategory.fulfilled]: (state, action) => {
+      state.subCategory = action.payload;
+      state.isLoading = false;
+    },
+    [getOneSubCategory.rejected]: (state, action) => {
       state.isLoading = false;
       state.subCategory = action.payload;
     },

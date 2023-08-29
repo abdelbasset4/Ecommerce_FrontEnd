@@ -40,10 +40,10 @@ const CategoryTableRow = ({ category }) => {
         </DialogFooter>
       </Dialog>
       <div className="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
-        <div className="col-span-3 flex items-center">
+        <div className="col-span-2 flex items-center">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
             <div className="h-12.5 w-15 rounded-md">
-              <img src={`${baseURL}/brands/${category.imageCover}`} alt="brands" />
+              <img src={`${baseURL}/categories/${category.image}`} alt="category" />
             </div>
             <p className="text-sm text-black dark:text-white">{category.name}</p>
           </div>

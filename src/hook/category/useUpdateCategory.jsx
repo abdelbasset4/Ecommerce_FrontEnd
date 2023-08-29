@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import { getOneCategory, updateCategory } from "../../Redux/Slice/Category/CategoryThunk";
 import { baseURL } from "../../API/mainBaseURL";
 import Notify from "../../hooks/useNotify";
-import { getOneBrand, updateBrand } from "../../Redux/Slice/Brand/BrandThunk";
-const useUpdateBrand = (brandId) => {
+
+const useUpdateCategory = (categoryId) => {
   const dispatch = useDispatch();
   // States
   const [name, setName] = useState("");
@@ -14,50 +14,51 @@ const useUpdateBrand = (brandId) => {
   const changeName = (e) => {
     setName(e.target.value);
   };
-  const brand = useSelector((state) => state.brand.brand);
+  const category = useSelector((state) => state.category.category);
 
   useEffect(() => {
     const run = async () => {
-      await dispatch(getOneBrand(`/api/v1/brands/${brandId}`));
+      await dispatch(getOneCategory(`/api/v1/categories/${categoryId}`));
     };
     run();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+console.log(category);
   useEffect(() => {
-    if(brand.data){
-      setName(brand.data.name);
-      setFiles(`${baseURL}/brands/${brand.data.image}`);
+    if(category.data){
+      setName(category.data.name);
+      setFiles(`${baseURL}/categories/${category.data.image}`);
     }
-  }, [brand])
+  }, [category])
   
-  //  submit form to update the brand
+  //  submit form to add product
   const hundelSubmit = async (e) => {
     e.preventDefault();
     if (name === "") {
-      Notify("name brand is required", "warn");
+      Notify("name category is required", "warn");
       return;
     }
     const formData = new FormData();
     formData.append("name", name);
     if(files[0].file ===undefined){
-      formData.append("image",brand.data.image);
+      formData.append("image",category.data.image);
     }else{
       formData.append("image",files[0].file);
     }
       setLoading(true);
-      let args = [brand.data._id, formData];
-      await dispatch(updateBrand(args));
+      let args = [category.data._id, formData];
+      await dispatch(updateCategory(args));
       setLoading(false);
 
   };
-  const updateBr= useSelector((state) => state.brand.updateBrand);
+  const updateCat= useSelector((state) => state.category.updateCategory);
     //  reset inputs and show notification
     useEffect(() => {
       if (loading === false) {
         setName("");
         setTimeout(() => setLoading(true), 1500);
-        if (updateBr) {
-          if (updateBr.status === 200) {
+        if (updateCat) {
+          if (updateCat.status === 200) {
             Notify("Update succsusful", "success");
           } else {
             Notify("Update error ", "error");
@@ -70,4 +71,4 @@ const useUpdateBrand = (brandId) => {
     return [name,files,changeName,setFiles,hundelSubmit]
 }
 
-export default useUpdateBrand
+export default useUpdateCategory

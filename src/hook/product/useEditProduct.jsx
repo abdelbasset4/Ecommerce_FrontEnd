@@ -55,6 +55,9 @@ function useEditProduct(productId) {
   useEffect(() => {
     if (product.data) {
       setName(product.data.title);
+      setFiles(`${baseURL}/products/${product.data.imageCover}`);
+      let images = product.data.images.map((image) =>`${baseURL}/products/${image}`)
+      setMultipleFiles(images);
       setDescription(product.data.description);
       setPriceBefore(product.data.price);
       setPriceAfter(product.data.priceAfterDiscount);
@@ -62,9 +65,6 @@ function useEditProduct(productId) {
       setColors(product.data.colors);
       setBrandID(product.data.brand);
       setCategoryID(product.data.category._id);
-      setFiles(`${baseURL}/products/${product.data.imageCover}`);
-      let images = product.data.images.map((image) =>`${baseURL}/products/${image}`)
-      setMultipleFiles(images);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
@@ -214,7 +214,6 @@ function useEditProduct(productId) {
   }, [loading]);
   return [
     name,
-
     description,
     priceAfter,
     priceBefore,

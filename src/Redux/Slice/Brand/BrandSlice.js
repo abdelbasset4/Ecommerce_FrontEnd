@@ -3,7 +3,6 @@ import { createBrand,getAllBrand ,getOneBrand,deleteBrand,updateBrand} from '../
 
 const initialState = {
     brand: [],
-    oneBrand:[],
     updateBrand:[],
     deleteBrand:"idle",
     isLoading: true,
@@ -28,7 +27,7 @@ const initialState = {
       state.isLoading=true;
     },
     [getOneBrand.fulfilled]:(state,action)=>{
-      state.oneBrand = action.payload
+      state.brand = action.payload
       state.isLoading=false;
     },
     [getOneBrand.rejected]:(state,action)=>{

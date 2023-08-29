@@ -1,8 +1,8 @@
-import Breadcrumb from "../../../Components/Dashboard/Breadcrumb";
-import Pagination from "../../../Components/Utility/Pagination";
-import useGetAllSearchProducts from "../../../hook/product/useGetAllSearchProducts";
+import Breadcrumb from "../../../../Components/Dashboard/Breadcrumb";
+import Pagination from "../../../../Components/Utility/Pagination";
+import useGetAllSearchProducts from "../../../../hook/product/useGetAllSearchProducts";
 import { Alert } from "@material-tailwind/react";
-import ProductTableRow from "../../../Components/Admin/ProductTableRow";
+import ProductTableRow from "../../../../Components/Admin/ProductTableRow";
 const Products = () => {
   const  [products,pageCount,getPageNumber]= useGetAllSearchProducts(12)
 

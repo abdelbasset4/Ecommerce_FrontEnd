@@ -24,7 +24,9 @@ function useAddCategory() {
     }
     const formData = new FormData();
     formData.append("name", name);
-    formData.append("image", files[0].file);
+    if(typeof files[0] !== 'undefined') {
+      formData.append("image", files[0].file);
+    }
     setLoading(true);
     setPress(true);
     await dispatch(createCategory(formData));
