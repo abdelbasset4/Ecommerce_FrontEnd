@@ -16,6 +16,18 @@ export const getAllSubCategory = createAsyncThunk(
     }
   }
 );
+export const getOneSubCategory = createAsyncThunk(
+  "subcategory/getOne",
+  async (url, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      const res = await useGetData(url);
+      return res;
+    } catch (err) {
+      return rejectWithValue(err.response);
+    }
+  }
+);
 export const getAllSubCategoryOnCatID = createAsyncThunk(
   "subcategory/getAll",
   async (url, thunkAPI) => {

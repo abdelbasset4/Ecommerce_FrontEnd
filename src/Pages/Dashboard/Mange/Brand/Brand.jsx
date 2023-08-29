@@ -1,8 +1,8 @@
 import { Alert } from "@material-tailwind/react";
-import BrandTableRow from "../../../Components/Admin/BrandTableRow";
-import Breadcrumb from "../../../Components/Dashboard/Breadcrumb";
-import Pagination from "../../../Components/Utility/Pagination";
-import useGetAllBrand from "../../../hook/Brand/useGetAllBrand";
+import BrandTableRow from "../../../../Components/Admin/BrandTableRow";
+import Breadcrumb from "../../../../Components/Dashboard/Breadcrumb";
+import Pagination from "../../../../Components/Utility/Pagination";
+import useGetAllBrand from "../../../../hook/Brand/useGetAllBrand";
 
 const Brand = () => {
   const [brands,,pageCount,getPageNumber] = useGetAllBrand(12)

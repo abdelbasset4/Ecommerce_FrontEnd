@@ -112,6 +112,11 @@ function useAddProduct() {
       Notify("there are problem with added", "warn");
       return;
     }
+    console.log(files[0]);
+    if( files[0]==undefined){
+      Notify("image cover is required", "warn");
+      return;
+    }
     if (priceBefore < priceBefore) {
       Notify(
         "the price after discount must be smaller than before discount",
@@ -133,7 +138,11 @@ function useAddProduct() {
     } else {
       colors.map((color) => formData.append("colors", color));
     }
-    multipleFiles.map((file)=> formData.append("images", file.file))
+    multipleFiles.map((file) => {
+      if (typeof files[0] !== "undefined") {
+        formData.append("images", file.file);
+      }
+    });
 
     const subCategoryIDs = selectSubCategoryId.map((item) => item._id);
 

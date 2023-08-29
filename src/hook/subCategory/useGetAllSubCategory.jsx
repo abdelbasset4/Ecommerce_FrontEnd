@@ -17,7 +17,6 @@ const useGetAllSubCategory = (limit) => {
     const getPageNumber =(page)=>{
       dispatch(getAllSubCategory(`/api/v1/subcategories?limit=${limit}&page=${page}`));
     }
-    console.log(subcategories);
     return [subcategories,isLoading,pageCount,getPageNumber]
 }
 

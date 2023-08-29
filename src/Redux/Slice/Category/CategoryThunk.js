@@ -15,6 +15,18 @@ export const getAllCategory = createAsyncThunk(
     }
   }
 );
+export const getOneCategory = createAsyncThunk(
+  "category/getOne",
+  async (url, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      const res = await useGetData(url);
+      return res;
+    } catch (err) {
+      return rejectWithValue(err.response);
+    }
+  }
+);
 
 export const createCategory = createAsyncThunk(
   "category/create",

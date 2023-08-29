@@ -16,25 +16,27 @@ import ECommerce from "./Pages/Dashboard/Dashboard/ECommerce";
 import Loader from "./common/Loader";
 import CartPage from "./Pages/Cart/CartPage";
 import CheckoutPage from "./Pages/Checkout/CheckoutPage";
-import Orders from "./Pages/Dashboard/Mange/Orders";
-import Products from "./Pages/Dashboard/Mange/Products";
-import AddProduct from "./Pages/Dashboard/Mange/AddProduct";
-import AddBrand from "./Pages/Dashboard/Mange/AddBrand";
-import AddCategory from "./Pages/Dashboard/Mange/AddCategory";
-import AddSubCategory from "./Pages/Dashboard/Mange/AddSubCategory";
+import Orders from "./Pages/Dashboard/Mange/Order/Orders";
+import Products from "./Pages/Dashboard/Mange/Product/Products";
+import AddProduct from "./Pages/Dashboard/Mange/Product/AddProduct";
+import AddBrand from "./Pages/Dashboard/Mange/Brand/AddBrand";
+import AddCategory from "./Pages/Dashboard/Mange/Category/AddCategory";
+import AddSubCategory from "./Pages/Dashboard/Mange/SubCategory/AddSubCategory";
 import ProfilePage from "./Pages/Profile/ProfilePage";
 import OrdersPage from "./Pages/Profile/OrdersPage";
 import WishListPage from "./Pages/WishList/WishListPage";
 import AllCategoryPage from "./Pages/Category/AllCategoryPage";
 import AllBrandPage from "./Pages/Brand/AllBrandPage";
-import EditProduct from "./Pages/Dashboard/Mange/EditProduct";
-import Brand from "./Pages/Dashboard/Mange/Brand";
-import Category from "./Pages/Dashboard/Mange/Category";
-import SubCategory from "./Pages/Dashboard/Mange/SubCategory";
+import EditProduct from "./Pages/Dashboard/Mange/Product/EditProduct";
+import Brand from "./Pages/Dashboard/Mange/Brand/Brand";
+import Category from "./Pages/Dashboard/Mange/Category/Category";
+import SubCategory from "./Pages/Dashboard/Mange/SubCategory/SubCategory";
 import ForgotPassword from "./Pages/Auth/ForgotPassword";
 import ResetCode from "./Pages/Auth/ResetCode";
 import ResetPassword from "./Pages/Auth/ResetPassword";
-
+import EditBrand from "./Pages/Dashboard/Mange/Brand/EditBrand";
+import EditCategory from "./Pages/Dashboard/Mange/Category/EditCategory";
+import EditSubCategory from "./Pages/Dashboard/Mange/SubCategory/EditSubCategory";
 
 const Settings = lazy(() => import("./Pages/Dashboard/Settings"));
 const router = createBrowserRouter(
@@ -64,7 +66,7 @@ const router = createBrowserRouter(
           element={
             <Suspense fallback={<Loader />}>
               <ECommerce />
-           </Suspense>
+            </Suspense>
           }
         />
         <Route
@@ -116,6 +118,14 @@ const router = createBrowserRouter(
           }
         />
         <Route
+          path="dashboard/editbrand/:id"
+          element={
+            <Suspense fallback={<Loader />}>
+              <EditBrand />
+            </Suspense>
+          }
+        />
+        <Route
           path="dashboard/addcategory"
           element={
             <Suspense fallback={<Loader />}>
@@ -128,6 +138,14 @@ const router = createBrowserRouter(
           element={
             <Suspense fallback={<Loader />}>
               <Category />
+            </Suspense>
+          }
+        />
+        <Route
+          path="dashboard/editcategory/:id"
+          element={
+            <Suspense fallback={<Loader />}>
+              <EditCategory />
             </Suspense>
           }
         />
@@ -148,6 +166,14 @@ const router = createBrowserRouter(
           }
         />
         <Route
+          path="dashboard/editsubcategory/:id"
+          element={
+            <Suspense fallback={<Loader />}>
+              <EditSubCategory />
+            </Suspense>
+          }
+        />
+        <Route
           path="settings"
           element={
             <Suspense fallback={<Loader />}>
@@ -155,9 +181,7 @@ const router = createBrowserRouter(
             </Suspense>
           }
         />
-      
       </Route>
-      
     </Fragment>
   )
 );

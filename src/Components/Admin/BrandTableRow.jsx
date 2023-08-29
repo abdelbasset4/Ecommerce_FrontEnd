@@ -44,7 +44,7 @@ const BrandTableRow = ({ brand }) => {
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
             <div className="h-12.5 w-15 rounded-md">
               <img
-                src={`${baseURL}/brands/${brand.imageCover}`}
+                src={`${baseURL}/brands/${brand.image}`}
                 alt="brands"
               />
             </div>

@@ -45,7 +45,7 @@ const SubCategoryTableRow = ({ subCategory }) => {
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
             <div className="h-12.5 w-15 rounded-md">
               <img
-                src={`${baseURL}/subcategories/${subCategory.imageCover}`}
+                src={`${baseURL}/subcategories/${subCategory.image}`}
                 alt="subcategories"
               />
             </div>
@@ -54,7 +54,11 @@ const SubCategoryTableRow = ({ subCategory }) => {
             </p>
           </div>
         </div>
-
+        <div className="col-span-2 hidden items-center sm:flex">
+        <p className="text-sm text-black dark:text-white">
+          {subCategory.category.name}
+        </p>
+      </div>
         <div className="col-span-1 flex items-center gap-1">
           <NavLink to={`/dashboard/editsubcategory/${subCategory._id}`}>
             <button className="hover:text-primary">
