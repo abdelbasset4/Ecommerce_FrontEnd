@@ -37,6 +37,7 @@ import ResetPassword from "./Pages/Auth/ResetPassword";
 import EditBrand from "./Pages/Dashboard/Mange/Brand/EditBrand";
 import EditCategory from "./Pages/Dashboard/Mange/Category/EditCategory";
 import EditSubCategory from "./Pages/Dashboard/Mange/SubCategory/EditSubCategory";
+import SignUp from "./Pages/AuthFormik/SignUp";
 
 const Settings = lazy(() => import("./Pages/Dashboard/Settings"));
 const router = createBrowserRouter(
@@ -49,6 +50,7 @@ const router = createBrowserRouter(
         <Route path="user/reset-code" element={<ResetCode />} />
         <Route path="user/reset-password" element={<ResetPassword />} />
         <Route path="signup" element={<Register />} />
+        <Route path="register" element={<SignUp />} />
         <Route path="search" element={<SearchPage />} />
         <Route path="search/products/:id" element={<ProductDetalisPage />} />
         <Route path="cart" element={<CartPage />} />
