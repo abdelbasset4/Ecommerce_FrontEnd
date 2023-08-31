@@ -430,7 +430,7 @@ export default function SecondNavBar() {
                 <UserIcon strokeWidth={2} className="h-5 w-5" /> Login
               </Button>
             </Link>
-            <Link to="/signup">
+            <Link to="/register">
               <Button size="sm" className="bg-gray-900 py-[10px] px-5">
                 Sign Up
               </Button>
@@ -462,7 +462,7 @@ export default function SecondNavBar() {
             <UserIcon strokeWidth={2} className="h-5 w-5" /> Login
           </Button>
           </Link>
-          <Link to="/signup">
+          <Link to="/register">
           <Button size="sm" fullWidth>
             Sign Up
           </Button>
