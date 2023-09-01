@@ -38,6 +38,7 @@ import EditBrand from "./Pages/Dashboard/Mange/Brand/EditBrand";
 import EditCategory from "./Pages/Dashboard/Mange/Category/EditCategory";
 import EditSubCategory from "./Pages/Dashboard/Mange/SubCategory/EditSubCategory";
 import SignUp from "./Pages/AuthFormik/SignUp";
+import ProtectedRoute from "./Components/Utility/ProtectedRoute";
 
 const Settings = lazy(() => import("./Pages/Dashboard/Settings"));
 const router = createBrowserRouter(
@@ -63,126 +64,128 @@ const router = createBrowserRouter(
       </Route>
 
       <Route element={<DefaultLayout />}>
-        <Route
-          path="dashboard"
-          element={
-            <Suspense fallback={<Loader />}>
-              <ECommerce />
-            </Suspense>
-          }
-        />
-        <Route
-          path="dashboard/orders"
-          element={
-            <Suspense fallback={<Loader />}>
-              <Orders />
-            </Suspense>
-          }
-        />
-        <Route
-          path="dashboard/products"
-          element={
-            <Suspense fallback={<Loader />}>
-              <Products />
-            </Suspense>
-          }
-        />
-        <Route
-          path="dashboard/addproduct"
-          element={
-            <Suspense fallback={<Loader />}>
-              <AddProduct />
-            </Suspense>
-          }
-        />
-        <Route
-          path="dashboard/editproduct/:id"
-          element={
-            <Suspense fallback={<Loader />}>
-              <EditProduct />
-            </Suspense>
-          }
-        />
-        <Route
-          path="dashboard/brands"
-          element={
-            <Suspense fallback={<Loader />}>
-              <Brand />
-            </Suspense>
-          }
-        />
-        <Route
-          path="dashboard/addbrand"
-          element={
-            <Suspense fallback={<Loader />}>
-              <AddBrand />
-            </Suspense>
-          }
-        />
-        <Route
-          path="dashboard/editbrand/:id"
-          element={
-            <Suspense fallback={<Loader />}>
-              <EditBrand />
-            </Suspense>
-          }
-        />
-        <Route
-          path="dashboard/addcategory"
-          element={
-            <Suspense fallback={<Loader />}>
-              <AddCategory />
-            </Suspense>
-          }
-        />
-        <Route
-          path="dashboard/category"
-          element={
-            <Suspense fallback={<Loader />}>
-              <Category />
-            </Suspense>
-          }
-        />
-        <Route
-          path="dashboard/editcategory/:id"
-          element={
-            <Suspense fallback={<Loader />}>
-              <EditCategory />
-            </Suspense>
-          }
-        />
-        <Route
-          path="dashboard/addsubcategory"
-          element={
-            <Suspense fallback={<Loader />}>
-              <AddSubCategory />
-            </Suspense>
-          }
-        />
-        <Route
-          path="dashboard/subcategory"
-          element={
-            <Suspense fallback={<Loader />}>
-              <SubCategory />
-            </Suspense>
-          }
-        />
-        <Route
-          path="dashboard/editsubcategory/:id"
-          element={
-            <Suspense fallback={<Loader />}>
-              <EditSubCategory />
-            </Suspense>
-          }
-        />
-        <Route
-          path="settings"
-          element={
-            <Suspense fallback={<Loader />}>
-              <Settings />
-            </Suspense>
-          }
-        />
+        <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
+          <Route
+            path="dashboard"
+            element={
+              <Suspense fallback={<Loader />}>
+                <ECommerce />
+              </Suspense>
+            }
+          />
+          <Route
+            path="dashboard/orders"
+            element={
+              <Suspense fallback={<Loader />}>
+                <Orders />
+              </Suspense>
+            }
+          />
+          <Route
+            path="dashboard/products"
+            element={
+              <Suspense fallback={<Loader />}>
+                <Products />
+              </Suspense>
+            }
+          />
+          <Route
+            path="dashboard/addproduct"
+            element={
+              <Suspense fallback={<Loader />}>
+                <AddProduct />
+              </Suspense>
+            }
+          />
+          <Route
+            path="dashboard/editproduct/:id"
+            element={
+              <Suspense fallback={<Loader />}>
+                <EditProduct />
+              </Suspense>
+            }
+          />
+          <Route
+            path="dashboard/brands"
+            element={
+              <Suspense fallback={<Loader />}>
+                <Brand />
+              </Suspense>
+            }
+          />
+          <Route
+            path="dashboard/addbrand"
+            element={
+              <Suspense fallback={<Loader />}>
+                <AddBrand />
+              </Suspense>
+            }
+          />
+          <Route
+            path="dashboard/editbrand/:id"
+            element={
+              <Suspense fallback={<Loader />}>
+                <EditBrand />
+              </Suspense>
+            }
+          />
+          <Route
+            path="dashboard/addcategory"
+            element={
+              <Suspense fallback={<Loader />}>
+                <AddCategory />
+              </Suspense>
+            }
+          />
+          <Route
+            path="dashboard/category"
+            element={
+              <Suspense fallback={<Loader />}>
+                <Category />
+              </Suspense>
+            }
+          />
+          <Route
+            path="dashboard/editcategory/:id"
+            element={
+              <Suspense fallback={<Loader />}>
+                <EditCategory />
+              </Suspense>
+            }
+          />
+          <Route
+            path="dashboard/addsubcategory"
+            element={
+              <Suspense fallback={<Loader />}>
+                <AddSubCategory />
+              </Suspense>
+            }
+          />
+          <Route
+            path="dashboard/subcategory"
+            element={
+              <Suspense fallback={<Loader />}>
+                <SubCategory />
+              </Suspense>
+            }
+          />
+          <Route
+            path="dashboard/editsubcategory/:id"
+            element={
+              <Suspense fallback={<Loader />}>
+                <EditSubCategory />
+              </Suspense>
+            }
+          />
+          <Route
+            path="settings"
+            element={
+              <Suspense fallback={<Loader />}>
+                <Settings />
+              </Suspense>
+            }
+          />
+        </Route>
       </Route>
     </Fragment>
   )
