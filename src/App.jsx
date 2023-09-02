@@ -54,13 +54,15 @@ const router = createBrowserRouter(
         <Route path="register" element={<SignUp />} />
         <Route path="search" element={<SearchPage />} />
         <Route path="search/products/:id" element={<ProductDetalisPage />} />
-        <Route path="cart" element={<CartPage />} />
-        <Route path="checkout" element={<CheckoutPage />} />
-        <Route path="myprofile" element={<ProfilePage />} />
-        <Route path="myorders" element={<OrdersPage />} />
-        <Route path="wishlist" element={<WishListPage />} />
         <Route path="categories" element={<AllCategoryPage />} />
         <Route path="brands" element={<AllBrandPage />} />
+        <Route element={<ProtectedRoute allowedRoles={["user"]} />}>
+          <Route path="cart" element={<CartPage />} />
+          <Route path="checkout" element={<CheckoutPage />} />
+          <Route path="myprofile" element={<ProfilePage />} />
+          <Route path="myorders" element={<OrdersPage />} />
+          <Route path="wishlist" element={<WishListPage />} />
+        </Route>
       </Route>
 
       <Route element={<DefaultLayout />}>

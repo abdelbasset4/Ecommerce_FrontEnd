@@ -97,7 +97,7 @@ export default function NavBar() {
           </Link>
         </Typography>
         <div className="hidden lg:block">{navList}</div>
-        {!res.status ? (
+        {!res?.status ? (
           <div className="hidden lg:flex items-center gap-3">
             <Link to="/wishlist" className="flex items-center gap-1">
               <Badge
