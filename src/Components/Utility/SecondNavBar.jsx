@@ -418,8 +418,8 @@ export default function SecondNavBar() {
         <div className="hidden lg:block">
           <NavList />
         </div>
-        {!res.status  ? (
-          <ProfileMenu data={res.data} />
+        {!res?.status  ? (
+          <ProfileMenu data={res?.data} />
         ) : (
           <div className="hidden gap-2 lg:flex">
             <Link to="/login">
@@ -452,7 +452,7 @@ export default function SecondNavBar() {
       <Collapse open={openNav}>
         <NavList />
         {
-          !res.status ? null:(
+          !res?.status ? null:(
             <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden flex-col ">
             <Link to="/login">
           <Button

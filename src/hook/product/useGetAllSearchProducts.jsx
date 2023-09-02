@@ -28,14 +28,14 @@ function useGetAllSearchProducts(limit) {
   }, []);
 
   let pageCount = 0;
-  if (products.paginationResults) {
-    pageCount = products.paginationResults.numberPages;
+  if (products?.paginationResults) {
+    pageCount = products?.paginationResults?.numberPages;
   }
   let result = 0;
-  if (products.result) {
+  if (products?.result) {
     // eslint-disable-next-line no-unused-vars
 
-    result = products.result;
+    result = products?.result;
   }
   const getPageNumber = (page) => {
     getStorage();
