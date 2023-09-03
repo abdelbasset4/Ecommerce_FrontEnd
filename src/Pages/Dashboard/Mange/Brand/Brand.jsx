@@ -3,9 +3,16 @@ import BrandTableRow from "../../../../Components/Admin/BrandTableRow";
 import Breadcrumb from "../../../../Components/Dashboard/Breadcrumb";
 import Pagination from "../../../../Components/Utility/Pagination";
 import useGetAllBrand from "../../../../hook/Brand/useGetAllBrand";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const Brand = () => {
   const [brands,,pageCount,getPageNumber] = useGetAllBrand(12)
+  const [br,setBr] = useState([])
+  useEffect(() => {
+    setBr(brands?.data?.data)
+  }, [brands])
+
     return(
         <>
         <Breadcrumb pageName="brands" />
@@ -35,8 +42,8 @@ const Brand = () => {
           </div>
         </div>
           {
-            brands.data ?(
-              brands.data.map((brand)=>{
+            br ?(
+              br.map((brand)=>{
                // eslint-disable-next-line react/jsx-key
                return ( <BrandTableRow key={brand._id} brand={brand}/>)
               })
