@@ -12,7 +12,7 @@ function useGetAllBrand(limit) {
     }, [dispatch]);
       
       let pageCount = 0;
-      if(brands.paginationResults) {pageCount = brands.paginationResults.numberPages;}
+      if(brands?.paginationResults) {pageCount = brands?.paginationResults?.numberPages;}
       
     const getPageNumber =(page)=>{
       dispatch(getAllBrand(`/api/v1/brands?limit=${limit}&page=${page}`));

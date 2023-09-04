@@ -1,16 +1,15 @@
-import baseUrl from '../Api/BaseURL'
+import axios from "axios";
 
 const useRefreshToken = () => {
-  const refresh = async ()=>{
-    const response = baseUrl.post('/api/v1/auth/refresh-token', {
-      withCredentials: true
-  })
-  console.log(response.data.token);
-  localStorage.setItem('token',response.data.token)
-  return response.data.token;
+  const refresh = async () => {
+    const response = axios.post("/api/v1/auth/refresh-token", {
+      withCredentials: true,
+    });
+    console.log(response);
+    localStorage.setItem("token", response?.token);
+    return response?.token;
+  };
+  return refresh;
+};
 
-  }
-  return refresh
-}
-
-export default useRefreshToken
+export default useRefreshToken;
