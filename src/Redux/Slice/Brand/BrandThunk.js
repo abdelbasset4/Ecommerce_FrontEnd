@@ -3,8 +3,7 @@ import { useGetData } from "../../../hooks/useGetData";
 import { useInsertDataWithImage } from "../../../hooks/useInsertData";
 import useDeleteData from "../../../hooks/useDeleteData";
 import { useUpdateDataWithImage } from "../../../hooks/useUpdateData";
-import { axiosPrivate } from "../../../Api/BaseURL";
-
+import api from "../../../hooks/useAxios";
 // export const getAllBrand = createAsyncThunk(
 //   "brand/getAll",
 //   async (url, thunkAPI) => {
@@ -20,12 +19,10 @@ import { axiosPrivate } from "../../../Api/BaseURL";
 export const getAllBrand = createAsyncThunk(
   "brand/getAll",
   async (url, thunkAPI) => {
-    const controller = new AbortController();
+    // const controller = new AbortController();
     const { rejectWithValue } = thunkAPI;
     try {
-      const res = await axiosPrivate.get(url,{
-        signal: controller.signal
-    });
+      const res = await api.get(url);
       return res;
     } catch (err) {
       return rejectWithValue(err.response);

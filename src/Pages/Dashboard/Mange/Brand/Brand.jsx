@@ -5,7 +5,6 @@ import Pagination from "../../../../Components/Utility/Pagination";
 import useGetAllBrand from "../../../../hook/Brand/useGetAllBrand";
 import { useState } from "react";
 import { useEffect } from "react";
-
 const Brand = () => {
   const [brands,,pageCount,getPageNumber] = useGetAllBrand(12)
   const [br,setBr] = useState([])
