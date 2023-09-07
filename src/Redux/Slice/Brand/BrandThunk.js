@@ -1,9 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { useGetData } from "../../../hooks/useGetData";
+import { useGetData,useGetDataInter } from "../../../hooks/useGetData";
 import { useInsertDataWithImage } from "../../../hooks/useInsertData";
 import useDeleteData from "../../../hooks/useDeleteData";
 import { useUpdateDataWithImage } from "../../../hooks/useUpdateData";
-import api from "../../../hooks/useAxios";
+
 // export const getAllBrand = createAsyncThunk(
 //   "brand/getAll",
 //   async (url, thunkAPI) => {
@@ -22,9 +22,11 @@ export const getAllBrand = createAsyncThunk(
     // const controller = new AbortController();
     const { rejectWithValue } = thunkAPI;
     try {
-      const res = await api.get(url);
+      const res = await useGetDataInter(url);
+      console.log(res);
       return res;
     } catch (err) {
+      console.log(err);
       return rejectWithValue(err.response);
     }
   }

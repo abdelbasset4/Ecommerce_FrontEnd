@@ -10,7 +10,6 @@ function useGetAllBrand(limit) {
         dispatch(getAllBrand(`/api/v1/brands?limit=${limit}`));
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch]);
-      
       let pageCount = 0;
       if(brands?.paginationResults) {pageCount = brands?.paginationResults?.numberPages;}
       

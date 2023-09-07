@@ -41,8 +41,8 @@ const Brand = () => {
           </div>
         </div>
           {
-            br ?(
-              br.map((brand)=>{
+            brands?.data ?(
+              brands?.data.map((brand)=>{
                // eslint-disable-next-line react/jsx-key
                return ( <BrandTableRow key={brand._id} brand={brand}/>)
               })

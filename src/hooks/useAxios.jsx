@@ -120,8 +120,8 @@ api.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        const refreshToken = Cookies.get('jwt');
-        const response = await axios.post('/api/v1/auth/refresh-token', { refreshToken });
+        const refreshToken = Cookies.get('refreshToken');
+        const response = await axios.post('http://localhost:3000/api/v1/auth/refresh-token', { refreshToken });
         console.log(response);
 
         localStorage.setItem('token', response.token);
