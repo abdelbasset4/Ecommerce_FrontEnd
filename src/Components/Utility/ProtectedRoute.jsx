@@ -20,7 +20,8 @@ const ProtectedRoute = ({ allowedRoles }) => {
     // eslint-disable-next-line no-unused-vars
     isExpired = true;
   }
-  return isAllowed && isExpired ? <Outlet /> : <Navigate to="/login" />;
+  // return isAllowed && isExpired ? <Outlet /> : <Navigate to="/login" />;
+  return isAllowed ? <Outlet /> : <Navigate to="/login" />;
 };
 
 export default ProtectedRoute;

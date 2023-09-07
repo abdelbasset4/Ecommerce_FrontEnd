@@ -8,10 +8,17 @@ import {
 import logo from '../../assets/logo.svg'
 import {BiLogoFacebookSquare} from "react-icons/bi"
 import {AiFillGoogleSquare} from "react-icons/ai"
+import {AiFillGithub} from "react-icons/ai"
 import { Link } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { useLogin } from "../../hook/Auth/useLogin";
 export default function Login() {
+  const google = ()=>{
+    window.open("http://localhost:3000/api/v1/auth/google")
+  }
+  const github = ()=>{
+    window.open("http://localhost:3000/api/v1/auth/github")
+  }
   const [
     email,
     password,
@@ -59,8 +66,12 @@ export default function Login() {
           <Button className="mt-6 bg-gray-900 py-4 flex justify-center items-center gap-2 capitalize font-semibold text-sm hover:opacity-80" fullWidth>
             <BiLogoFacebookSquare size={"1.5rem"}/> Login with Facebook
           </Button>
-          <Button className="mt-6 bg-gray-900 py-4 flex justify-center items-center gap-2 capitalize font-semibold text-sm hover:opacity-80" fullWidth>
+          
+          <Button className="mt-6 bg-gray-900 py-4 flex justify-center items-center gap-2 capitalize font-semibold text-sm hover:opacity-80" fullWidth onClick={google}>
             <AiFillGoogleSquare size={"1.5rem"}/> Login with Google
+          </Button>
+          <Button className="mt-6 bg-gray-900 py-4 flex justify-center items-center gap-2 capitalize font-semibold text-sm hover:opacity-80" fullWidth onClick={github}>
+            <AiFillGithub size={"1.5rem"}/> Login with Github
           </Button>
           <Typography color="gray" className="mt-4 text-center font-normal">
             Dont have any account? {" "}
