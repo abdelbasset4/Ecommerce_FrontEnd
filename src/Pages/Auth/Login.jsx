@@ -5,20 +5,22 @@ import {
   Typography,
   Switch,
 } from "@material-tailwind/react";
-import logo from '../../assets/logo.svg'
-import {BiLogoFacebookSquare} from "react-icons/bi"
-import {AiFillGoogleSquare} from "react-icons/ai"
-import {AiFillGithub} from "react-icons/ai"
+import logo from "../../assets/logo.svg";
+import { BiLogoFacebookSquare } from "react-icons/bi";
+import { AiFillGoogleSquare } from "react-icons/ai";
+import { AiFillGithub } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { useLogin } from "../../hook/Auth/useLogin";
+import jwt_decode from "jwt-decode";
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 export default function Login() {
-  const google = ()=>{
-    window.open("http://localhost:3000/api/v1/auth/google")
-  }
-  const github = ()=>{
-    window.open("http://localhost:3000/api/v1/auth/github")
-  }
+  const google = () => {
+    window.open("http://localhost:3000/api/v1/auth/google");
+  };
+  const github = () => {
+    window.open("http://localhost:3000/api/v1/auth/github");
+  };
   const [
     email,
     password,
@@ -27,13 +29,17 @@ export default function Login() {
     hundelSubmit,
     // isPress,
     // setIsPress,
-  ] = useLogin()
+  ] = useLogin();
   return (
     <div className="flex justify-center items-center min-h-screen mt-5">
-
       <Card color="transparent" shadow={false}>
         <Link to="/">
-        <img src={logo} alt="" width={"100px"} className="text-center mx-auto"/>
+          <img
+            src={logo}
+            alt=""
+            width={"100px"}
+            className="text-center mx-auto"
+          />
         </Link>
 
         <Typography color="gray" className="mt-1 font-normal text-center">
@@ -41,45 +47,83 @@ export default function Login() {
         </Typography>
         <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
           <div className="mb-4 flex flex-col gap-6">
-            <Input size="lg" label="Email" value={email} onChange={changeEmail} />
-            <Input type="password" size="lg" label="Password" value={password} onChange={changePassword} />
+            <Input
+              size="lg"
+              label="Email"
+              value={email}
+              onChange={changeEmail}
+            />
+            <Input
+              type="password"
+              size="lg"
+              label="Password"
+              value={password}
+              onChange={changePassword}
+            />
           </div>
           <div className="flex items-center justify-between">
-          <Switch
-            label={
-              <div>
-                <Typography color="blue-gray" className="font-medium">Remember Me</Typography>
-              </div>
-            } 
-            containerProps={{
-              className: ""
-            }}
-          />
-          <Link to='/user/forgotpassword' className="underline hover:no-underline">Forgot Password?</Link>
+            <Switch
+              label={
+                <div>
+                  <Typography color="blue-gray" className="font-medium">
+                    Remember Me
+                  </Typography>
+                </div>
+              }
+              containerProps={{
+                className: "",
+              }}
+            />
+            <Link
+              to="/user/forgotpassword"
+              className="underline hover:no-underline">
+              Forgot Password?
+            </Link>
           </div>
-          <Button className="mt-6 bg-gray-900 py-4 hover:opacity-80" onClick={hundelSubmit} fullWidth>
+          <Button
+            className="mt-6 bg-gray-900 py-4 hover:opacity-80"
+            onClick={hundelSubmit}
+            fullWidth>
             Login
           </Button>
           <Typography color="gray" className=" font-normal text-center mt-3">
             OR.
           </Typography>
-          <Button className="mt-6 bg-gray-900 py-4 flex justify-center items-center gap-2 capitalize font-semibold text-sm hover:opacity-80" fullWidth>
-            <BiLogoFacebookSquare size={"1.5rem"}/> Login with Facebook
+          <Button
+            className="mt-6 bg-gray-900 py-4 flex justify-center items-center gap-2 capitalize font-semibold text-sm hover:opacity-80"
+            fullWidth>
+            <BiLogoFacebookSquare size={"1.5rem"} /> Login with Facebook
           </Button>
-          
-          <Button className="mt-6 bg-gray-900 py-4 flex justify-center items-center gap-2 capitalize font-semibold text-sm hover:opacity-80" fullWidth onClick={google}>
-            <AiFillGoogleSquare size={"1.5rem"}/> Login with Google
+          <Button
+            className="mt-6 bg-gray-900 py-4 flex justify-center items-center gap-2 capitalize font-semibold text-sm hover:opacity-80"
+            fullWidth
+            onClick={google}>
+            <AiFillGoogleSquare size={"1.5rem"} /> Login with Google
           </Button>
-          <Button className="mt-6 bg-gray-900 py-4 flex justify-center items-center gap-2 capitalize font-semibold text-sm hover:opacity-80" fullWidth onClick={github}>
-            <AiFillGithub size={"1.5rem"}/> Login with Github
+          <Button
+            className="mt-6 bg-gray-900 py-4 flex justify-center items-center gap-2 capitalize font-semibold text-sm hover:opacity-80"
+            fullWidth
+            onClick={github}>
+            <AiFillGithub size={"1.5rem"} /> Login with Github
           </Button>
+          <GoogleOAuthProvider clientId="930843495580-51s10de583b0h1olb3pp77ali30tiq9k.apps.googleusercontent.com">
+            <GoogleLogin
+              onSuccess={(credentialResponse) => {
+                console.log(jwt_decode(credentialResponse.credential));
+              }}
+              onError={() => {
+                console.log("Login Failed");
+              }}
+            />
+            ;
+          </GoogleOAuthProvider>
+          ;
           <Typography color="gray" className="mt-4 text-center font-normal">
-            Dont have any account? {" "}
+            Dont have any account?{" "}
             <a
               href="#"
-              className=" text-gray-900 transition-colors hover:text-gray-700 font-bold"
-            >
-            Register
+              className=" text-gray-900 transition-colors hover:text-gray-700 font-bold">
+              Register
             </a>
           </Typography>
         </form>
