@@ -21,7 +21,7 @@ const ProtectedRoute = ({ allowedRoles }) => {
     isExpired = true;
   }
   // return isAllowed && isExpired ? <Outlet /> : <Navigate to="/login" />;
-  return isAllowed ? <Outlet /> : <Navigate to="/login" />;
+  return isAllowed && isExpired ? <Outlet /> : <Navigate to="/login" />;
 };
 
 export default ProtectedRoute;

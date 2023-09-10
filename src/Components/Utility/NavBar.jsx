@@ -10,10 +10,11 @@ import {
 import logo from "../../assets/logo.svg";
 import { HiOutlineHeart } from "react-icons/hi";
 import { CgShoppingBag } from "react-icons/cg";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import useSearchNavBar from "../../hook/Search/useSearchNavBar";
 import { useDispatch, useSelector } from "react-redux";
 import { GetLoggedUser } from "../../Redux/Slice/Auth/AuthThunk";
+import jwt_decode from "jwt-decode";
 
 export default function NavBar() {
   const dispatch = useDispatch();
@@ -35,7 +36,24 @@ export default function NavBar() {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  const [user, setUser] = useState(localStorage.getItem("token"));
+  const location = useLocation();
+  useEffect(() => {
+    // if(user){
+    //   const decodeUser = jwt_decode(user)
+    // }
+    setUser(localStorage.getItem("token"));
+    console.log(user);
+  }, [location]);
 
+  const decodeUserFunction = () => {
+    let decodeUser = null;
+    if (user) decodeUser = jwt_decode(user);
+    console.log(decodeUser);
+    return decodeUser;
+  };
+  const activeUser = decodeUserFunction();
+  console.log(activeUser);
   const navList = (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <Typography
@@ -85,6 +103,7 @@ export default function NavBar() {
     </ul>
   );
 
+
   return (
     <Navbar className="mx-auto py-2 px-4 lg:px-8 lg:py-4 rounded-none">
       <div className="container mx-auto flex items-center justify-between text-blue-gray-900">
@@ -97,7 +116,7 @@ export default function NavBar() {
           </Link>
         </Typography>
         <div className="hidden lg:block">{navList}</div>
-        {!res?.status ? (
+        {activeUser ? (
           <div className="hidden lg:flex items-center gap-3">
             <Link to="/wishlist" className="flex items-center gap-1">
               <Badge

@@ -11,6 +11,7 @@ export const createUser = createAsyncThunk(
       const res = await useInsertData(`/api/v1/auth/signup`, data);
       return res;
     } catch (err) {
+      console.log(err.response);
       return rejectWithValue(err.response);
     }
   }
@@ -23,6 +24,19 @@ export const Login = createAsyncThunk(
     try {
       const res = await useInsertData(`/api/v1/auth/login`, data);
       return res;
+    } catch (err) {
+      return rejectWithValue(err.response);
+    }
+  }
+);
+export const LoginWithGoogle = createAsyncThunk(
+  "login/createGoogle",
+  async (data, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      // const res = await useInsertData(`/api/v1/auth/login`, data);
+      localStorage.setItem("token",data)
+      // return res;
     } catch (err) {
       return rejectWithValue(err.response);
     }

@@ -19,11 +19,11 @@ import {
   Bars4Icon,
   UserIcon,
 } from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ProfileMenu } from "./ProfileMenu";
 import { useDispatch, useSelector } from "react-redux";
 import { GetLoggedUser } from "../../Redux/Slice/Auth/AuthThunk";
-
+import jwt_decode from "jwt-decode";
 // nav list menu
 const navListCategory = [
   {
@@ -398,14 +398,30 @@ function NavList() {
 }
 
 export default function SecondNavBar() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [openNav, setOpenNav] = useState(false);
-  const res = useSelector((state) => state.auth.user)
+  const res = useSelector((state) => state.auth.user);
+  const [user, setUser] = useState(localStorage.getItem("token"));
+  const location = useLocation();
   useEffect(() => {
-    dispatch(GetLoggedUser())
+    // if(user){
+    //   const decodeUser = jwt_decode(user)
+    // }
+    setUser(localStorage.getItem("token"));
+    console.log(user);
+  }, [location]);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  const decodeUserFunction = () => {
+    let decodeUser = null;
+    if (user) decodeUser = jwt_decode(user);
+    console.log(decodeUser);
+    return decodeUser;
+  };
+  const activeUser = decodeUserFunction();
+  useEffect(() => {
+    dispatch(GetLoggedUser());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   useEffect(() => {
     window.addEventListener(
       "resize",
@@ -418,8 +434,8 @@ export default function SecondNavBar() {
         <div className="hidden lg:block">
           <NavList />
         </div>
-        {!res?.status  ? (
-          <ProfileMenu data={res?.data} />
+        {activeUser ? (
+          <ProfileMenu data={activeUser} />
         ) : (
           <div className="hidden gap-2 lg:flex">
             <Link to="/login">
@@ -451,25 +467,23 @@ export default function SecondNavBar() {
       </div>
       <Collapse open={openNav}>
         <NavList />
-        {
-          !res?.status ? null:(
-            <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden flex-col ">
+        {activeUser ? null : (
+          <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden flex-col ">
             <Link to="/login">
-          <Button
-            size="sm"
-            color="blue-gray"
-            className="flex items-center gap-3">
-            <UserIcon strokeWidth={2} className="h-5 w-5" /> Login
-          </Button>
-          </Link>
-          <Link to="/register">
-          <Button size="sm" fullWidth>
-            Sign Up
-          </Button>
-          </Link>
-        </div>
-          )
-        }
+              <Button
+                size="sm"
+                color="blue-gray"
+                className="flex items-center gap-3">
+                <UserIcon strokeWidth={2} className="h-5 w-5" /> Login
+              </Button>
+            </Link>
+            <Link to="/register">
+              <Button size="sm" fullWidth>
+                Sign Up
+              </Button>
+            </Link>
+          </div>
+        )}
       </Collapse>
     </Navbar>
   );

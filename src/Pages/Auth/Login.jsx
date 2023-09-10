@@ -9,11 +9,13 @@ import logo from "../../assets/logo.svg";
 import { BiLogoFacebookSquare } from "react-icons/bi";
 import { AiFillGoogleSquare } from "react-icons/ai";
 import { AiFillGithub } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { useLogin } from "../../hook/Auth/useLogin";
 import jwt_decode from "jwt-decode";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+import { useDispatch } from "react-redux";
+import { LoginWithGoogle } from "../../Redux/Slice/Auth/AuthThunk";
 export default function Login() {
   const google = () => {
     window.open("http://localhost:3000/api/v1/auth/google");
@@ -30,6 +32,8 @@ export default function Login() {
     // isPress,
     // setIsPress,
   ] = useLogin();
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   return (
     <div className="flex justify-center items-center min-h-screen mt-5">
       <Card color="transparent" shadow={false}>
@@ -106,17 +110,21 @@ export default function Login() {
             onClick={github}>
             <AiFillGithub size={"1.5rem"} /> Login with Github
           </Button>
-          <GoogleOAuthProvider clientId="930843495580-51s10de583b0h1olb3pp77ali30tiq9k.apps.googleusercontent.com">
+         
             <GoogleLogin
               onSuccess={(credentialResponse) => {
+                console.log(credentialResponse.credential);
                 console.log(jwt_decode(credentialResponse.credential));
+                dispatch(LoginWithGoogle(credentialResponse.credential))
+                navigate('/')
               }}
               onError={() => {
                 console.log("Login Failed");
               }}
+              cookiePolicy="single_host_origin"
             />
             ;
-          </GoogleOAuthProvider>
+       
           ;
           <Typography color="gray" className="mt-4 text-center font-normal">
             Dont have any account?{" "}
