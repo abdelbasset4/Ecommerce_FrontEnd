@@ -408,13 +408,11 @@ export default function SecondNavBar() {
     //   const decodeUser = jwt_decode(user)
     // }
     setUser(localStorage.getItem("token"));
-    console.log(user);
   }, [location]);
 
   const decodeUserFunction = () => {
     let decodeUser = null;
     if (user) decodeUser = jwt_decode(user);
-    console.log(decodeUser);
     return decodeUser;
   };
   const activeUser = decodeUserFunction();

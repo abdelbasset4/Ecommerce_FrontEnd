@@ -6,6 +6,8 @@ import ProductAccordion from "./ProductAccordion";
 import { useParams } from "react-router";
 import useGetOneProduct from "../../hook/product/useGetOneProduct";
 import ProductSearchCard from "../Search/ProductSearchCard";
+import AddReview from "../Reviews/AddReview";
+import ProductReview from "./ProductReview";
 export default function ProductDetails() {
   const { id } = useParams();
   const [items, brand, subCategories, productsWithoutThisProd] =
@@ -125,14 +127,15 @@ export default function ProductDetails() {
           </div>
         </div>
       </div>
+      <ProductReview/>
       <h2 className="mb-4 text-2xl font-extrabold text-gray-900 ms-4">Products you may like</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mx-4 ">
         {
           // eslint-disable-next-line react/prop-types
           productsWithoutThisProd
-            ? productsWithoutThisProd.map((product) => (
+            ? productsWithoutThisProd.map((product,index) => (
                 // eslint-disable-next-line react/jsx-key
-                <ProductSearchCard product={product} />
+                <ProductSearchCard key={index} product={product} />
               ))
             : null
         }
