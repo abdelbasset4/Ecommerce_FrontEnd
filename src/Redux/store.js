@@ -4,13 +4,15 @@ import BrandSlice from './Slice/Brand/BrandSlice'
 import SubCategorySlice from './Slice/SubCategory/SubCategorySlice'
 import ProductSlice from './Slice/product/ProductSlice'
 import AuthSlice from './Slice/Auth/AuthSlice'
+import ReviewSlice from './Slice/Review/ReviewSlice'
 export const store = configureStore({
   reducer: {
     category:CategorySlice,
     brand:BrandSlice,
     subCategory:SubCategorySlice,
     product:ProductSlice,
-    auth:AuthSlice
+    auth:AuthSlice,
+    review:ReviewSlice
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

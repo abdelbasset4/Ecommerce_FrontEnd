@@ -43,17 +43,14 @@ export default function NavBar() {
     //   const decodeUser = jwt_decode(user)
     // }
     setUser(localStorage.getItem("token"));
-    console.log(user);
   }, [location]);
 
   const decodeUserFunction = () => {
     let decodeUser = null;
     if (user) decodeUser = jwt_decode(user);
-    console.log(decodeUser);
     return decodeUser;
   };
   const activeUser = decodeUserFunction();
-  console.log(activeUser);
   const navList = (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <Typography
