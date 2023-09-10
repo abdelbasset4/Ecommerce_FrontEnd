@@ -36,6 +36,7 @@ export const createCategory = createAsyncThunk(
       const res = await useInsertDataWithImage(`/api/v1/categories`, formData);
       return res;
     } catch (err) {
+      console.log(err.response);
       return rejectWithValue(err.response);
     }
   }

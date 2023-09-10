@@ -6,6 +6,7 @@ import {
   ForgotPassword,
   ResetCode,
   ResetPassword,
+  LoginWithGoogle
 } from "../Auth/AuthThunk";
 
 const initialState = {
@@ -38,6 +39,19 @@ const AuthSlice = createSlice({
     [Login.rejected]: (state, action) => {
       state.isLoading = false;
       state.user = action.payload;
+    },
+    [LoginWithGoogle.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [LoginWithGoogle.fulfilled]: (state, action) => {
+      // state.user = action.payload;
+      console.log(action?.payload);
+      state.isLoading = false;
+    },
+    [LoginWithGoogle.rejected]: (state, action) => {
+      state.isLoading = false;
+      console.log(action.payload);
+      // state.user = action.payload;
     },
     [ForgotPassword.pending]: (state) => {
       state.isLoading = true;
