@@ -1,14 +1,10 @@
 import baseUrl from '../Api/BaseURL'
-import api from "../Components/Utility/interseptor/axiosInterseptor";
 const useGetData = async (url, parmas) => {
     const res = await baseUrl.get(url, parmas);
     return res.data;
 }
 
-const useGetDataInter = async (url, parmas) => {
-    const res = await api.get(url, parmas);
-    return res.data;
-}
+
 
 const useGetDataToken = async (url) => {
     // const access_token = localStorage.getItem("token")
@@ -20,4 +16,4 @@ const useGetDataToken = async (url) => {
     return res.data;
 }
 
-export  {useGetData, useGetDataToken,useGetDataInter};
+export  {useGetData, useGetDataToken};

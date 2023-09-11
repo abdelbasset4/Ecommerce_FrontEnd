@@ -6,9 +6,12 @@ import { useSignUp } from "../../hook/Auth/useSignUp";
 import { Button, Typography } from "@material-tailwind/react";
 import { BiLogoFacebookSquare } from "react-icons/bi";
 import { AiFillGoogleSquare } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import logo from "../../assets/logo.svg";
+import { useDispatch } from "react-redux";
+import { createGoogleUser } from "../../Redux/Slice/Auth/AuthThunk";
+import { useGoogleLogin } from "@react-oauth/google";
 const initialValues = {
   name: "",
   email: "",
@@ -18,12 +21,17 @@ const initialValues = {
 };
 
 const SignUp = () => {
-  const [hundelSubmit] = useSignUp();
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
+  const [hundelSubmit,handleGoogleLoginSuccess] = useSignUp();
   const onSubmit = async (values, actions) => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
     hundelSubmit(values);
     actions.resetForm();
   };
+  
+  
+  const login = useGoogleLogin({ onSuccess: handleGoogleLoginSuccess });
   return (
     <div className="flex justify-center flex-col items-center min-h-screen mt-5">
       <Link to="/">
@@ -86,10 +94,11 @@ const SignUp = () => {
               <BiLogoFacebookSquare size={"1.5rem"} /> Login with Facebook
             </Button>
             <Button
-              className="mt-6 bg-gray-900 py-4 flex justify-center items-center gap-2 capitalize font-semibold text-sm hover:opacity-80"
-              fullWidth>
-              <AiFillGoogleSquare size={"1.5rem"} /> Login with Google
-            </Button>
+            className="mt-6 bg-gray-900 py-4 flex justify-center items-center gap-2 capitalize font-semibold text-sm hover:opacity-80"
+            fullWidth
+            onClick={() => login()}>
+            <AiFillGoogleSquare size={"1.5rem"} /> Login with Google
+          </Button>
             <Typography color="gray" className="mt-4 text-center font-normal">
               Already have an account?{" "}
               <a

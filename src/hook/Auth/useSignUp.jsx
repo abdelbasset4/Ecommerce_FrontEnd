@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Notify from "../../hooks/useNotify";
 import { useDispatch, useSelector } from "react-redux";
-import { createUser } from "../../Redux/Slice/Auth/AuthThunk";
+import { createGoogleUser, createUser } from "../../Redux/Slice/Auth/AuthThunk";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 export const useSignUp = () => {
@@ -15,6 +15,12 @@ export const useSignUp = () => {
     await dispatch(createUser(user));
     setLoading(false);
   };
+  const handleGoogleLoginSuccess = async(tokenResponse)=> {
+    const accessToken = tokenResponse.access_token;
+    setLoading(true);
+    await dispatch(createGoogleUser(accessToken));
+    setLoading(false);
+  }
   const res = useSelector((state) => state.auth.user);
   useEffect(() => {
     if (loading === false) {
@@ -31,5 +37,5 @@ export const useSignUp = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading]);
 
-  return [hundelSubmit];
+  return [hundelSubmit,handleGoogleLoginSuccess];
 };

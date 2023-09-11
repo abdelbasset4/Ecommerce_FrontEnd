@@ -16,6 +16,21 @@ export const createUser = createAsyncThunk(
     }
   }
 );
+export const createGoogleUser = createAsyncThunk(
+  "register/createGoogle",
+  async (accessToken, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      const res = await useInsertData(`/api/v1/auth/signup-google`, {
+        googleAccessToken: accessToken
+      });
+      return res;
+    } catch (err) {
+      console.log(err.response);
+      return rejectWithValue(err.response);
+    }
+  }
+);
 
 export const Login = createAsyncThunk(
   "login/create",
@@ -23,25 +38,30 @@ export const Login = createAsyncThunk(
     const { rejectWithValue } = thunkAPI;
     try {
       const res = await useInsertData(`/api/v1/auth/login`, data);
+      console.log(res);
       return res;
     } catch (err) {
+      console.log(err.response);
       return rejectWithValue(err.response);
     }
   }
 );
 export const LoginWithGoogle = createAsyncThunk(
   "login/createGoogle",
-  async (data, thunkAPI) => {
+  async (accessToken, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
-      // const res = await useInsertData(`/api/v1/auth/login`, data);
-      localStorage.setItem("token",data)
-      // return res;
+      const res = await useInsertData(`/api/v1/auth/login-google`,  {
+        googleAccessToken: accessToken
+      });
+      return res;
     } catch (err) {
+      console.log(err.response);
       return rejectWithValue(err.response);
     }
   }
 );
+
 
 export const ForgotPassword = createAsyncThunk(
   "login/forgotpassword",
