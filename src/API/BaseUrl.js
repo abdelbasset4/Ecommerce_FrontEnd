@@ -4,11 +4,17 @@ const baseUrl = axios.create({
   baseURL: "http://localhost:3000",
 //   withCredentials: true,
 });
+// baseUrl.interceptors.request.use((req)=>{
+//   if(localStorage.getItem("token")){
+//       req.headers.Authorization = `Bearer ${localStorage.getItem("token")}`
+//   }
 
-export const axiosPrivate = axios.create({
-  baseURL: "http://localhost:3000",
-  headers: { 'Content-Type': 'application/json' },
-  withCredentials: true
-});
+//   return req;
+// })
+// export const axiosPrivate = axios.create({
+//   baseURL: "http://localhost:3000",
+//   headers: { 'Content-Type': 'application/json' },
+//   withCredentials: true
+// });
 
 export default baseUrl;

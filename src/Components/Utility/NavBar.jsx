@@ -30,12 +30,12 @@ export default function NavBar() {
       () => window.innerWidth >= 960 && setOpenNav(false)
     );
   }, []);
-  const res = useSelector((state) => state.auth.user);
-  useEffect(() => {
-    dispatch(GetLoggedUser());
+  // const res = useSelector((state) => state.auth.user);
+  // useEffect(() => {
+  //   dispatch(GetLoggedUser());
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
   const [user, setUser] = useState(localStorage.getItem("token"));
   const location = useLocation();
   useEffect(() => {

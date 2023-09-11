@@ -1,4 +1,3 @@
-
 import { Outlet, Navigate } from "react-router-dom";
 
 import jwt_decode from "jwt-decode";
@@ -6,18 +5,13 @@ import jwt_decode from "jwt-decode";
 // eslint-disable-next-line react/prop-types
 const ProtectedRoute = ({ allowedRoles }) => {
   let currentDate = new Date();
-  let isAllowed ;
+  let isAllowed;
   let decoded;
-  if(localStorage.getItem("token").length <500){
-    decoded = jwt_decode(localStorage.getItem("token"));
-    isAllowed = allowedRoles?.includes(decoded.role)
-    
-  }else{
-    isAllowed = allowedRoles?.includes("user")
-  }
+  decoded = jwt_decode(localStorage.getItem("token"));
+  isAllowed = allowedRoles?.includes(decoded.role);
 
   // JWT exp is in seconds
-  let isExpired = false
+  let isExpired = false;
   if (decoded?.exp * 1000 < currentDate.getTime()) {
     console.log("inValid token");
     // eslint-disable-next-line no-const-assign

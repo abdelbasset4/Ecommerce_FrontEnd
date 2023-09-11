@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   createUser,
+  createGoogleUser,
   Login,
   GetLoggedUser,
   ForgotPassword,
@@ -29,6 +30,17 @@ const AuthSlice = createSlice({
       state.isLoading = false;
       state.user = action.payload;
     },
+    [createGoogleUser.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [createGoogleUser.fulfilled]: (state, action) => {
+      state.user = action.payload;
+      state.isLoading = false;
+    },
+    [createGoogleUser.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.user = action.payload;
+    },
     [Login.pending]: (state) => {
       state.isLoading = true;
     },
@@ -44,14 +56,12 @@ const AuthSlice = createSlice({
       state.isLoading = true;
     },
     [LoginWithGoogle.fulfilled]: (state, action) => {
-      // state.user = action.payload;
-      console.log(action?.payload);
+      state.user = action.payload;
       state.isLoading = false;
     },
     [LoginWithGoogle.rejected]: (state, action) => {
       state.isLoading = false;
-      console.log(action.payload);
-      // state.user = action.payload;
+      state.user = action.payload;
     },
     [ForgotPassword.pending]: (state) => {
       state.isLoading = true;

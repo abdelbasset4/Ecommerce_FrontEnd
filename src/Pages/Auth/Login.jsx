@@ -13,7 +13,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { useLogin } from "../../hook/Auth/useLogin";
 import jwt_decode from "jwt-decode";
-import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+import { useGoogleLogin } from "@react-oauth/google";
 import { useDispatch } from "react-redux";
 import { LoginWithGoogle } from "../../Redux/Slice/Auth/AuthThunk";
 export default function Login() {
@@ -29,11 +29,13 @@ export default function Login() {
     changeEmail,
     changePassword,
     hundelSubmit,
-    // isPress,
-    // setIsPress,
+    ,
+    ,
+    handleGoogleLoginSuccess
   ] = useLogin();
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+
+  const login = useGoogleLogin({ onSuccess: handleGoogleLoginSuccess });
   return (
     <div className="flex justify-center items-center min-h-screen mt-5">
       <Card color="transparent" shadow={false}>
@@ -101,7 +103,7 @@ export default function Login() {
           <Button
             className="mt-6 bg-gray-900 py-4 flex justify-center items-center gap-2 capitalize font-semibold text-sm hover:opacity-80"
             fullWidth
-            onClick={google}>
+            onClick={() => login()}>
             <AiFillGoogleSquare size={"1.5rem"} /> Login with Google
           </Button>
           <Button
@@ -110,22 +112,6 @@ export default function Login() {
             onClick={github}>
             <AiFillGithub size={"1.5rem"} /> Login with Github
           </Button>
-         
-            <GoogleLogin
-              onSuccess={(credentialResponse) => {
-                console.log(credentialResponse.credential);
-                console.log(jwt_decode(credentialResponse.credential));
-                dispatch(LoginWithGoogle(credentialResponse.credential))
-                navigate('/')
-              }}
-              onError={() => {
-                console.log("Login Failed");
-              }}
-              cookiePolicy="single_host_origin"
-            />
-            ;
-       
-          ;
           <Typography color="gray" className="mt-4 text-center font-normal">
             Dont have any account?{" "}
             <a

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Notify from "../../hooks/useNotify";
 import { useDispatch, useSelector } from "react-redux";
-import { Login } from "../../Redux/Slice/Auth/AuthThunk";
+import { Login, LoginWithGoogle } from "../../Redux/Slice/Auth/AuthThunk";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -22,6 +22,7 @@ export const useLogin = () => {
   };
 
   const hundelSubmit = async () => {
+    console.log("hello world");
     setIsPress(true);
     setLoading(true);
     await dispatch(
@@ -33,10 +34,17 @@ export const useLogin = () => {
     setLoading(false);
     setIsPress(false);
   };
+  const handleGoogleLoginSuccess = async(tokenResponse)=> {
+    const accessToken = tokenResponse.access_token;
+    setLoading(true);
+    await dispatch(LoginWithGoogle(accessToken));
+    setLoading(false);
+  }
   const res = useSelector((state) => state.auth.user);
   useEffect(() => {
     if (loading === false) {
       if (res) {
+        console.log(res?.data);
         if (res.data.token) {
           localStorage.setItem("token", res.data.token);
           Notify("Login succes", "success");
@@ -59,5 +67,6 @@ export const useLogin = () => {
     hundelSubmit,
     isPress,
     setIsPress,
+    handleGoogleLoginSuccess
   ];
 };
