@@ -8,7 +8,6 @@ import { useEffect } from "react";
 
 const useAddReview = (id) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [ratingText, setRatingText] = useState();
   const [ratingStar, setRatingStar] = useState();
   const [loading, setLoading] = useState(true);

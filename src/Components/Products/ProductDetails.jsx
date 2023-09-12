@@ -25,7 +25,7 @@ export default function ProductDetails() {
               {items.title}
             </Typography>
             <Typography className=" text-heading text-lg md:text-xl lg:text-2xl font-semibold text-yellow-700">
-              {items.ratingsQuantity}
+              {items.ratingsAverage}
             </Typography>
           </div>
 
