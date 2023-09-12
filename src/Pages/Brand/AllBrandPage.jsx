@@ -5,7 +5,7 @@ import Pagination from "../../Components/Utility/Pagination";
 import useGetAllBrand from "../../hook/Brand/useGetAllBrand";
 
 export default function AllBrandPage() {
-  const [brands,isLoading,pageCount,getPageNumber]= useGetAllBrand()
+  const [brands,isLoading,pageCount,getPageNumber]= useGetAllBrand(10)
   return (
     <div>
         <NavBar/>
