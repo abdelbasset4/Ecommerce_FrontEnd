@@ -13,24 +13,27 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 import Counter from "../Utility/Counter";
 import { Link } from "react-router-dom";
 import {baseURL} from "../../API/mainBaseURL";
+import useWishList from "../../hook/WishList/useWishList";
 // eslint-disable-next-line react/prop-types
-export default function ProductSearchCard({ product }) {
+export default function ProductSearchCard({ product ,favProd}) {
+  const {_id} = product
   const [open, setOpen] = useState(false);
-
+  const [handelFavorite, img] = useWishList(_id, favProd);
   const handleOpen = () => setOpen(!open);
   return (
     <Fragment>
-      <Card
-        className="relative bg-red cursor-pointer duration-300 rounded-md hover:-translate-y-2"
-        onClick={handleOpen}>
-        <CardHeader
-          shadow={false}
-          floated={false}
-          className="h-72 rounded-md m-0">
-          <img
-            // eslint-disable-next-line react/prop-types
-            src={`${baseURL}/products/${product.imageCover}`}
-            className="w-full rounded-none h-full object-cover"
+    <Card
+    className="relative bg-red cursor-pointer duration-300 rounded-md hover:-translate-y-2"
+    onClick={handleOpen}>
+    <CardHeader
+    shadow={false}
+    floated={false}
+    className="h-72 rounded-md m-0">
+    <img
+    // eslint-disable-next-line react/prop-types
+    src={`${baseURL}/products/${product.imageCover}`}
+    className="w-full rounded-none h-full object-cover"
+   
           />
         </CardHeader>
         <CardBody>
@@ -124,6 +127,7 @@ export default function ProductSearchCard({ product }) {
                   View Details
                 </Button>
               </Link>
+              <Button onClick={handelFavorite}>Click</Button>
             </div>
           </div>
         </DialogBody>
