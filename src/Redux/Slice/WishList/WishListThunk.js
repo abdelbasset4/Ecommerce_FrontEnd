@@ -22,6 +22,7 @@ export const getUserWishList = createAsyncThunk(
       const { rejectWithValue } = thunkAPI;
       try {
         const res = await useInsertData(`/api/v1/wishlist`,prodId);
+        console.log(res);
         return res;
       } catch (err) {
         return rejectWithValue(err.response);

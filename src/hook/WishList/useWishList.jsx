@@ -35,30 +35,57 @@ const useWishList = (_id, favProd) => {
     const resLoading = useSelector(state => state.wishlist.isLoading)
     const resRemove = useSelector(state => state.wishlist.deleteWishList)
 
-    const addToWishListData = async () => {
-        try {
-            setIsFav(true);
-            setImg(true);
-            // setAddLoading(true);
-            console.log('Before dispatch');
-            const response = await dispatch(createFavoriteProduct({
-              productId: _id
-            }));
-            console.log(response);
+    // const addToWishListData = async () => {
+    //     try {
+    //         setIsFav(true);
+    //         setImg(true);
+    //         setAddLoading(true);
+    //         console.log('Before dispatch');
+    //         const response = await dispatch(createFavoriteProduct({
+    //           productId: _id
+    //         }));
+    //         console.log(response);
             
+    //         if (response && response.payload.status === 200) {
+    //             setAddLoading(false);
+    //           Notify("Add product to wishlist success", "success");
+    //           console.log(img);
+    //         //   window.location.reload()
+    //         } else if (response && response.payload.status === 401) {
+    //           Notify("You are not allowed to add to the wishlist. Please log in first.", "error");
+    //         }
+    //       } catch (error) {
+    //         console.error(error);
+    //       }
+    // }
+
+    const addToWishListData = () => {
+        setIsFav(true);
+        setImg(true);
+        setAddLoading(true);
+        console.log('Before dispatch');
+      
+        dispatch(createFavoriteProduct({ productId: _id }))
+          .then((response) => {
+      
             if (response && response.payload.status === 200) {
+              setAddLoading(false);
               Notify("Add product to wishlist success", "success");
-              console.log(addLoading);
-            //   window.location.reload()
+              setTimeout(() => {
+                window.location.reload()
+              }, 3000);
             } else if (response && response.payload.status === 401) {
-              Notify("You are not allowed to add to the wishlist. Please log in first.", "error");
+              Notify(
+                "You are not allowed to add to the wishlist. Please log in first.",
+                "error"
+              );
             }
-          } catch (error) {
+          })
+          .catch((error) => {
             console.error(error);
-          }
-    }
-
-
+          });
+      };
+      
 
 
     const removeToWishListData = async () => {
@@ -73,7 +100,6 @@ const useWishList = (_id, favProd) => {
 
     useEffect(() => {
         if (removeLoading === false) {
-            console.log(resRemove)
             if (resRemove=== "succeeded") {
                 Notify("Delete product from wishlist success ", "success")
             } else {

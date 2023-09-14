@@ -6,8 +6,8 @@ import { useState } from "react";
 
 export default function Wishlist() {
   const [favProd,res] = useGetUserFavoriteProduct()
-  
-  console.log(res);
+
+
   return (
     <div className="px-4 mt-5">
     
