@@ -13,11 +13,16 @@ const useInsertDataWithImage = async (url, parmas) => {
 };
 
 const useInsertData = async (url, parmas) => {
-  const config = {
-    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-    withCredentials: true,
-  };
-  const res = await baseUrl.post(url, parmas, config);
+  let config = null
+  if(localStorage.getItem("token")){
+    config = {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      withCredentials: true,
+    };
+  }
+  
+  const res = await baseUrl.post(url, parmas,config);
+  console.log(res);
   return res;
 };
 
