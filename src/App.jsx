@@ -39,6 +39,9 @@ import EditCategory from "./Pages/Dashboard/Mange/Category/EditCategory";
 import EditSubCategory from "./Pages/Dashboard/Mange/SubCategory/EditSubCategory";
 import SignUp from "./Pages/AuthFormik/SignUp";
 import ProtectedRoute from "./Components/Utility/ProtectedRoute";
+import Coupons from "./Pages/Dashboard/Mange/Coupons/Coupons";
+import AddCoupon from "./Pages/Dashboard/Mange/Coupons/AddCoupon";
+import EditCoupon from "./Pages/Dashboard/Mange/Coupons/EditCoupon";
 
 const Settings = lazy(() => import("./Pages/Dashboard/Settings"));
 const router = createBrowserRouter(
@@ -179,6 +182,30 @@ const router = createBrowserRouter(
               </Suspense>
             }
           />
+          <Route
+          path="dashboard/coupons"
+          element={
+            <Suspense fallback={<Loader />}>
+              <Coupons />
+            </Suspense>
+          }
+        />
+        <Route
+          path="dashboard/addcoupon"
+          element={
+            <Suspense fallback={<Loader />}>
+              <AddCoupon />
+            </Suspense>
+          }
+        />
+        <Route
+          path="dashboard/editcoupon/:id"
+          element={
+            <Suspense fallback={<Loader />}>
+              <EditCoupon />
+            </Suspense>
+          }
+        />
           <Route
             path="settings"
             element={

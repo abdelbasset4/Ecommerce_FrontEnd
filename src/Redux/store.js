@@ -6,6 +6,7 @@ import ProductSlice from './Slice/product/ProductSlice'
 import AuthSlice from './Slice/Auth/AuthSlice'
 import ReviewSlice from './Slice/Review/ReviewSlice'
 import WishListSlice from './Slice/WishList/WishListSlice'
+import CouponSlice from './Slice/Coupon/CouponSlice'
 export const store = configureStore({
   reducer: {
     category:CategorySlice,
@@ -14,7 +15,8 @@ export const store = configureStore({
     product:ProductSlice,
     auth:AuthSlice,
     review:ReviewSlice,
-    wishlist:WishListSlice
+    wishlist:WishListSlice,
+    coupon:CouponSlice
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
