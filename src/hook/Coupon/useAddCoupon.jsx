@@ -44,7 +44,13 @@ function useAddCoupon() {
       console.log(res);
       if (res.status === 201) {
         Notify("Added succsusful", "success");
-      } else {
+      } 
+      else if(res.status === 500){
+        Notify("this coupon is alredy exsiste", "warn");
+
+      }
+      
+      else {
         Notify("Added error ", "error");
       }
     }
