@@ -1,13 +1,41 @@
 import { NavLink } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import useDeleteCoupon from "../../hook/Coupon/useDeleteCoupon";
+import { Button, Dialog, DialogBody, DialogFooter, DialogHeader } from "@material-tailwind/react";
 
 const CouponsTableRow = ({ coupon }) => {
+  const [open,handleOpen,handelDeleteCoupon] = useDeleteCoupon()
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "numeric", day: "numeric" }
     return new Date(dateString).toLocaleDateString(undefined, options)
 }
+
   return (
     <>
+    <Dialog
+    open={open}
+    handler={handleOpen}
+    animate={{
+      mount: { scale: 1, y: 0 },
+      unmount: { scale: 0.9, y: -100 },
+    }}>
+    <DialogHeader>Delete!</DialogHeader>
+    <DialogBody divider>Do you really want to delete the item?</DialogBody>
+    <DialogFooter>
+      <Button
+        variant="text"
+        color="red"
+        onClick={handleOpen}
+        className="mr-1">
+        <span>Cancel</span>
+      </Button>
+      <Button
+        className="bg-gray-900 text-white"
+        onClick={() => handelDeleteCoupon(coupon._id)}>
+        <span>Confirm</span>
+      </Button>
+    </DialogFooter>
+  </Dialog>
       <div className="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
         <div className="col-span-2 flex items-center">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
@@ -50,7 +78,7 @@ const CouponsTableRow = ({ coupon }) => {
               </svg>
             </button>
           </NavLink>
-          <button  className="hover:text-primary">
+          <button onClick={handleOpen}  className="hover:text-primary">
             <svg
               className="fill-current"
               width="18"

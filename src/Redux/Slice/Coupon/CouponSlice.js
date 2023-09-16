@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { createCoupon, getAllCoupons } from './CouponThunk';
+import { createCoupon, deleteCoupon, getAllCoupons } from './CouponThunk';
 
 
 const initialState = {
@@ -16,6 +16,7 @@ const couponSlice = createSlice({
     extraReducers:{
       [getAllCoupons.fulfilled]:(state,action)=>{
         state.coupon = action.payload
+
       },
       [getAllCoupons.rejected]:(state,action)=>{
         state.coupon=action.payload;
@@ -24,6 +25,12 @@ const couponSlice = createSlice({
         state.coupon = action.payload
       },
       [createCoupon.rejected]:(state,action)=>{
+        state.coupon=action.payload;
+      },
+      [deleteCoupon.fulfilled]:(state,action)=>{
+        state.coupon.data = state?.coupon?.data?.filter((value)=>value._id !== action.payload.id)
+      },
+      [deleteCoupon.rejected]:(state,action)=>{
         state.coupon=action.payload;
       },
     

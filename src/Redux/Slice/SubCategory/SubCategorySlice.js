@@ -5,85 +5,55 @@ import {
   getAllSubCategoryOnCatID,
   deleteSubCategory,
   updateSubCategory,
-  getOneSubCategory
+  getOneSubCategory,
 } from "./SubCategoryThunk";
 
 const initialState = {
   subCategory: [],
-  updateSubCategory:[],
-  deleteSubCategory:"idle",
-  isLoading: true,
+  updateSubCategory: [],
 };
 
 const subCategorySlice = createSlice({
   name: "subCategory",
   initialState,
   extraReducers: {
-    [createSubCategory.pending]: (state) => {
-      state.isLoading = true;
-    },
     [createSubCategory.fulfilled]: (state, action) => {
       state.subCategory = action.payload;
-      state.isLoading = false;
     },
     [createSubCategory.rejected]: (state, action) => {
-      state.isLoading = false;
       state.subCategory = action.payload;
-    },
-    [getAllSubCategoryOnCatID.pending]: (state) => {
-      state.isLoading = true;
     },
     [getAllSubCategoryOnCatID.fulfilled]: (state, action) => {
       state.subCategory = action.payload;
-      state.isLoading = false;
     },
     [getAllSubCategoryOnCatID.rejected]: (state, action) => {
-      state.isLoading = false;
       state.subCategory = action.payload;
-    },
-    [getOneSubCategory.pending]: (state) => {
-      state.isLoading = true;
     },
     [getOneSubCategory.fulfilled]: (state, action) => {
       state.subCategory = action.payload;
-      state.isLoading = false;
     },
     [getOneSubCategory.rejected]: (state, action) => {
-      state.isLoading = false;
       state.subCategory = action.payload;
-    },
-    [getAllSubCategory.pending]: (state) => {
-      state.isLoading = true;
     },
     [getAllSubCategory.fulfilled]: (state, action) => {
       state.subCategory = action.payload;
-      state.isLoading = false;
     },
     [getAllSubCategory.rejected]: (state, action) => {
-      state.isLoading = false;
       state.subCategory = action.payload;
     },
-    [deleteSubCategory.pending]:(state)=>{
-      state.isLoading=true;
+    [deleteSubCategory.fulfilled]: (state, action) => {
+      state.subCategory.data = state?.subCategory?.data?.filter(
+        (value) => value._id !== action.payload.id
+      );
     },
-    [deleteSubCategory.fulfilled]:(state)=>{
-      state.deleteSubCategory = "succeeded"
-      state.isLoading=false;
+    [deleteSubCategory.rejected]: (state, action) => {
+      state.subCategory = action.payload;
     },
-    [deleteSubCategory.rejected]:(state)=>{
-      state.isLoading=false;
-      state.deleteSubCategory = "failed"
+    [updateSubCategory.fulfilled]: (state, action) => {
+      state.updateSubCategory = action.payload;
     },
-    [updateSubCategory.pending]:(state)=>{
-      state.isLoading=true;
-    },
-    [updateSubCategory.fulfilled]:(state,action)=>{
-      state.updateSubCategory = action.payload
-      state.isLoading=false;
-    },
-    [updateSubCategory.rejected]:(state,action)=>{
-      state.isLoading=false;
-      state.updateSubCategory = action.payload
+    [updateSubCategory.rejected]: (state, action) => {
+      state.updateSubCategory = action.payload;
     },
   },
 });

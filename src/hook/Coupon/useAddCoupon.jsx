@@ -41,7 +41,6 @@ function useAddCoupon() {
       setDiscount("")
       setExpire("")
       setLoading(true);
-      console.log(res);
       if (res.status === 201) {
         Notify("Added succsusful", "success");
       } 

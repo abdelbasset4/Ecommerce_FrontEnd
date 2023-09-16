@@ -5,7 +5,7 @@ import Notify from "../../hooks/useNotify";
 const useWishList = (_id, favProd) => {
     const dispatch = useDispatch();
     const [img,setImg] = useState(false)
-    let Fav = favProd.some(fitem => fitem === _id);
+    let Fav = favProd?.some(fitem => fitem === _id);
     const [isFav, setIsFav] = useState(Fav)
     const [removeLoading, setRemoveLoading] = useState(true)
     const [addLoading, setAddLoading] = useState(true)

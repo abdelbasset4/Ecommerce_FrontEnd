@@ -18,7 +18,8 @@ import useWishList from "../../hook/WishList/useWishList";
 export default function ProductSearchCard({ product ,favProd}) {
   const {_id} = product
   const [open, setOpen] = useState(false);
-  const [handelFavorite, img] = useWishList(_id, favProd);
+  console.log(favProd);
+  // const [handelFavorite, img] = useWishList(_id, favProd);
   const handleOpen = () => setOpen(!open);
   return (
     <Fragment>
@@ -127,7 +128,6 @@ export default function ProductSearchCard({ product ,favProd}) {
                   View Details
                 </Button>
               </Link>
-              <Button onClick={handelFavorite}>Click</Button>
             </div>
           </div>
         </DialogBody>

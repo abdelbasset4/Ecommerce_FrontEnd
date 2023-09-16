@@ -34,7 +34,7 @@ const Category = () => {
           </div>
         </div>
         {
-          categories.data ?(
+          categories?.data?.length>0 ?(
             categories.data.map((category)=>{
              // eslint-disable-next-line react/jsx-key
              return ( <CategoryTableRow key={category._id} category={category}/>)

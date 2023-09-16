@@ -10,9 +10,11 @@ import Pagination from "../../Components/Utility/Pagination";
 import useGetAllSearchProducts from "../../hook/product/useGetAllSearchProducts";
 import useSideBarFilter from "../../hook/Search/useSideBarFilter";
 import PriceSideFilter from "../../Components/Search/PriceSideFilter";
+import useGetUserFavoriteProduct from "../../hook/WishList/useGetUserFavoriteProduct";
 
 export default function SearchPage() {
   const  [products,pageCount,getPageNumber,result,getProductData]= useGetAllSearchProducts(0)
+  const [favProd] = useGetUserFavoriteProduct()
   const [allBrand,allCategory,onChangeInput,onChangePriceRange] = useSideBarFilter()
 
   return (
@@ -54,7 +56,7 @@ export default function SearchPage() {
               </div>
               </div>
               <div className="mt-9">
-                <ProductSearchList products={products}/>
+                <ProductSearchList products={products} favProd={favProd}/>
                 <div className="mt-8">
                 {
                   pageCount >1 ?(<Pagination numberPages={pageCount} onPress={getPageNumber} />):null
