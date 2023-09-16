@@ -6,6 +6,7 @@ import Pagination from "../../../../Components/Utility/Pagination"
 
 const Coupons = () => {
   const [coupons,pageCount,getPageNumber] = useGetAllCoupons(10)
+  console.log(coupons);
   return (
     <>
     <Breadcrumb pageName="Coupons" />
@@ -41,7 +42,7 @@ const Coupons = () => {
       </div>
     </div>
     {
-      coupons.data ?(
+      coupons?.data?.length >0 ?(
         coupons.data.map((coupon)=>{
          // eslint-disable-next-line react/jsx-key
          return ( <CouponsTableRow key={coupon._id} coupon={coupon}/>)

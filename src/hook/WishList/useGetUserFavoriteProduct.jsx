@@ -27,7 +27,7 @@ const useGetUserFavoriteProduct = () => {
         }
     }, [loading])
     
-    return [favProd,res]
+    return [favProd]
     
 }
 

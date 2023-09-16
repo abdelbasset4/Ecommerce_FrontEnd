@@ -13,7 +13,6 @@ import { NavLink } from "react-router-dom";
 import { baseURL } from "../../API/mainBaseURL";
 const SubCategoryTableRow = ({ subCategory }) => {
   const [open, handleOpen, handelDeleteSubCategory] = useDeleteSubCategory();
-  console.log(subCategory);
   return (
     <>
       <Dialog

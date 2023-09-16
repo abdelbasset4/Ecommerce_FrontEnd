@@ -41,7 +41,7 @@ const SubCategory = () => {
           </div>
         </div>
         {
-          subcategories.data ?(
+          subcategories?.data?.length>0 ?(
             subcategories.data.map((subCategory)=>{
              // eslint-disable-next-line react/jsx-key
              return ( <SubCategoryTableRow key={subCategory._id} subCategory={subCategory}/>)

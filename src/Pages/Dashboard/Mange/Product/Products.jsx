@@ -45,7 +45,7 @@ const Products = () => {
           </div>
         </div>
           {
-            products.data ?(
+            products?.data?.length>0 ?(
               products.data.map((product)=>{
                // eslint-disable-next-line react/jsx-key
                return ( <ProductTableRow key={product._id} product={product}/>)

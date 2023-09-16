@@ -9,6 +9,7 @@ export const getUserWishList = createAsyncThunk(
       const { rejectWithValue } = thunkAPI;
       try {
         const res = await useGetDataToken(url);
+        console.log(res);
         return res;
       } catch (err) {
         return rejectWithValue(err.response);
