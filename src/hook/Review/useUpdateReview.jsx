@@ -5,8 +5,8 @@ import Notify from "../../hooks/useNotify";
 import { updateReview } from "../../Redux/Slice/Review/ReviewThunk";
 const useUpdateReview = (review) => {
   const [openUpdate, setOpenUpdate] = useState(false);
-  const [ratingtext, setRatingText] = useState(review.title);
-  const [ratingStar, setRatingStar] = useState(review.rating);
+  const [ratingtext, setRatingText] = useState(review?.title);
+  const [ratingStar, setRatingStar] = useState(review?.rating);
   const [loading, setLoading] = useState(true);
   const handleOpenUpdate = () => {
     setOpenUpdate(!openUpdate);

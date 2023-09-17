@@ -17,7 +17,6 @@ import useWishList from "../../hook/WishList/useWishList";
 export default function CardItem({ product, favProd }) {
   const {_id} = product
   const [handelFavorite, img] = useWishList(_id, favProd);
-  console.log(img);
   return (
     <Card className="relative w-96 lg:w-73 h-90 bg-red cursor-pointer duration-300 hover:-translate-y-2">
       <Chip

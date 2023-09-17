@@ -91,23 +91,20 @@ const useWishList = (_id, favProd) => {
     const removeToWishListData = async () => {
         setIsFav(false)
         setImg(false)
-        setRemoveLoading(true)
-        await dispatch(deleteFavoriteProduct(`/api/v1/wishlist/${_id}`))
-        setRemoveLoading(false)
-      
+        
+        const response = await dispatch(deleteFavoriteProduct(`/api/v1/wishlist/${_id}`))
+        console.log(response);
+        if(response.payload.status ==="success"){
+          Notify("Delete succsusful", "success");
+          setTimeout(() => {
+            window.location.reload()
+          }, 3000);
+        }else{
+          Notify("Delete Error", "error");    
+      }
     }
 
 
-    useEffect(() => {
-        if (removeLoading === false) {
-            if (resRemove=== "succeeded") {
-                Notify("Delete product from wishlist success ", "success")
-            } else {
-                Notify(" delete error ", "error")
-            }
-
-        }
-    }, [removeLoading])
 
     return [handelFavorite,img,removeToWishListData]
 }

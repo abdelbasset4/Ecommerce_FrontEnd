@@ -1,12 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { createCoupon, deleteCoupon, getAllCoupons } from './CouponThunk';
+import { createCoupon, deleteCoupon, getAllCoupons, getOneCoupon, updateCoupon } from './CouponThunk';
 
 
 const initialState = {
     coupon: [],
     updateCoupon:[],
-    deleteCoupon:"idle",
-
 }
 
 
@@ -21,6 +19,12 @@ const couponSlice = createSlice({
       [getAllCoupons.rejected]:(state,action)=>{
         state.coupon=action.payload;
       },
+      [getOneCoupon.fulfilled]:(state,action)=>{
+        state.coupon = action.payload
+      },
+      [getOneCoupon.rejected]:(state,action)=>{
+        state.coupon=action.payload;
+      },
       [createCoupon.fulfilled]:(state,action)=>{
         state.coupon = action.payload
       },
@@ -32,6 +36,12 @@ const couponSlice = createSlice({
       },
       [deleteCoupon.rejected]:(state,action)=>{
         state.coupon=action.payload;
+      },
+      [updateCoupon.fulfilled]:(state,action)=>{
+        state.updateCoupon = action.payload
+      },
+      [updateCoupon.rejected]:(state,action)=>{
+        state.updateCoupon = action.payload
       },
     
     }
