@@ -6,7 +6,6 @@ import Pagination from "../../../../Components/Utility/Pagination"
 
 const Coupons = () => {
   const [coupons,pageCount,getPageNumber] = useGetAllCoupons(10)
-  console.log(coupons);
   return (
     <>
     <Breadcrumb pageName="Coupons" />

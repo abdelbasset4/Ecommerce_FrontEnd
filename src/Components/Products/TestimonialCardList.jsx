@@ -7,12 +7,7 @@ export default function TestimonialCardList() {
     <>
         <h2 className="mb-6 text-2xl font-extrabold text-gray-900 ps-4">Customer Reviews:</h2>
     <div className=" ">
-        <TestimonialCard/>
-        <TestimonialCard/>
-        <TestimonialCard/>
-        <TestimonialCard/>
-        <TestimonialCard/>
-        <TestimonialCard/>
+
     </div>
     </>
   )
