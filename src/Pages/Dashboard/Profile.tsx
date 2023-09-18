@@ -1,5 +1,5 @@
 
-import TabsProfile from '../../Components/Profile/TabsProfile.tsx'
+import TabsProfile from '../../Components/Profile/TabsProfile.jsx'
 const Profile = () => {
   return (
     <>

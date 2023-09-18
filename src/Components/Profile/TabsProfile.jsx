@@ -15,9 +15,12 @@ import AccountDetails from "./AccountDetails";
 import ChangePassword from "./ChangePassword";
 import Adresses from "./Adresses";
 import { AddAdress } from "./AddAdress";
+import useGetUserAdresses from "../../hook/Adress/useGetUserAdresses";
 
 export default function TabsProfiles() {
-
+  const [adresses] = useGetUserAdresses()
+  console.log(adresses);
+  
   return (
     <Tabs value="">
       <TabsHeader className="flex flex-col lg:flex-row justify-center w-full lg:max-w-150 gap-3 mx-auto">
@@ -49,8 +52,13 @@ export default function TabsProfiles() {
             <ChangePassword/>
           </TabPanel>
           <TabPanel key="adresses" value="adresses" className="p-2 mt-4">
-            <Adresses/>
-            <Adresses/>
+            {
+              adresses?.data?.length>0 ?(
+                adresses?.data?.map((adress)=>{
+                  return <Adresses adress={adress}/>
+                })
+              ):(<h2>There are no adresses</h2>)
+            }
             <AddAdress/>
           </TabPanel>
 
