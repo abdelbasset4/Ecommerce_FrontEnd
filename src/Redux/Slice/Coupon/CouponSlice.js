@@ -4,6 +4,7 @@ import { createCoupon, deleteCoupon, getAllCoupons, getOneCoupon, updateCoupon }
 
 const initialState = {
     coupon: [],
+    
     updateCoupon:[],
 }
 
