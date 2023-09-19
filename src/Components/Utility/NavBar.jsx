@@ -12,8 +12,7 @@ import { HiOutlineHeart } from "react-icons/hi";
 import { CgShoppingBag } from "react-icons/cg";
 import { Link, useLocation } from "react-router-dom";
 import useSearchNavBar from "../../hook/Search/useSearchNavBar";
-import { useDispatch, useSelector } from "react-redux";
-import { GetLoggedUser } from "../../Redux/Slice/Auth/AuthThunk";
+import { useDispatch } from "react-redux";
 import jwt_decode from "jwt-decode";
 
 export default function NavBar() {

@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { useInsertData } from "../../../hooks/useInsertData";
 import { useGetDataToken } from "../../../hooks/useGetData";
-import { useUpdatetData } from "../../../hooks/useUpdateData";
+import { useUpdateDataWithImage, useUpdatetData } from "../../../hooks/useUpdateData";
 
 export const createUser = createAsyncThunk(
   "register/create",
@@ -107,6 +107,21 @@ export const GetLoggedUser = createAsyncThunk(
     const { rejectWithValue } = thunkAPI;
     try {
       const res = await useGetDataToken(`/api/v1/users/getMe`);
+      return res;
+    } catch (err) {
+      return rejectWithValue(err.response);
+    }
+  }
+);
+export const updateUserInfo = createAsyncThunk(
+  "loggedUser/update",
+  async (formdata, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      const res = await useUpdateDataWithImage(
+        `/api/v1/users/changeMyData`,
+        formdata
+      );
       return res;
     } catch (err) {
       return rejectWithValue(err.response);
