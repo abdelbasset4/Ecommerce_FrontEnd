@@ -400,7 +400,6 @@ function NavList() {
 export default function SecondNavBar() {
   const dispatch = useDispatch();
   const [openNav, setOpenNav] = useState(false);
-  const res = useSelector((state) => state.auth.user);
   const [user, setUser] = useState(localStorage.getItem("token"));
   const location = useLocation();
   useEffect(() => {
@@ -416,10 +415,6 @@ export default function SecondNavBar() {
     return decodeUser;
   };
   const activeUser = decodeUserFunction();
-  useEffect(() => {
-    dispatch(GetLoggedUser());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   useEffect(() => {
     window.addEventListener(
       "resize",
