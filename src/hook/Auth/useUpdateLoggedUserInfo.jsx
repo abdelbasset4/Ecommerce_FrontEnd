@@ -6,14 +6,16 @@ import { useEffect } from "react";
 import Notify from "../../hooks/useNotify";
 
 const useUpdateLoggedUserInfo = (user) => {
+  console.log(user);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
-  const [name, setName] = useState(user?.data?.name);
-  const [email, setEmail] = useState(user?.data?.email);
-  const [phone, setPhone] = useState(user?.data?.phone);
+  const [name, setName] = useState(user.data?.name);
+  const [email, setEmail] = useState(user.data?.email);
+  const [phone, setPhone] = useState(user.data?.phone);
+  const userImg = user?.data?.profileImg
   const [file, setFile] = useState(
-    user?.data?.profileImg || `${baseURL}/users/${user?.data?.profileImg}`
+    user?.data?.profileImg || `${baseURL}/users/${userImg}`
   );
   const [loading, setLoading] = useState(true);
   const onChangeName = (e) => {
@@ -34,7 +36,9 @@ const useUpdateLoggedUserInfo = (user) => {
     const formData = new FormData();
     formData.append("name", name);
     formData.append("phone", phone);
-    formData.append("email", email);
+    if(email !==user.data?.email){
+      formData.append("email", email);
+    }
     if (file[0].file === undefined) {
       formData.append("profileImg", user.data.profileImg);
     } else {
@@ -49,10 +53,13 @@ const useUpdateLoggedUserInfo = (user) => {
   //  reset inputs and show notification
   useEffect(() => {
     if (loading === false) {
-
+      console.log(updateUser);
       if (updateUser) {
         if (updateUser.status === 200) {
           Notify("Update user info succsusful", "success");
+          setTimeout(() => {
+            window.location.reload()
+          }, 2000);
         } else {
           Notify("Update user info error ", "error");
         }

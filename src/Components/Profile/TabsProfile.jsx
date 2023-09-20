@@ -20,7 +20,7 @@ import useGetLoggedUserData from "../../hook/Auth/useGetLoggedUserData";
 
 export default function TabsProfiles() {
   const [adresses] = useGetUserAdresses()
-  const [user] = useGetLoggedUserData()
+  
   
   return (
     <Tabs value="">
@@ -47,7 +47,7 @@ export default function TabsProfiles() {
       <TabsBody>
 
           <TabPanel key="profile" value="profile" className="p-2 mt-4">
-            <AccountDetails user={user}/>
+            <AccountDetails />
           </TabPanel>
           <TabPanel key="password" value="password" className="p-2 mt-4">
             <ChangePassword/>
