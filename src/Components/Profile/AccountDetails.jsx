@@ -5,7 +5,7 @@ import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 import "filepond/dist/filepond.min.css";
-import { useState } from "react";
+import { baseURL } from "../../API/mainBaseURL";
 import { Typography } from "@material-tailwind/react";
 // import useGetLoggedUserData from "../../hook/Auth/useGetLoggedUserData";
 import {
@@ -17,8 +17,9 @@ import {
 } from "@material-tailwind/react";
 import useUpdateLoggedUserInfo from "../../hook/Auth/useUpdateLoggedUserInfo";
 import { ToastContainer } from "react-toastify";
-export default function AccountDetails({ user }) {
-  console.log(user);
+import useGetLoggedUserData from "../../hook/Auth/useGetLoggedUserData";
+export default function AccountDetails() {
+  const [user] = useGetLoggedUserData();
   const [
     open,
     handleOpen,
@@ -31,7 +32,7 @@ export default function AccountDetails({ user }) {
     file,
     setFile,
     hundelSubmit,
-  ] = useUpdateLoggedUserInfo(user)
+  ] = useUpdateLoggedUserInfo(user);
   return (
     <>
       <Dialog
@@ -80,9 +81,11 @@ export default function AccountDetails({ user }) {
             />
           </div>
           <div>
+            {" "}
             <label className="mb-2.5 block text-black dark:text-white text-start ms-3">
-              Profile Image
-            </label>
+              {" "}
+              Profile Image{" "}
+            </label>{" "}
             <FilePond
               files={file}
               onupdatefiles={setFile}
@@ -142,7 +145,7 @@ export default function AccountDetails({ user }) {
             Profile Image:
           </label>
           <FilePond
-            files={user?.data?.profileImg}
+            files={user?.data?.profileImg?.includes("user") ? `${baseURL}/users/${user?.data?.profileImg}`:  user?.data?.profileImg}
             disabled={true}
             onupdatefiles={setFile}
             allowMultiple={false}
@@ -158,7 +161,7 @@ export default function AccountDetails({ user }) {
           Update user info
         </Link>
       </div>
-      <ToastContainer/>
+      <ToastContainer />
     </>
   );
 }
