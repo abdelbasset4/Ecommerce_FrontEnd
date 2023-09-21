@@ -1,14 +1,7 @@
 import {
   Rating,
   Typography,
-  Button,
-  Dialog,
-  DialogBody,
-  DialogFooter,
-  DialogHeader,
 } from "@material-tailwind/react";
-import { useState } from "react";
-import jwt_decode from "jwt-decode";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { ToastContainer } from "react-toastify";
 
@@ -16,14 +9,10 @@ import useDeleteReview from "../../hook/Review/useDeleteReview";
 import DeleteReviewModal from "./DeleteReviewModal";
 import UpdateReviewModal from "./UpdateReviewModal";
 import useUpdateReview from "../../hook/Review/useUpdateReview";
+import { decodeToken } from "../../js/decodeToken";
 const ProductOneReview = ({ review }) => {
-  const user = localStorage.getItem("token");
-  const decodeUserFunction = () => {
-    let decodeUser = null;
-    if (user) decodeUser = jwt_decode(user);
-    return decodeUser;
-  };
-  const activeUser = decodeUserFunction();
+
+  const activeUser = decodeToken();
   const [openDelete, handleOpenDelete, handelDeleteReview] = useDeleteReview();
   const [openUpdate, handleOpenUpdate, handelUpdateReview,ratingtext,ratingStar,onChangeRateText,OnChangeRateStar] = useUpdateReview(review);
   return (
@@ -59,7 +48,7 @@ const ProductOneReview = ({ review }) => {
             {review.title}
           </Typography>
         </div>
-        {activeUser.userId === review.user._id ? (
+        {activeUser?.userId === review.user._id ? (
           <div className="flex gap-2 absolute right-0 top-0">
             <AiFillDelete
               size={"1.3rem"}

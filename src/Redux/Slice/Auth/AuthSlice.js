@@ -8,7 +8,8 @@ import {
   ResetCode,
   ResetPassword,
   LoginWithGoogle,
-  updateUserInfo
+  updateUserInfo,
+  updateUserPassword
 } from "../Auth/AuthThunk";
 
 const initialState = {
@@ -74,6 +75,13 @@ const AuthSlice = createSlice({
 
     },
     [updateUserInfo.rejected]: (state, action) => {
+      state.user = action.payload;
+    },
+    [updateUserPassword.fulfilled]: (state, action) => {
+      state.user = action.payload;
+
+    },
+    [updateUserPassword.rejected]: (state, action) => {
       state.user = action.payload;
     },
   },

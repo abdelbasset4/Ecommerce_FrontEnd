@@ -24,6 +24,7 @@ import { ProfileMenu } from "./ProfileMenu";
 import { useDispatch, useSelector } from "react-redux";
 import { GetLoggedUser } from "../../Redux/Slice/Auth/AuthThunk";
 import jwt_decode from "jwt-decode";
+import { decodeToken } from "../../js/decodeToken";
 // nav list menu
 const navListCategory = [
   {
@@ -398,23 +399,8 @@ function NavList() {
 }
 
 export default function SecondNavBar() {
-  const dispatch = useDispatch();
   const [openNav, setOpenNav] = useState(false);
-  const [user, setUser] = useState(localStorage.getItem("token"));
-  const location = useLocation();
-  useEffect(() => {
-    // if(user){
-    //   const decodeUser = jwt_decode(user)
-    // }
-    setUser(localStorage.getItem("token"));
-  }, [location]);
-
-  const decodeUserFunction = () => {
-    let decodeUser = null;
-    if (user) decodeUser = jwt_decode(user);
-    return decodeUser;
-  };
-  const activeUser = decodeUserFunction();
+  const activeUser = decodeToken();
   useEffect(() => {
     window.addEventListener(
       "resize",

@@ -10,13 +10,12 @@ import {
 import logo from "../../assets/logo.svg";
 import { HiOutlineHeart } from "react-icons/hi";
 import { CgShoppingBag } from "react-icons/cg";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useSearchNavBar from "../../hook/Search/useSearchNavBar";
-import { useDispatch } from "react-redux";
-import jwt_decode from "jwt-decode";
+
+import { decodeToken } from "../../js/decodeToken";
 
 export default function NavBar() {
-  const dispatch = useDispatch();
   const [, onChangeSearch] = useSearchNavBar();
   const [openNav, setOpenNav] = useState(false);
   let searchword = "";
@@ -29,27 +28,7 @@ export default function NavBar() {
       () => window.innerWidth >= 960 && setOpenNav(false)
     );
   }, []);
-  // const res = useSelector((state) => state.auth.user);
-  // useEffect(() => {
-  //   dispatch(GetLoggedUser());
-
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
-  const [user, setUser] = useState(localStorage.getItem("token"));
-  const location = useLocation();
-  useEffect(() => {
-    // if(user){
-    //   const decodeUser = jwt_decode(user)
-    // }
-    setUser(localStorage.getItem("token"));
-  }, [location]);
-
-  const decodeUserFunction = () => {
-    let decodeUser = null;
-    if (user) decodeUser = jwt_decode(user);
-    return decodeUser;
-  };
-  const activeUser = decodeUserFunction();
+  const activeUser = decodeToken();
   const navList = (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <Typography

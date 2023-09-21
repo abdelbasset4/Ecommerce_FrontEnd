@@ -128,3 +128,20 @@ export const updateUserInfo = createAsyncThunk(
     }
   }
 );
+
+export const updateUserPassword = createAsyncThunk(
+  "loggedUserPassword/update",
+  async (data, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      const res = await useUpdatetData(
+        `/api/v1/users/changeMyPassword`,
+        data
+      );
+      console.log(res);
+      return res;
+    } catch (err) {
+      return rejectWithValue(err.response);
+    }
+  }
+);

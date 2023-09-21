@@ -5,17 +5,17 @@ import { useState } from "react";
 import { useEffect } from "react";
 import Notify from "../../hooks/useNotify";
 
-const useUpdateLoggedUserInfo = (user) => {
-  console.log(user);
+const useUpdateLoggedUserInfo = (userDetails) => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
-  const [name, setName] = useState(user.data?.name);
-  const [email, setEmail] = useState(user.data?.email);
-  const [phone, setPhone] = useState(user.data?.phone);
-  const userImg = user?.data?.profileImg
+  const [name, setName] = useState(userDetails.data?.name);
+  const [email, setEmail] = useState(userDetails.data?.email);
+  const [phone, setPhone] = useState(userDetails.data?.phone);
+  const userImg = userDetails?.data?.profileImg.includes("user")?` ${baseURL}/users/${userDetails.data.profileImg}` :userDetails.data.profileImg
+  console.log(userImg);
   const [file, setFile] = useState(
-    user?.data?.profileImg || `${baseURL}/users/${userImg}`
+    userImg
   );
   const [loading, setLoading] = useState(true);
   const onChangeName = (e) => {
@@ -27,20 +27,19 @@ const useUpdateLoggedUserInfo = (user) => {
   const onChangePhone = (e) => {
     setPhone(e.target.value);
   };
-//   const onChangeImage = (e) => {
-//     setFile(e.target.value);
-//   };
 
   //  submit form to update the user info
   const hundelSubmit = async (e) => {
     const formData = new FormData();
     formData.append("name", name);
-    formData.append("phone", phone);
-    if(email !==user.data?.email){
+    if(phone !==userDetails.data?.phone){
+      formData.append("phone", phone);
+    }
+    if(email !==userDetails.data?.email){
       formData.append("email", email);
     }
     if (file[0].file === undefined) {
-      formData.append("profileImg", user.data.profileImg);
+      formData.append("profileImg", userDetails.data.profileImg);
     } else {
       formData.append("profileImg", file[0].file);
     }
