@@ -16,11 +16,11 @@ import ChangePassword from "./ChangePassword";
 import Adresses from "./Adresses";
 import { AddAdress } from "./AddAdress";
 import useGetUserAdresses from "../../hook/Adress/useGetUserAdresses";
-import useGetLoggedUserData from "../../hook/Auth/useGetLoggedUserData";
+import { decodeToken } from "../../js/decodeToken";
 
-export default function TabsProfiles() {
+export default function TabsProfiles({user}) {
   const [adresses] = useGetUserAdresses()
-  
+  const {authType} = decodeToken()
   
   return (
     <Tabs value="">
@@ -32,10 +32,12 @@ export default function TabsProfiles() {
                 </div>
             </Tab>
             <Tab key="password" value="password">
-                <div className="flex items-center gap-2">
-                    {React.createElement(LockClosedIcon, { className: "w-5 h-5" })}
-                        Change Password
-                </div>
+                {
+                  authType ==="user-password" ? (<div className="flex items-center gap-2">
+                  {React.createElement(LockClosedIcon, { className: "w-5 h-5" })}
+                      Change Password
+              </div>):null
+                }
             </Tab>
             <Tab key="adresses" value="adresses">
                 <div className="flex items-center gap-2">
@@ -47,16 +49,18 @@ export default function TabsProfiles() {
       <TabsBody>
 
           <TabPanel key="profile" value="profile" className="p-2 mt-4">
-            <AccountDetails />
+            <AccountDetails userDetails={user} />
           </TabPanel>
-          <TabPanel key="password" value="password" className="p-2 mt-4">
+          {
+            authType ==="user-password" ? (<TabPanel key="password" value="password" className="p-2 mt-4">
             <ChangePassword/>
-          </TabPanel>
+          </TabPanel>):null
+          }
           <TabPanel key="adresses" value="adresses" className="p-2 mt-4">
             {
               adresses?.data?.length>0 ?(
-                adresses?.data?.map((adress)=>{
-                  return <Adresses adress={adress}/>
+                adresses?.data?.map((adress,index)=>{
+                  return <Adresses adress={adress} key={index}/>
                 })
               ):(<h2>There are no adresses</h2>)
             }

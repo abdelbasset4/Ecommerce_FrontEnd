@@ -42,6 +42,7 @@ import ProtectedRoute from "./Components/Utility/ProtectedRoute";
 import Coupons from "./Pages/Dashboard/Mange/Coupons/Coupons";
 import AddCoupon from "./Pages/Dashboard/Mange/Coupons/AddCoupon";
 import EditCoupon from "./Pages/Dashboard/Mange/Coupons/EditCoupon";
+import { LoaderFunction } from "./hooks/LoaderFunction";
 
 const Settings = lazy(() => import("./Pages/Dashboard/Settings"));
 const router = createBrowserRouter(
@@ -62,7 +63,7 @@ const router = createBrowserRouter(
         <Route element={<ProtectedRoute allowedRoles={["user"]} />}>
           <Route path="cart" element={<CartPage />} />
           <Route path="checkout" element={<CheckoutPage />} />
-          <Route path="myprofile" element={<ProfilePage />} />
+          <Route path="myprofile" loader={LoaderFunction} element={<ProfilePage />} />
           <Route path="myorders" element={<OrdersPage />} />
           <Route path="wishlist" element={<WishListPage />} />
         </Route>

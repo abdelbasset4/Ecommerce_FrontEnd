@@ -6,11 +6,9 @@ import { useSignUp } from "../../hook/Auth/useSignUp";
 import { Button, Typography } from "@material-tailwind/react";
 import { BiLogoFacebookSquare } from "react-icons/bi";
 import { AiFillGoogleSquare } from "react-icons/ai";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import logo from "../../assets/logo.svg";
-import { useDispatch } from "react-redux";
-import { createGoogleUser } from "../../Redux/Slice/Auth/AuthThunk";
 import { useGoogleLogin } from "@react-oauth/google";
 const initialValues = {
   name: "",
@@ -21,8 +19,6 @@ const initialValues = {
 };
 
 const SignUp = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate()
   const [hundelSubmit,handleGoogleLoginSuccess] = useSignUp();
   const onSubmit = async (values, actions) => {
     await new Promise((resolve) => setTimeout(resolve, 1000));

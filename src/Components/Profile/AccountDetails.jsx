@@ -7,19 +7,17 @@ registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 import "filepond/dist/filepond.min.css";
 import { baseURL } from "../../API/mainBaseURL";
 import { Typography } from "@material-tailwind/react";
-// import useGetLoggedUserData from "../../hook/Auth/useGetLoggedUserData";
 import {
   Button,
   Dialog,
   DialogBody,
   DialogFooter,
-  DialogHeader,
 } from "@material-tailwind/react";
 import useUpdateLoggedUserInfo from "../../hook/Auth/useUpdateLoggedUserInfo";
 import { ToastContainer } from "react-toastify";
-import useGetLoggedUserData from "../../hook/Auth/useGetLoggedUserData";
-export default function AccountDetails() {
-  const [user] = useGetLoggedUserData();
+import { decodeToken } from "../../js/decodeToken";
+export default function AccountDetails({userDetails}) {
+
   const [
     open,
     handleOpen,
@@ -32,7 +30,8 @@ export default function AccountDetails() {
     file,
     setFile,
     hundelSubmit,
-  ] = useUpdateLoggedUserInfo(user);
+  ] = useUpdateLoggedUserInfo(userDetails);
+  const activeUser = decodeToken()
   return (
     <>
       <Dialog
@@ -66,6 +65,7 @@ export default function AccountDetails() {
               required
               value={email}
               onChange={onChangeEmail}
+              disabled={activeUser.authType ==="gmail" ? true : false}
             />
           </div>
           <div>
@@ -81,9 +81,7 @@ export default function AccountDetails() {
             />
           </div>
           <div>
-            {" "}
             <label className="mb-2.5 block text-black dark:text-white text-start ms-3">
-              {" "}
               Profile Image{" "}
             </label>{" "}
             <FilePond
@@ -119,7 +117,7 @@ export default function AccountDetails() {
               Full name
             </label>
             <Typography className="font-semibold text-base text-start">
-              {user?.data?.name}
+              {userDetails?.data?.name}
             </Typography>
           </div>
         </div>
@@ -129,7 +127,7 @@ export default function AccountDetails() {
             Email <span className="text-meta-1">*</span>
           </label>
           <Typography className="font-semibold text-base text-start">
-            {user?.data?.email}
+            {userDetails?.data?.email}
           </Typography>
         </div>
         <div className="mb-4.5">
@@ -137,23 +135,10 @@ export default function AccountDetails() {
             Phone
           </label>
           <Typography className="font-semibold text-base text-start">
-            {user?.data?.phone || ""}
+            {userDetails?.data?.phone ||"you dont have phone number"}
           </Typography>
         </div>
-        <div className="mt-4">
-          <label className="mb-3 block text-black dark:text-white">
-            Profile Image:
-          </label>
-          <FilePond
-            files={user?.data?.profileImg?.includes("user") ? `${baseURL}/users/${user?.data?.profileImg}`:  user?.data?.profileImg}
-            disabled={true}
-            onupdatefiles={setFile}
-            allowMultiple={false}
-            maxFiles={1}
-            name="files"
-            labelIdle='Drag & Drop your image or <span class="filepond--label-action">Browse</span>'
-          />
-        </div>
+
         <Link
           to="#"
           onClick={handleOpen}

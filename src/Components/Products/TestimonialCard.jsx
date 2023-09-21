@@ -6,7 +6,6 @@ import {
   Avatar,
   Rating,
 } from "@material-tailwind/react";
-import jwt_decode from "jwt-decode";
 import { StarIcon } from "@heroicons/react/24/solid";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { ToastContainer } from "react-toastify";
@@ -14,15 +13,9 @@ import useDeleteReview from "../../hook/Review/useDeleteReview";
 import useUpdateReview from "../../hook/Review/useUpdateReview";
 import UpdateReviewModal from "../Reviews/UpdateReviewModal";
 import DeleteReviewModal from "../Reviews/DeleteReviewModal";
+import { decodeToken } from "../../js/decodeToken";
 export default function TestimonialCard({ review }) {
-  const user = localStorage.getItem("token");
-  const decodeUserFunction = () => {
-    let decodeUser = null;
-    if (user) decodeUser = jwt_decode(user);
-    return decodeUser;
-  };
-  console.log(review);
-  const activeUser = decodeUserFunction();
+  const activeUser = decodeToken()
   const [openDelete, handleOpenDelete, handelDeleteReview] = useDeleteReview();
   const [
     openUpdate,
@@ -81,7 +74,7 @@ export default function TestimonialCard({ review }) {
         <CardBody className="mb-6 p-0 text-center lg:text-start">
           <Typography>&quot;{review?.title}&quot;</Typography>
         </CardBody>
-        {activeUser.userId === review.user._id ? (
+        {activeUser?.userId === review.user._id ? (
           <div className="flex gap-2 absolute right-4 top-4">
             <AiFillDelete
               size={"1.3rem"}
