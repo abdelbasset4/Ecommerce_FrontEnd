@@ -1,20 +1,21 @@
 import { Button, Chip, Typography } from "@material-tailwind/react";
-import Counter from "../Utility/Counter";
-import SecondNavBar from "../Utility/SecondNavBar";
 import ProductCarousel from "./ProductCarousel";
 import ProductAccordion from "./ProductAccordion";
 import { useParams } from "react-router";
 import useGetOneProduct from "../../hook/product/useGetOneProduct";
 import ProductSearchCard from "../Search/ProductSearchCard";
-import AddReview from "../Reviews/AddReview";
 import ProductReview from "./ProductReview";
+import useAddToCart from "../../hook/Cart/useAddToCart";
+import { ToastContainer } from "react-toastify";
 export default function ProductDetails() {
   const { id } = useParams();
   const [items, brand, subCategories, productsWithoutThisProd] =
     useGetOneProduct(id);
+
+  const [colorIndex, checkColor,hundelAddToCart] = useAddToCart(id,items)
   return (
     <>
-      <SecondNavBar />
+
       <div className="flex flex-col lg:flex-row gap-6 mx-auto  px-4 mt-10">
         <div className="w-full lg:w-1/2 h-screen">
           <ProductCarousel images={items.images} />
@@ -58,15 +59,16 @@ export default function ProductDetails() {
                       <li
                         className=" rounded-md w-8 h-8 cursor-pointer"
                         key={index}
-                        style={{ backgroundColor: `${color}` }}></li>
+                        onClick={()=>checkColor(index,color)}
+                        style={{ backgroundColor: `${color}`,border: colorIndex ===index ? "4px solid black" :"none" }}></li>
                     );
                   })
                 : null}
             </ul>
           </div>
           <div className="flex items-center gap-3 my-5">
-            <Counter />
             <Button
+                  onClick={hundelAddToCart}
               className=" bg-gray-900 py-3 flex justify-center items-center gap-2 capitalize font-semibold text-sm hover:opacity-80"
               fullWidth>
               Add to Card
@@ -127,19 +129,22 @@ export default function ProductDetails() {
           </div>
         </div>
       </div>
-      <ProductReview/>
-      <h2 className="mb-4 text-2xl font-extrabold text-gray-900 ms-4">Products you may like</h2>
+      <ProductReview />
+      <h2 className="mb-4 text-2xl font-extrabold text-gray-900 ms-4">
+        Products you may like
+      </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mx-4 ">
         {
           // eslint-disable-next-line react/prop-types
           productsWithoutThisProd
-            ? productsWithoutThisProd.map((product,index) => (
+            ? productsWithoutThisProd.map((product, index) => (
                 // eslint-disable-next-line react/jsx-key
                 <ProductSearchCard key={index} product={product} />
               ))
             : null
         }
       </div>
+      <ToastContainer/>
     </>
   );
 }

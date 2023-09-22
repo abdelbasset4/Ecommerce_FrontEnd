@@ -2,8 +2,8 @@ import { Button, Typography } from '@material-tailwind/react';
 import { useState } from 'react';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 
-export default function Counter() {
-    const [count, setCount] = useState(0);
+export default function Counter({quantity}) {
+    const [count, setCount] = useState(quantity);
     function handleClickPlus() {
         setCount(count + 1);
     }

@@ -14,8 +14,10 @@ import { Link } from "react-router-dom";
 import useSearchNavBar from "../../hook/Search/useSearchNavBar";
 
 import { decodeToken } from "../../js/decodeToken";
+import useGetUserCart from "../../hook/Cart/useGetUserCart";
 
 export default function NavBar() {
+  const [numberItem] = useGetUserCart()
   const [, onChangeSearch] = useSearchNavBar();
   const [openNav, setOpenNav] = useState(false);
   let searchword = "";
@@ -92,35 +94,35 @@ export default function NavBar() {
         </Typography>
         <div className="hidden lg:block">{navList}</div>
         {activeUser ? (
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="flex items-center gap-5 lg:gap-3">
             <Link to="/wishlist" className="flex items-center gap-1">
               <Badge
                 content="0"
                 color="red"
-                className="min-w-[20px] min-h-[20px] bg-[#212121]">
-                <IconButton color="white">
+                className="min-w-[20px] min-h-[20px] bg-[#212121] ">
+                <IconButton className="bg-red-600">
                   <HiOutlineHeart size={"1rem"} />
                 </IconButton>
               </Badge>
-              <span>Wishlist</span>
+              <span className="hidden lg:block">Wishlist</span>
             </Link>
             <Link to="/cart" className="flex items-center gap-1">
               <Badge
-                content="1"
+                content={numberItem}
                 color="red"
                 className="min-w-[20px] min-h-[20px] bg-[#212121]">
-                <IconButton color="white">
+                <IconButton className="bg-teal-500">
                   <CgShoppingBag size={"1rem"} />
                 </IconButton>
               </Badge>
-              <span>Shopping</span>
+              <span className="hidden lg:block">Shopping</span>
             </Link>
           </div>
         ) : null}
 
         <IconButton
           variant="text"
-          className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
+          className=" h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
           ripple={false}
           onClick={() => setOpenNav(!openNav)}>
           {openNav ? (
@@ -155,6 +157,8 @@ export default function NavBar() {
       </div>
       <Collapse open={openNav}>
         <div className="container mx-auto">{navList}</div>
+
+
       </Collapse>
     </Navbar>
   );
