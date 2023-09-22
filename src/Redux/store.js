@@ -8,6 +8,7 @@ import ReviewSlice from './Slice/Review/ReviewSlice'
 import WishListSlice from './Slice/WishList/WishListSlice'
 import CouponSlice from './Slice/Coupon/CouponSlice'
 import AdressesSlice from './Slice/Adresses/AdressesSlice'
+import CartSlice from './Slice/Cart/CartSlice'
 export const store = configureStore({
   reducer: {
     category:CategorySlice,
@@ -18,7 +19,8 @@ export const store = configureStore({
     review:ReviewSlice,
     wishlist:WishListSlice,
     coupon:CouponSlice,
-    adress:AdressesSlice
+    adress:AdressesSlice,
+    cart:CartSlice
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

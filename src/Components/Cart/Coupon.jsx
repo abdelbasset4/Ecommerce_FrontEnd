@@ -1,11 +1,13 @@
 import { Input, Button, Typography } from "@material-tailwind/react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import useGetUserCart from "../../hook/Cart/useGetUserCart";
 
 export default function Coupon() {
     const [coupon, setCoupon] = useState("");
     const onChange = ({ target }) => setCoupon(target.value);
-    
+    const [,,totalCartPrice] = useGetUserCart()
+    console.log(totalCartPrice);
     return (
        <div className="max-w-[24rem] mt-8"> 
       <div className="relative flex w-full ">
@@ -23,7 +25,6 @@ export default function Coupon() {
         />
         <Button
           size="sm"
-         
           disabled={!coupon}
           className={`!absolute right-1 top-1 rounded ${!coupon ? 'bg-gray-500 text-white' : 'text-white bg-gray-900'}` }
         >
@@ -32,7 +33,7 @@ export default function Coupon() {
         
       </div>
       <Typography  className=" bg-white text-gray-900 border border-gray-900 rounded-lg my-4 py-3 flex justify-center items-center gap-2 capitalize font-semibold text-sm hover:opacity-80" fullWidth>
-        Procced to checkout 14.99$
+        Procced to checkout {totalCartPrice} $
        </Typography>
       <Link to="/checkout">
         <Button  className=" bg-gray-900 text-white rounded-lg my-4 py-3 flex justify-center items-center gap-2 capitalize font-semibold text-sm hover:opacity-80" fullWidth>

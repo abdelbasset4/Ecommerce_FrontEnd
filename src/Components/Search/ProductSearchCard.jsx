@@ -8,33 +8,34 @@ import {
   DialogBody,
   Button,
 } from "@material-tailwind/react";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { XMarkIcon } from "@heroicons/react/24/solid";
-import Counter from "../Utility/Counter";
 import { Link } from "react-router-dom";
-import {baseURL} from "../../API/mainBaseURL";
-import useWishList from "../../hook/WishList/useWishList";
+import { baseURL } from "../../API/mainBaseURL";
+import { ToastContainer } from "react-toastify";
+import useAddToCart from "../../hook/Cart/useAddToCart";
 // eslint-disable-next-line react/prop-types
-export default function ProductSearchCard({ product ,favProd}) {
-  const {_id} = product
+export default function ProductSearchCard({ product, favProd }) {
   const [open, setOpen] = useState(false);
-  console.log(favProd);
-  // const [handelFavorite, img] = useWishList(_id, favProd);
+  const [colorIndex, checkColor, hundelAddToCart] = useAddToCart(
+    product._id,
+    product
+  );
   const handleOpen = () => setOpen(!open);
   return (
-    <Fragment>
-    <Card
-    className="relative bg-red cursor-pointer duration-300 rounded-md hover:-translate-y-2"
-    onClick={handleOpen}>
-    <CardHeader
-    shadow={false}
-    floated={false}
-    className="h-72 rounded-md m-0">
-    <img
-    // eslint-disable-next-line react/prop-types
-    src={`${baseURL}/products/${product.imageCover}`}
-    className="w-full rounded-none h-full object-cover"
-   
+    <>
+    
+      <Card
+        className="relative bg-red cursor-pointer duration-300 rounded-md hover:-translate-y-2"
+        onClick={handleOpen}>
+        <CardHeader
+          shadow={false}
+          floated={false}
+          className="h-72 rounded-md m-0">
+          <img
+            // eslint-disable-next-line react/prop-types
+            src={`${baseURL}/products/${product.imageCover}`}
+            className="w-full rounded-none h-full object-cover"
           />
         </CardHeader>
         <CardBody>
@@ -61,6 +62,7 @@ export default function ProductSearchCard({ product ,favProd}) {
             </Typography>
           </div>
         </CardBody>
+        <ToastContainer/>
       </Card>
       <Dialog open={open} handler={handleOpen} size="lg">
         <div className="flex justify-end py-3 ">
@@ -73,7 +75,7 @@ export default function ProductSearchCard({ product ,favProd}) {
           <div className="flex flex-col lg:flex-row gap-6">
             <div className="w-full lg:w-1/2 h-full">
               <img
-              src={`${baseURL}/products/${product.imageCover}`}
+                src={`${baseURL}/products/${product.imageCover}`}
                 className="w-full rounded-bl-lg h-full object-contain hoho"
               />
             </div>
@@ -104,18 +106,25 @@ export default function ProductSearchCard({ product ,favProd}) {
                 <ul
                   size="sm"
                   className="flex gap-4 mt-3 divide-x-0 divide-y-0 h-8">
-                 
-                  {
-                    product.colors.map((color)=>{
-                      // eslint-disable-next-line react/jsx-key
-                      return ( <li className=" w-8 h-8 rounded-md" style={{backgroundColor:`${color}`}}></li>)
-                    })
-                  }
+                  {product.colors.map((color, index) => {
+                    // eslint-disable-next-line react/jsx-key
+                    return (
+                      <li
+                        className=" w-8 h-8 rounded-md"
+                        key={index}
+                        onClick={() => checkColor(index, color)}
+                        style={{
+                          backgroundColor: `${color}`,
+                          border:
+                            colorIndex === index ? "4px solid black" : "none",
+                        }}></li>
+                    );
+                  })}
                 </ul>
               </div>
               <div className="flex items-center gap-3 my-5">
-                <Counter />
                 <Button
+                  onClick={hundelAddToCart}
                   className=" bg-gray-900 py-3 flex justify-center items-center gap-2 capitalize font-semibold text-sm hover:opacity-80"
                   fullWidth>
                   Add to Card
@@ -132,6 +141,7 @@ export default function ProductSearchCard({ product ,favProd}) {
           </div>
         </DialogBody>
       </Dialog>
-    </Fragment>
+      
+    </>
   );
 }
