@@ -10,12 +10,14 @@ import {
   DialogHeader,
 } from "@material-tailwind/react";
 import Counter from "../Utility/Counter";
-import { AiFillCloseCircle, AiOutlineDelete } from "react-icons/ai";
+import { AiFillCloseCircle, AiOutlineDelete, AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { baseURL } from "../../API/mainBaseURL";
 import useDeleteCart from "../../hook/Cart/useDeleteCart";
 import { ToastContainer } from "react-toastify";
+import useUpdateQuantity from "../../hook/Cart/useUpdateQuantity";
 export default function CartItem({ product }) {
-  const [open,handleOpen,handelDeleteCartItem] = useDeleteCart()
+  const [open, handleOpen, handelDeleteCartItem] = useDeleteCart();
+  const  [count,handleClickMinus,handleClickPlus,handeleUpdateCartQuantity] = useUpdateQuantity(product);
   return (
     <>
       <Dialog
@@ -26,7 +28,9 @@ export default function CartItem({ product }) {
           unmount: { scale: 0.9, y: -100 },
         }}>
         <DialogHeader>Delete!</DialogHeader>
-        <DialogBody divider>Do you really want to delete the cart item?</DialogBody>
+        <DialogBody divider>
+          Do you really want to delete the cart item?
+        </DialogBody>
         <DialogFooter>
           <Button
             variant="text"
@@ -57,7 +61,7 @@ export default function CartItem({ product }) {
             <AiFillCloseCircle size={"2rem"} color="#333A48" />
           </div>
         </CardHeader>
-        <CardBody>
+        <CardBody className="w-full">
           <Typography variant="h4" color="blue-gray" className="mb-2">
             {`${product.product.title}`}
           </Typography>
@@ -67,9 +71,26 @@ export default function CartItem({ product }) {
           <div
             className="w-8 h-8 rounded-full my-4"
             style={{ backgroundColor: `${product.color}` }}></div>
-          <div className="flex justify-between items-center">
-            <Counter quantity={`${product.quantity}`} />
-            <Typography variant="h5" className="font-normal text-black">
+          <div className="flex items-center justify-center lg:justify-normal w-full">
+            <div className="flex items-center ">
+              <Button
+                className="bg-white text-gray-900 border border-gray-600  p-3 rounded-none rounded-l-md hover:bg-gray-900 hover:text-white"
+                onClick={handleClickMinus}>
+                <AiOutlineMinus size={"0.5rem"} />
+              </Button>
+              <Typography className="text-black text-base font-semibold border border-gray-600 py-1 px-3 ">
+                {count}
+              </Typography>
+              <Button
+                className="bg-white text-gray-900 border border-gray-600  p-3 rounded-none rounded-r-md hover:bg-gray-900 hover:text-white"
+                onClick={handleClickPlus}>
+                <AiOutlinePlus size={"0.5rem"} />
+              </Button>
+            </div>
+            <Button className="bg-gray-900 ms-4" onClick={handeleUpdateCartQuantity} size="sm">
+              Apply
+            </Button>
+            <Typography variant="h5" className="font-semibold text-black ms-10">
               {product.quantity * product.price}$
             </Typography>
           </div>
@@ -78,7 +99,7 @@ export default function CartItem({ product }) {
           <AiOutlineDelete onClick={handleOpen} size={"1.2rem"} />
         </div>
       </Card>
-      <ToastContainer/>
+      <ToastContainer />
     </>
   );
 }

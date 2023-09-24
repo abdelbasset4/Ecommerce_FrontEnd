@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { AddToCart, clearAllCart, getUserCart ,deleteItemCart} from "./CartThunk";
+import { AddToCart, clearAllCart, getUserCart ,deleteItemCart, updateCartQuantity, applyCoupon} from "./CartThunk";
 
 const initialState = {
   cart: [],
@@ -31,6 +31,18 @@ const cartSlice = createSlice({
       state.cart = action.payload
     },
     [deleteItemCart.rejected]:(state,action)=>{
+      state.cart = action.payload
+    },
+    [updateCartQuantity.fulfilled]:(state,action)=>{
+      state.cart = action.payload
+    },
+    [updateCartQuantity.rejected]:(state,action)=>{
+      state.cart = action.payload
+    },
+    [applyCoupon.fulfilled]:(state,action)=>{
+      state.cart = action.payload
+    },
+    [applyCoupon.rejected]:(state,action)=>{
       state.cart = action.payload
     },
 
