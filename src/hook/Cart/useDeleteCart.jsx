@@ -11,7 +11,6 @@ const useDeleteCart = () => {
     
     const handelDeleteCartItem = async (id) => {
      const response = await dispatch(deleteItemCart(`/api/v1/cart/${id}`))
-     console.log(response);
       setOpen(!open);
       if(response.payload.status === "success"){
         Notify("Delete succsusful", "success");
@@ -24,7 +23,6 @@ const useDeleteCart = () => {
     };
     const handelClearCart = async () => {
      const response = await dispatch(clearAllCart(`/api/v1/cart/`))
-     console.log(response);
       setOpenClear(!openClear);
       if(response.payload === ""){
         Notify("Clear Cart succsusful", "success");

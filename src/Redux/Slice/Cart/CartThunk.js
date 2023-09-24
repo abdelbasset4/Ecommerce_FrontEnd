@@ -1,5 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { useInsertData } from "../../../hooks/useInsertData";
+import { useUpdatetData } from "../../../hooks/useUpdateData";
+
 import { useGetDataToken } from "../../../hooks/useGetData";
 import useDeleteData from "../../../hooks/useDeleteData";
 
@@ -49,6 +51,37 @@ export const deleteItemCart = createAsyncThunk(
     const { rejectWithValue } = thunkAPI;
     try {
       const res = await useDeleteData(url);
+      return res;
+    } catch (err) {
+      return rejectWithValue(err.response);
+    }
+  }
+);
+
+export const updateCartQuantity = createAsyncThunk(
+  "cart/update",
+  async (args, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      const res = await useUpdatetData(
+        `/api/v1/cart/${args[0]}`,
+        args[1]
+      );
+      return res;
+    } catch (err) {
+      return rejectWithValue(err.response);
+    }
+  }
+);
+export const applyCoupon = createAsyncThunk(
+  "coupon/update",
+  async (coupon, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      const res = await useUpdatetData(
+        `/api/v1/cart/applyCoupon`,
+        coupon
+      );
       return res;
     } catch (err) {
       return rejectWithValue(err.response);

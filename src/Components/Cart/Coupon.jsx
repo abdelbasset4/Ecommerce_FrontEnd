@@ -12,12 +12,19 @@ import { Link } from "react-router-dom";
 import useGetUserCart from "../../hook/Cart/useGetUserCart";
 import useDeleteCart from "../../hook/Cart/useDeleteCart";
 import { ToastContainer } from "react-toastify";
+import useApplyCoupon from "../../hook/Cart/useApplyCoupon";
+import { useEffect } from "react";
 
 export default function Coupon() {
-  const [coupon, setCoupon] = useState("");
-  const onChange = ({ target }) => setCoupon(target.value);
-  const [, , totalCartPrice] = useGetUserCart();
+  const [, , totalCartPrice,coupon,afterCouponPrice] = useGetUserCart();
+  const  [couponName,onChangeCouponName,handelApplyCoupon]  = useApplyCoupon()
   const  [,,,openClear,handleOpenClear,handelClearCart] = useDeleteCart()
+  console.log(coupon);
+  useEffect(() => {
+    if(coupon) onChangeCouponName(coupon)
+  }, [coupon])
+
+console.log(couponName);
   return (
     <>
       <Dialog
@@ -52,8 +59,8 @@ export default function Coupon() {
           <Input
             type="text"
             label="Enter your coupon code ...."
-            value={coupon}
-            onChange={onChange}
+            value={couponName}
+            onChange={(e)=>onChangeCouponName(e.target.value)}
             className="pr-20 h-9 "
             containerProps={{
               className: "min-w-0 ",
@@ -61,9 +68,10 @@ export default function Coupon() {
           />
           <Button
             size="sm"
-            disabled={!coupon}
+            onClick={handelApplyCoupon}
+            disabled={!couponName}
             className={`!absolute right-1 top-1 rounded ${
-              !coupon ? "bg-gray-500 text-white" : "text-white bg-gray-900"
+              !couponName ? "bg-gray-500 text-white" : "text-white bg-gray-900"
             }`}>
             Apply
           </Button>
@@ -73,6 +81,15 @@ export default function Coupon() {
           fullWidth>
           Procced to checkout {totalCartPrice} $
         </Typography>
+        {
+          afterCouponPrice ? (
+            <Typography
+          className=" bg-white text-gray-900 border border-gray-900 rounded-lg my-4 py-3 flex justify-center items-center gap-2 capitalize font-semibold text-sm hover:opacity-80"
+          fullWidth>
+          price after applying coupon {afterCouponPrice} $
+        </Typography>
+          ):null
+        }
         <Link to="/checkout">
           <Button
             className=" bg-gray-900 text-white rounded-lg my-4 py-3 flex justify-center items-center gap-2 capitalize font-semibold text-sm hover:opacity-80"
