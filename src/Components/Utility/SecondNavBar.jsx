@@ -19,12 +19,10 @@ import {
   Bars4Icon,
   UserIcon,
 } from "@heroicons/react/24/outline";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ProfileMenu } from "./ProfileMenu";
-import { useDispatch, useSelector } from "react-redux";
-import { GetLoggedUser } from "../../Redux/Slice/Auth/AuthThunk";
-import jwt_decode from "jwt-decode";
 import { decodeToken } from "../../js/decodeToken";
+import useGetAllCategory from "../../hook/category/useGetAllCategory";
 // nav list menu
 const navListCategory = [
   {
@@ -327,14 +325,16 @@ function NavListCategory() {
     onMouseLeave: () => setIsMenuOpen(false),
   };
 
-  const renderItems = navListCategory.map(({ title }) => (
-    <a href="#" key={title}>
+  const [categories] = useGetAllCategory(20)
+  console.log(categories);
+  const renderItems = categories?.data?.map(({ name }) => (
+    <a href="#" key={name}>
       <MenuItem>
         <Typography
           variant="h6"
           color="blue-gray"
           className="mb-0 text-sm font-light ">
-          {title}
+          {name}
         </Typography>
       </MenuItem>
     </a>
