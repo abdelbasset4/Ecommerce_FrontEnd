@@ -324,11 +324,9 @@ function NavListCategory() {
     onMouseEnter: () => setIsMenuOpen(true),
     onMouseLeave: () => setIsMenuOpen(false),
   };
-
   const [categories] = useGetAllCategory(20)
-  console.log(categories);
-  const renderItems = categories?.data?.map(({ name }) => (
-    <a href="#" key={name}>
+  const renderItems = categories?.data?.map(({ name,_id }) => (
+    <Link to={`/products/category/${_id}`} replace>
       <MenuItem>
         <Typography
           variant="h6"
@@ -337,7 +335,7 @@ function NavListCategory() {
           {name}
         </Typography>
       </MenuItem>
-    </a>
+    </Link>
   ));
 
   return (

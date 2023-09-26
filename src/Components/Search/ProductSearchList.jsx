@@ -1,5 +1,4 @@
 import { ToastContainer } from "react-toastify";
-import useGetUserFavoriteProduct from "../../hook/WishList/useGetUserFavoriteProduct";
 import ProductSearchCard from "./ProductSearchCard";
 
 // eslint-disable-next-line react/prop-types

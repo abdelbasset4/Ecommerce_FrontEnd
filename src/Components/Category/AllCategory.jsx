@@ -17,7 +17,7 @@ export default function AllCategory({ data, isLoading }) {
             // eslint-disable-next-line react/prop-types
             data.map((item, index) => {
               return (
-                <CategoryCard key={index} title={item.name} img={item.image} />
+                <CategoryCard key={index} id={item._id} title={item.name} img={item.image} />
               );
             })
           ) : (

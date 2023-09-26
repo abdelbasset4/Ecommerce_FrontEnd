@@ -44,9 +44,13 @@ export default function ProductDetails() {
               ${items.price}
             </Typography>
           </div>
-
           <div className="my-5">
-            {items.colors ? (
+          <Typography className="text-gray-900 text-sm font-semibold">
+           Quantity : {items.quantity}
+        </Typography>
+          </div>
+          <div className="my-5">
+            {items?.colors?.length >0 ? (
               <Typography className="text-black text-xl font-semibold">
                 Colors
               </Typography>

@@ -16,6 +16,30 @@ export const getAllProducts = createAsyncThunk(
     }
   }
 );
+export const getAllProductsByCategory = createAsyncThunk(
+  "productbycategory/getAll",
+  async (url, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      const res = await useGetData(url);
+      return res;
+    } catch (err) {
+      return rejectWithValue(err.response);
+    }
+  }
+);
+export const getAllProductsByBrand = createAsyncThunk(
+  "productbybrand/getAll",
+  async (url, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      const res = await useGetData(url);
+      return res;
+    } catch (err) {
+      return rejectWithValue(err.response);
+    }
+  }
+);
 
 export const getOneProduct = createAsyncThunk(
   "product/getOne",
