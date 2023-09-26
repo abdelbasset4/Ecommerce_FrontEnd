@@ -43,6 +43,7 @@ import Coupons from "./Pages/Dashboard/Mange/Coupons/Coupons";
 import AddCoupon from "./Pages/Dashboard/Mange/Coupons/AddCoupon";
 import EditCoupon from "./Pages/Dashboard/Mange/Coupons/EditCoupon";
 import { LoaderFunction } from "./hooks/LoaderFunction";
+import ProductByCategoryPage from "./Pages/Product/ProductByCategoryPage";
 
 const Settings = lazy(() => import("./Pages/Dashboard/Settings"));
 const router = createBrowserRouter(
@@ -60,6 +61,7 @@ const router = createBrowserRouter(
         <Route path="search/products/:id" element={<ProductDetalisPage />} />
         <Route path="categories" element={<AllCategoryPage />} />
         <Route path="brands" element={<AllBrandPage />} />
+        <Route path="/products/category/:id" element={<ProductByCategoryPage />} />
         <Route element={<ProtectedRoute allowedRoles={["user"]} />}>
           <Route path="cart" element={<CartPage />} />
           <Route path="checkout" element={<CheckoutPage />} />

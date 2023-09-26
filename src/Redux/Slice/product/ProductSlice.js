@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { createProduct,getAllProducts,getOneProduct ,getProductsLookLike ,deleteProduct,updateProduct} from './ProductThunk'
+import { createProduct,getAllProducts,getOneProduct ,getProductsLookLike ,deleteProduct,updateProduct,getAllProductsByCategory} from './ProductThunk'
 
 const initialState = {
     products: [],
     product:[],
     updateProduct:[],
+    productByCategory: []
 }
 
  const productSlice = createSlice({
@@ -17,6 +18,12 @@ const initialState = {
     },
     [getAllProducts.rejected]:(state,action)=>{
       state.products = action.payload
+    },
+    [getAllProductsByCategory.fulfilled]:(state,action)=>{
+      state.productByCategory = action.payload
+    },
+    [getAllProductsByCategory.rejected]:(state,action)=>{
+      state.productByCategory = action.payload
     },
     [getProductsLookLike.fulfilled]:(state,action)=>{
       state.products = action.payload
