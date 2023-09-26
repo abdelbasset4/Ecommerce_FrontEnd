@@ -130,7 +130,7 @@ export default function ProductSearchCard({ product, favProd }) {
                   Add to Card
                 </Button>
               </div>
-              <Link to={`products/${product._id}`}>
+              <Link to={`/search/products/${product._id}`}>
                 <Button
                   className="mt-6 bg-gray-900 py-4 flex justify-center items-center gap-2 capitalize font-semibold text-sm hover:opacity-80"
                   fullWidth>

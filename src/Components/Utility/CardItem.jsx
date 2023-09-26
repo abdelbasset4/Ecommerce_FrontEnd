@@ -42,9 +42,14 @@ export default function CardItem({ product, favProd }) {
           <Typography color="blue-gray" className="font-medium">
             {product.title}
           </Typography>
-          <Typography color="blue-gray" className="font-medium">
+          <div className="flex gap-3 mt-3">
+          <Typography className="font-semibold ">
+            ${product.priceAfterDiscount}
+          </Typography>
+          <Typography className="font-segoe line-through text-gray-400 ltr:pl-2.5 rtl:pr-2.5 -mt-0.5 md:mt-0">
             ${product.price}
           </Typography>
+        </div>
         </div>
         <Typography
           variant="small"

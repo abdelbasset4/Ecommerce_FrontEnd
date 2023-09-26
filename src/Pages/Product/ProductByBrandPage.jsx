@@ -1,13 +1,13 @@
 import { ToastContainer } from "react-toastify";
 import ProductSearchCard from "../../Components/Search/ProductSearchCard";
 import Pagination from "../../Components/Utility/Pagination";
-import useGetAllproductByCateory from "../../hook/product/useGetAllproductByCateory";
 import { useParams } from "react-router-dom";
 import NavBar from "../../Components/Utility/NavBar";
 import SecondNavBar from "../../Components/Utility/SecondNavBar";
-const ProductByCategoryPage = () => {
+import useGetProductsByBrand from "../../hook/product/useGetProductsByBrand";
+const ProductByBrandPage = () => {
   const { id } = useParams();
-  const [items, , pagination, getPageNumber] = useGetAllproductByCateory(
+  const [items, , pagination, getPageNumber] = useGetProductsByBrand(
     id,
     20
   );
@@ -27,7 +27,7 @@ const ProductByCategoryPage = () => {
               return <ProductSearchCard key={index} product={product} />;
             })
           ) : (
-            <h1 className="mt-4 text-center">{`There are no products from this category`}</h1>
+            <h1 className="mt-4 text-center">{`There are no products from this brand`}</h1>
           )
         }
       </div>
@@ -41,4 +41,4 @@ const ProductByCategoryPage = () => {
   );
 };
 
-export default ProductByCategoryPage;
+export default ProductByBrandPage;
