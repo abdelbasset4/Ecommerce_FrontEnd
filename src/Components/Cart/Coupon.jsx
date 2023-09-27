@@ -7,8 +7,6 @@ import {
   DialogFooter,
   DialogHeader,
 } from "@material-tailwind/react";
-import { useState } from "react";
-import { Link } from "react-router-dom";
 import useGetUserCart from "../../hook/Cart/useGetUserCart";
 import useDeleteCart from "../../hook/Cart/useDeleteCart";
 import { ToastContainer } from "react-toastify";
@@ -16,15 +14,15 @@ import useApplyCoupon from "../../hook/Cart/useApplyCoupon";
 import { useEffect } from "react";
 
 export default function Coupon() {
-  const [, , totalCartPrice,coupon,afterCouponPrice] = useGetUserCart();
+
+  const [, , totalCartPrice,coupon,afterCouponPrice,handelChackoutPage] = useGetUserCart();
   const  [couponName,onChangeCouponName,handelApplyCoupon]  = useApplyCoupon()
   const  [,,,openClear,handleOpenClear,handelClearCart] = useDeleteCart()
-  console.log(coupon);
   useEffect(() => {
     if(coupon) onChangeCouponName(coupon)
   }, [coupon])
 
-console.log(couponName);
+
   return (
     <>
       <Dialog
@@ -90,13 +88,12 @@ console.log(couponName);
         </Typography>
           ):null
         }
-        <Link to="/checkout">
           <Button
+            onClick={handelChackoutPage}
             className=" bg-gray-900 text-white rounded-lg my-4 py-3 flex justify-center items-center gap-2 capitalize font-semibold text-sm hover:opacity-80"
             fullWidth>
             Checkout
           </Button>
-        </Link>
         <Button
         onClick={handleOpenClear}
           className=" bg-gray-900 text-white rounded-lg my-4 py-3 flex justify-center items-center gap-2 capitalize font-semibold text-sm hover:opacity-80"
