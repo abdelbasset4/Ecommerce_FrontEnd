@@ -6,6 +6,7 @@ import {
   updateCoupon,
 } from "../../Redux/Slice/Coupon/CouponThunk";
 import Notify from "../../hooks/useNotify";
+import { dateFormat } from "../../js/dateFormat";
 
 const useUpdateCoupon = (couponId) => {
   const dispatch = useDispatch();
@@ -14,13 +15,7 @@ const useUpdateCoupon = (couponId) => {
   const [expire, setExpire] = useState("");
   const [discount, setDiscount] = useState("");
   const [loading, setLoading] = useState(true);
-  function formatDate(inputDate) {
-    const date = new Date(inputDate);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Month is 0-based, so add 1 and pad with '0'
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  }
+
   const changeName = (e) => {
     setName(e.target.value);
   };
@@ -44,7 +39,7 @@ const useUpdateCoupon = (couponId) => {
   useEffect(() => {
     if (coupon.data) {
       setName(coupon.data.name);
-      setExpire(formatDate(coupon.data.expire));
+      setExpire(dateFormat(coupon.data.expire));
       setDiscount(coupon.data.discount);
     }
   }, [coupon]);

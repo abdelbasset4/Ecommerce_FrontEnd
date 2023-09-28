@@ -50,7 +50,6 @@ const useCashOrder = () => {
   const order = useSelector((state) => state.order.orderCreated);
   useEffect(() => {
     if (loading === false) {
-        console.log(order);
       if (order && order.status === 200) {
         Notify("order created succsusful", "success");
         setTimeout(() => {

@@ -13,7 +13,6 @@ const EditCoupon = () => {
     changeDiscount,
     hundelSubmit,
   ] = useUpdateCoupon(id)
-  console.log(expire);
   return (
     <>
       <Breadcrumb pageName="Edit Coupon" />

@@ -2,16 +2,10 @@ import { NavLink } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import useDeleteCoupon from "../../hook/Coupon/useDeleteCoupon";
 import { Button, Dialog, DialogBody, DialogFooter, DialogHeader } from "@material-tailwind/react";
+import { dateFormat } from "../../js/dateFormat";
 
 const CouponsTableRow = ({ coupon }) => {
   const [open,handleOpen,handelDeleteCoupon] = useDeleteCoupon()
-  function formatDate(inputDate) {
-    const date = new Date(inputDate);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Month is 0-based, so add 1 and pad with '0'
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  }
 
   return (
     <>
@@ -48,7 +42,7 @@ const CouponsTableRow = ({ coupon }) => {
         <div className="col-span-2 flex items-center">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
             <p className="text-sm text-black dark:text-white">
-              {formatDate(coupon.expire)}
+              {dateFormat(coupon.expire)}
             </p>
           </div>
         </div>
