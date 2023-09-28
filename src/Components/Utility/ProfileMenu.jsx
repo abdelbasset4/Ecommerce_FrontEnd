@@ -15,7 +15,6 @@ export function ProfileMenu({ data }) {
   const logOut = () => {
     localStorage.removeItem("token");
     window.location.href = "/";
-    // window.open("http://localhost:3000/auth/logout", "_self")
   };
   
   return (

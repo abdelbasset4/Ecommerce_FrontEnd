@@ -16,3 +16,16 @@ export const createCashOrder = createAsyncThunk(
     }
   }
 );
+
+export const getAllUserOrder = createAsyncThunk(
+  "userOrder/getAll",
+  async (url, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      const res = await useGetDataToken(url);
+      return res;
+    } catch (err) {
+      return rejectWithValue(err.response);
+    }
+  }
+);
