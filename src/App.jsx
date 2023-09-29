@@ -45,6 +45,7 @@ import EditCoupon from "./Pages/Dashboard/Mange/Coupons/EditCoupon";
 import { LoaderFunction } from "./hooks/LoaderFunction";
 import ProductByCategoryPage from "./Pages/Product/ProductByCategoryPage";
 import ProductByBrandPage from "./Pages/Product/ProductByBrandPage";
+import Order from "./Pages/Dashboard/Mange/Order/Order";
 
 const Settings = lazy(() => import("./Pages/Dashboard/Settings"));
 const router = createBrowserRouter(
@@ -88,6 +89,14 @@ const router = createBrowserRouter(
             element={
               <Suspense fallback={<Loader />}>
                 <Orders />
+              </Suspense>
+            }
+          />
+          <Route
+            path="dashboard/order/:id"
+            element={
+              <Suspense fallback={<Loader />}>
+                <Order />
               </Suspense>
             }
           />

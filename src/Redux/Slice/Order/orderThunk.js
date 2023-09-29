@@ -1,7 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { useInsertData } from "../../../hooks/useInsertData";
 import { useGetDataToken } from "../../../hooks/useGetData";
-import useDeleteData from "../../../hooks/useDeleteData";
 import { useUpdatetData } from "../../../hooks/useUpdateData";
 
 export const createCashOrder = createAsyncThunk(
@@ -23,6 +22,42 @@ export const getAllUserOrder = createAsyncThunk(
     const { rejectWithValue } = thunkAPI;
     try {
       const res = await useGetDataToken(url);
+      return res;
+    } catch (err) {
+      return rejectWithValue(err.response);
+    }
+  }
+);
+export const getOneOrder = createAsyncThunk(
+  "oneOrder/getAll",
+  async (url, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      const res = await useGetDataToken(url);
+      return res;
+    } catch (err) {
+      return rejectWithValue(err.response);
+    }
+  }
+);
+export const changeOrderToPay = createAsyncThunk(
+  "pay/getAll",
+  async (url, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      const res = await useUpdatetData(url);
+      return res;
+    } catch (err) {
+      return rejectWithValue(err.response);
+    }
+  }
+);
+export const changeOrderToDeliver = createAsyncThunk(
+  "deliver/getAll",
+  async (url, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      const res = await useUpdatetData(url);
       return res;
     } catch (err) {
       return rejectWithValue(err.response);
