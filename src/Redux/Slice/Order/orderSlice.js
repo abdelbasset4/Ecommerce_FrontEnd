@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createCashOrder, getAllUserOrder } from "./orderThunk";
+import { createCashOrder, getAllUserOrder, getOneOrder,changeOrderToDeliver,changeOrderToPay } from "./orderThunk";
 
 const initialState = {
   userOrders: [],
-  //   oneAdress:[],
+  oneOrder: [],
   orderCreated: [],
-  //   updateAdress: [],
+  orderPayed: [],
+  orderDeliver: [],
 };
 
 const OrderSlice = createSlice({
@@ -18,11 +19,29 @@ const OrderSlice = createSlice({
     [getAllUserOrder.rejected]: (state, action) => {
       state.userOrders = action.payload;
     },
+    [getOneOrder.fulfilled]: (state, action) => {
+      state.oneOrder = action.payload;
+    },
+    [getOneOrder.rejected]: (state, action) => {
+      state.oneOrder = action.payload;
+    },
     [createCashOrder.fulfilled]: (state, action) => {
       state.orderCreated = action.payload;
     },
     [createCashOrder.rejected]: (state, action) => {
       state.orderCreated = action.payload;
+    },
+    [changeOrderToDeliver.fulfilled]: (state, action) => {
+      state.orderDeliver = action.payload;
+    },
+    [changeOrderToDeliver.rejected]: (state, action) => {
+      state.orderDeliver = action.payload;
+    },
+    [changeOrderToPay.fulfilled]: (state, action) => {
+      state.orderPayed = action.payload;
+    },
+    [changeOrderToPay.rejected]: (state, action) => {
+      state.orderPayed = action.payload;
     },
   },
 });
