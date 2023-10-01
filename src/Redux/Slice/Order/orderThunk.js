@@ -15,6 +15,18 @@ export const createCashOrder = createAsyncThunk(
     }
   }
 );
+export const createCardOrder = createAsyncThunk(
+  "orderCard/create",
+  async (args, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      const res = await useGetDataToken(`/api/v1/orders/checkout-session/${args[0]}`, args[1]);
+      return res;
+    } catch (err) {
+      return rejectWithValue(err.response);
+    }
+  }
+);
 
 export const getAllUserOrder = createAsyncThunk(
   "userOrder/getAll",
