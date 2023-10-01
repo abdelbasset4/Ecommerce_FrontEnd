@@ -8,14 +8,30 @@ import {
   Button,
 
 } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
 import useGetUserAdresses from "../../hook/Adress/useGetUserAdresses";
 import useCashOrder from "../../hook/Checkout/useCashOrder";
 import { ToastContainer } from "react-toastify";
+import { useState } from "react";
+import Notify from "../../hooks/useNotify";
+import useCardOrder from "../../hook/Checkout/useCardOrder";
 export default function PaymentMethod() {
   const [adresses] = useGetUserAdresses()
   const [changeAdress,adressDetails,handelCreateCashOrder] = useCashOrder()
+  const [handelCreateCardOrder] = useCardOrder(adressDetails)
   // console.log(adresses);
+  const [type,setType] = useState()
+  const onChangeRadio = (e)=>{
+    setType(e.target.value)
+  }
+  const handelPay = ()=>{
+    if(type ==="VISA"){
+      handelCreateCardOrder()
+    }else if(type ==="CASH"){
+      handelCreateCashOrder()
+    }else{
+      Notify("select payment method","warn")
+    }
+  }
   return (
     <>
       <h2 className="mb-6 text-2xl font-extrabold text-gray-900">
@@ -29,6 +45,8 @@ export default function PaymentMethod() {
               className="px-3 py-2 flex items-center w-full cursor-pointer">
               <ListItemPrefix className="mr-3">
                 <Radio
+                  value="VISA"
+                  onChange={onChangeRadio}
                   name="vertical-list"
                   id="vertical-list-react"
                   ripple={false}
@@ -49,6 +67,8 @@ export default function PaymentMethod() {
               className="px-3 py-2 flex items-center w-full cursor-pointer">
               <ListItemPrefix className="mr-3">
                 <Radio
+                  value="CASH"
+                  onChange={onChangeRadio}
                   name="vertical-list"
                   id="vertical-list-vue"
                   ripple={false}
@@ -78,7 +98,7 @@ export default function PaymentMethod() {
             
       </Card>
 
-        <Button onClick={handelCreateCashOrder} className=" bg-gray-900 text-white rounded-lg my-4 py-3 flex justify-center items-center gap-2 capitalize font-semibold text-sm hover:opacity-80">
+        <Button onClick={handelPay} className=" bg-gray-900 text-white rounded-lg my-4 py-3 flex justify-center items-center gap-2 capitalize font-semibold text-sm hover:opacity-80">
           Select
         </Button>
         <ToastContainer/>
