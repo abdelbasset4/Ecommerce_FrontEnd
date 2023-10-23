@@ -1,4 +1,4 @@
-import baseUrl from '../Api/BaseURL'
+import baseUrl from "../API/BaseUrl";
 
 const useUpdateDataWithImage = async (url, parmas) => {
     const config={

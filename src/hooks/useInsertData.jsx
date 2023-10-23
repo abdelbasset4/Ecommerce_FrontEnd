@@ -1,4 +1,4 @@
-import baseUrl from "../Api/BaseURL";
+import baseUrl from "../API/BaseUrl";
 
 const useInsertDataWithImage = async (url, parmas) => {
   const config = {
